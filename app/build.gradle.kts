@@ -1,21 +1,19 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.punch.application)
+    alias(libs.plugins.punch.compose)
+//    alias(libs.plugins.google.services)
+//    alias(libs.plugins.app.distribution)
+//    alias(libs.plugins.crashlytics)
 }
 
 android {
     namespace = "com.moya.punch"
-    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.moya.punch"
-        minSdk = 28
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        versionCode = libs.versions.versionCode.get().toInt()
+        versionName = libs.versions.appVersion.get()
     }
 
     buildTypes {
@@ -23,25 +21,42 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
     }
 }
 
 dependencies {
+    // feature
+//    implementation(projects.feature.profile)
+//    implementation(projects.feature.match)
 
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+//    implementation(libs.coil.core)
+    implementation(libs.startup)
+//    implementation(libs.security)
+    implementation(libs.splash.screen)
+
+    // Google
+//    implementation(libs.google.android.gms)
+
+    // Third Party
+    implementation(libs.coil.core)
+//    implementation(libs.kakao.login)
+    implementation(libs.bundles.retrofit)
+    implementation(libs.lifecycle)
+    implementation(libs.activity.compose)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.ui)
+    implementation(libs.ui.graphics)
+    implementation(libs.ui.tooling.preview)
+    implementation(libs.material3.compose)
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.ui.test.junit4)
+    debugImplementation(libs.ui.tooling)
+    debugImplementation(libs.ui.test.manifest)
+
+    // Firebase
+//    implementation(platform(libs.firebase))
+//    implementation(libs.bundles.firebase)
 }

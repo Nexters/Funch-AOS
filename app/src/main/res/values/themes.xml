@@ -13,4 +13,6 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.FunchAOS" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>
