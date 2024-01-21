@@ -1,8 +1,8 @@
 
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.punch.application)
-    alias(libs.plugins.punch.compose)
+    alias(libs.plugins.funch.application)
+    alias(libs.plugins.funch.compose)
     alias(libs.plugins.ktlint)
 //    alias(libs.plugins.google.services)
 //    alias(libs.plugins.app.distribution)

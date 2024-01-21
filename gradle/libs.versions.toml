@@ -158,14 +158,14 @@ app-distribution = { id = "com.google.firebase.appdistribution", version.ref = "
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 
 # Plugins defined by moya
-punch-application = { id = "com.moya.funch.application", version = "unspecified" }
-punch-feature = { id = "com.moya.funch.feature", version = "unspecified" }
-punch-kotlin = { id = "com.moya.funch.kotlin", version = "unspecified" }
-punch-hilt = { id = "com.moya.funch.hilt", version = "unspecified" }
-punch-kotlinx-serialization = { id = "com.moya.funch.kotlinx_serialization", version = "unspecified" }
-punch-android-test = { id = "com.moya.funch.android_test", version = "unspecified" }
-punch-junit5 = { id = "com.moya.funch.junit5", version = "unspecified" }
-punch-compose = { id = "com.moya.funch.compose", version = "unspecified" }
+funch-application = { id = "com.moya.funch.application", version = "unspecified" }
+funch-feature = { id = "com.moya.funch.feature", version = "unspecified" }
+funch-kotlin = { id = "com.moya.funch.kotlin", version = "unspecified" }
+funch-hilt = { id = "com.moya.funch.hilt", version = "unspecified" }
+funch-kotlinx-serialization = { id = "com.moya.funch.kotlinx_serialization", version = "unspecified" }
+funch-android-test = { id = "com.moya.funch.android_test", version = "unspecified" }
+funch-junit5 = { id = "com.moya.funch.junit5", version = "unspecified" }
+funch-compose = { id = "com.moya.funch.compose", version = "unspecified" }
 
 [bundles]
 firebase = ["firebase-analytics", "firebase-crashlytics"]
