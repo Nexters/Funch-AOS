@@ -10,10 +10,10 @@ plugins {
 }
 
 android {
-    namespace = "com.moya.punch"
+    namespace = "com.moya.funch"
 
     defaultConfig {
-        applicationId = "com.moya.punch"
+        applicationId = "com.moya.funch"
         versionCode = libs.versions.versionCode.get().toInt()
         versionName = libs.versions.appVersion.get()
     }
