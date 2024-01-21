@@ -1,4 +1,7 @@
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google()
         mavenCentral()
@@ -15,4 +18,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "Funch-AOS"
 include(":app")
- 
+
+// core
+//include(":core:designsystem")
+//include(":core:network")
+
+// feature
+// include(":feature:profile")
+// include(":feature:match")
