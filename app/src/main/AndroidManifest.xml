@@ -15,7 +15,7 @@
         android:theme="@style/Theme.PunchAOS"
         tools:targetApi="34">
         <activity
-            android:name=".SampleActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/title_activity_sample"
             android:theme="@style/Theme.FunchAOS">
