@@ -1,6 +1,5 @@
 package com.moya.funch.theme
 
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,7 +33,7 @@ private val spoqaHanSansNeo = FontFamily(
 )
 
 @Stable
-class PunchTypography internal constructor(
+class FunchTypography internal constructor(
     t1: TextStyle,
     t2: TextStyle,
     sbt1: TextStyle,
@@ -62,7 +61,7 @@ class PunchTypography internal constructor(
         sbt2: TextStyle = this.sbt2,
         b: TextStyle = this.b,
         caption: TextStyle = this.caption,
-    ): PunchTypography = PunchTypography(
+    ): FunchTypography = FunchTypography(
         t1 = t1,
         t2 = t2,
         sbt1 = sbt1,
@@ -71,7 +70,7 @@ class PunchTypography internal constructor(
         caption = caption,
     )
 
-    fun update(other: PunchTypography) {
+    fun update(other: FunchTypography) {
         t1 = other.t1
         t2 = other.t2
         sbt1 = other.sbt1
@@ -81,9 +80,8 @@ class PunchTypography internal constructor(
     }
 }
 
-@Composable
-fun PunchTypography(): PunchTypography {
-    return PunchTypography(
+fun funchTypography(): FunchTypography {
+    return FunchTypography(
         t1 = TextStyle(
             fontFamily = spoqaHanSansNeo,
             fontWeight = FontWeight.Bold,
