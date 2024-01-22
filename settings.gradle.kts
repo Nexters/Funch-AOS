@@ -24,5 +24,6 @@ include(":app")
 //include(":core:network")
 
 // feature
+include(":feature:home")
 // include(":feature:profile")
 // include(":feature:match")
