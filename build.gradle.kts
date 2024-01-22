@@ -9,6 +9,7 @@ buildscript {
         classpath(libs.kotlin.gradleplugin)
         classpath(libs.hilt.plugin)
         classpath(libs.agp)
+        classpath(libs.ktlint)
     }
 }
 
@@ -21,6 +22,7 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.kotlinx.serialization) apply false
     alias(libs.plugins.junit5) apply false
+    alias(libs.plugins.ktlint) apply false
 //    alias(libs.plugins.google.services) apply false
 //    alias(libs.plugins.app.distribution) apply false
 //    alias(libs.plugins.crashlytics) apply false

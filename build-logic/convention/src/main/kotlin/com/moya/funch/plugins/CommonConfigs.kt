@@ -6,13 +6,12 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
-import java.util.Properties
 
 internal fun Project.configureAndroidCommonPlugin() {
-    val properties =
-        Properties().apply {
-            load(rootProject.file("local.properties").inputStream())
-        }
+    // val properties =
+    //     Properties().apply {
+    //         load(rootProject.file("local.properties").inputStream())
+    //     }
 
     apply<AndroidKotlinPlugin>()
     apply<KotlinSerializationPlugin>()
