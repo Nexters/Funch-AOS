@@ -13,6 +13,11 @@ private val LocalFunchTypography = staticCompositionLocalOf<FunchTypography> {
     error("No FunchTypography provided")
 }
 
+private val DarkGradientColors =
+    GradientColors(top = Gray900, bottom = Gray900)
+
+private val DarkAndroidBackgroundTheme = BackgroundTheme(color = Gray900)
+
 object FunchTheme {
     val colors: FunchColorSchema @Composable get() = LocalFunchColors.current
     val typography: FunchTypography @Composable get() = LocalFunchTypography.current
@@ -39,9 +44,17 @@ fun FunchTheme(
 ) {
     // this version provides only dark theme
     val colors = funchDarkColorSchema()
+    val gradientColors = DarkGradientColors
     val typography = funchTypography()
-    ProvidePophoryColorAndTypography(colors, typography) {
-        MaterialTheme(content = content)
+    val backgroundTheme = DarkAndroidBackgroundTheme
+
+    CompositionLocalProvider(
+        LocalGradientColors provides gradientColors,
+        LocalBackgroundTheme provides backgroundTheme,
+    ) {
+        ProvidePophoryColorAndTypography(colors, typography) {
+            MaterialTheme(content = content)
+        }
     }
 }
 
