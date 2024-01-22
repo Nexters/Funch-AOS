@@ -20,7 +20,7 @@ rootProject.name = "Funch-AOS"
 include(":app")
 
 // core
-//include(":core:designsystem")
+include(":core:designsystem")
 //include(":core:network")
 
 // feature
