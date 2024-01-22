@@ -18,7 +18,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.moya.funch.icon.FunchIconAsset
+import com.moya.funch.theme.Gray400
 import com.moya.funch.theme.Gray500
+import com.moya.funch.theme.Yellow500
 
 @Composable
 fun FunchIconLargeButton(
@@ -26,6 +28,7 @@ fun FunchIconLargeButton(
     modifier: Modifier = Modifier,
     @DrawableRes resId: Int,
     description: String = "",
+    tint: Color,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -43,7 +46,7 @@ fun FunchIconLargeButton(
         Icon(
             painter = painterResource(id = resId),
             contentDescription = description,
-            tint = Color.Unspecified,
+            tint = tint,
         )
     }
 }
@@ -54,6 +57,7 @@ fun FunchIconButton(
     modifier: Modifier = Modifier,
     @DrawableRes resId: Int,
     description: String = "",
+    tint: Color,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -65,7 +69,7 @@ fun FunchIconButton(
         ),
         painter = painterResource(id = resId),
         contentDescription = description,
-        tint = Color.Unspecified,
+        tint = tint,
     )
 }
 
@@ -76,10 +80,11 @@ fun FunchIconButton(
 fun FunchLargeIconButtonPreview() {
     FunchIconLargeButton(
         onClick = { /*TODO*/ },
-        resId = FunchIconAsset.search_yellow_24,
+        resId = FunchIconAsset.Search.search_24,
         modifier = Modifier.background(
             color = Gray500, shape = RoundedCornerShape(12.dp)
         ),
+        tint = Yellow500,
     )
 }
 
@@ -88,7 +93,8 @@ fun FunchLargeIconButtonPreview() {
 fun FunchMediumIconButtonPreview() {
     FunchIconButton(
         onClick = { /*TODO*/ },
-        resId = FunchIconAsset.search_24,
+        resId = FunchIconAsset.Search.search_24,
+        tint = Gray400,
     )
 }
 
@@ -97,6 +103,7 @@ fun FunchMediumIconButtonPreview() {
 fun FunchSmallIconButtonPreview() {
     FunchIconButton(
         onClick = { /*TODO*/ },
-        resId = FunchIconAsset.search_16,
+        resId = FunchIconAsset.Search.search_16,
+        tint = Gray400,
     )
 }
