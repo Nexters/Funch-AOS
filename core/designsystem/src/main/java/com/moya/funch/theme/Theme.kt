@@ -1,10 +1,14 @@
 package com.moya.funch.theme
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.tooling.preview.Preview
 
 private val LocalFunchColors = staticCompositionLocalOf<FunchColorSchema> {
     error("No FunchColors provided")
@@ -58,3 +62,29 @@ fun FunchTheme(
     }
 }
 
+// TODO : 추후 삭제
+@Preview("FunchTheme 예시")
+@Composable
+private fun NiaThemePreview() {
+    FunchTheme {
+        val color = LocalBackgroundTheme.current.color
+        Surface(
+            color = color
+        ) {
+            Column {
+                Text(
+                    text = "Hello, Funch!",
+                    color = FunchTheme.colors.white,
+                    style = FunchTheme.typography.t1
+                )
+                Text(
+                    text = "Hello, Funch!",
+                    color = FunchTheme.colors.white,
+                    style = FunchTheme.typography.sbt1
+                )
+            }
+
+        }
+
+    }
+}
