@@ -28,8 +28,7 @@ private val spoqaHanSansNeo = FontFamily(
         R.font.spoqa_han_sans_neo_regular,
         FontWeight.Normal,
         FontStyle.Normal
-    )
-
+    ),
 )
 
 @Stable
@@ -80,7 +79,7 @@ class FunchTypography internal constructor(
     }
 }
 
-fun funchTypography(): FunchTypography {
+internal fun funchTypography(): FunchTypography {
     return FunchTypography(
         t1 = TextStyle(
             fontFamily = spoqaHanSansNeo,
