@@ -29,6 +29,7 @@ android {
 
 dependencies {
     // feature
+    implementation(projects.feature.home)
 //    implementation(projects.feature.profile)
 //    implementation(projects.feature.match)
 
