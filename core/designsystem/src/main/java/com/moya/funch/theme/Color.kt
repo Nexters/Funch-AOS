@@ -8,8 +8,10 @@ import androidx.compose.ui.graphics.Color
 
 internal val Coral500 = Color(0xFFF86E6F)
 internal val Lemon500 = Color(0xFFFFE83B)
+internal val Lemon600 = Color(0xFFE1CA13)
 internal val Lemon900 = Color(0xFF90720A)
-internal val yellow500 = Color(0xFFFFD240)
+internal val yellow500 = Color(0xFFE1B012)
+internal val yellow600 = Color(0xFFFFD240)
 internal val White = Color(0xFFFFFFFF)
 internal val Gray900 = Color(0xFF151515)
 internal val Gray800 = Color(0xFF242627)
