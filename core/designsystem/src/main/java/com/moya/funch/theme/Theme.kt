@@ -44,3 +44,4 @@ fun FunchTheme(
         MaterialTheme(content = content)
     }
 }
+

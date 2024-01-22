@@ -1,10 +1,14 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.funch.feature)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.funch.kotlin)
     alias(libs.plugins.funch.compose)
 }
 
 android {
     namespace = "com.moya.funch.designsystem"
+}
+
+dependencies {
+    implementation(libs.timber)
 }
 
