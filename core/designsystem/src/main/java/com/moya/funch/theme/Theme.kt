@@ -54,7 +54,7 @@ fun FunchTheme(
     // this version provides only dark theme
     val colors = funchDarkColorSchema()
     val gradientColors = DarkGradientColors
-    val typography = funchTypography()
+    val typography = funchTypography
     val backgroundTheme = DarkAndroidBackgroundTheme
 
     CompositionLocalProvider(

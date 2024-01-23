@@ -125,3 +125,5 @@ internal fun funchTypography(): FunchTypography {
         )
     )
 }
+
+internal val funchTypography = funchTypography()
