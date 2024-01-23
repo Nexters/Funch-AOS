@@ -22,13 +22,17 @@ import com.moya.funch.theme.Gray400
 import com.moya.funch.theme.Gray500
 import com.moya.funch.theme.Yellow500
 
+data class IconType(
+    @DrawableRes val resId: Int,
+    val description: String,
+    val tint: Color,
+)
+
 @Composable
 fun FunchIconLargeButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    @DrawableRes resId: Int,
-    description: String = "",
-    tint: Color,
+    iconType: IconType,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -44,20 +48,18 @@ fun FunchIconLargeButton(
             ),
     ) {
         Icon(
-            painter = painterResource(id = resId),
-            contentDescription = description,
-            tint = tint,
+            painter = painterResource(id = iconType.resId),
+            contentDescription = iconType.description,
+            tint = iconType.tint,
         )
     }
 }
 
 @Composable
 fun FunchIconButton(
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    @DrawableRes resId: Int,
-    description: String = "",
-    tint: Color,
+    onClick: () -> Unit,
+    iconType: IconType,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -67,24 +69,27 @@ fun FunchIconButton(
             indication = null,
             interactionSource = interactionSource,
         ),
-        painter = painterResource(id = resId),
-        contentDescription = description,
-        tint = tint,
+        painter = painterResource(id = iconType.resId),
+        contentDescription = iconType.description,
+        tint = iconType.tint,
     )
 }
 
-/*========================== PREVIEW =================================*/
+/*============================== Preview =================================*/
 
 @Preview(showBackground = true, backgroundColor = 0xFF2C2C2C)
 @Composable
 fun FunchLargeIconButtonPreview() {
     FunchIconLargeButton(
-        onClick = { /*TODO*/ },
-        resId = FunchIconAsset.Search.search_24,
         modifier = Modifier.background(
             color = Gray500, shape = RoundedCornerShape(12.dp)
         ),
-        tint = Yellow500,
+        onClick = { /*TODO*/ },
+        iconType = IconType(
+            resId = FunchIconAsset.Search.search_24,
+            description = "",
+            tint = Yellow500,
+        ),
     )
 }
 
@@ -93,8 +98,11 @@ fun FunchLargeIconButtonPreview() {
 fun FunchMediumIconButtonPreview() {
     FunchIconButton(
         onClick = { /*TODO*/ },
-        resId = FunchIconAsset.Search.search_24,
-        tint = Gray400,
+        iconType = IconType(
+            resId = FunchIconAsset.Search.search_24,
+            description = "",
+            tint = Gray400,
+        ),
     )
 }
 
@@ -103,7 +111,10 @@ fun FunchMediumIconButtonPreview() {
 fun FunchSmallIconButtonPreview() {
     FunchIconButton(
         onClick = { /*TODO*/ },
-        resId = FunchIconAsset.Search.search_16,
-        tint = Gray400,
+        iconType = IconType(
+            resId = FunchIconAsset.Search.search_16,
+            description = "",
+            tint = Gray400,
+        ),
     )
 }
