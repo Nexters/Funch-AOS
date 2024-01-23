@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,7 +33,7 @@ import com.moya.funch.theme.Yellow500
 private val DefaultContentPadding = PaddingValues(vertical = 16.dp, horizontal = 24.dp)
 
 @Composable
-fun SharingButton(
+fun FunchSharingButton(
     buttonType: FunchButtonType,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -86,9 +85,6 @@ fun SharingButton(
             content()
         }
     }
-    Surface {
-
-    }
 }
 
 @Preview(name = "button Type", showBackground = true, widthDp = 360)
@@ -102,35 +98,35 @@ private fun Preview1() {
                 .padding(horizontal = 20.dp, vertical = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SharingButton(
+            FunchSharingButton(
                 modifier = Modifier.fillMaxWidth(),
                 buttonType = FunchButtonType.Full,
                 onClick = { /*TODO*/ },
                 text = "Button"
             )
             Spacer(modifier = Modifier.padding(16.dp))
-            SharingButton(
+            FunchSharingButton(
                 buttonType = FunchButtonType.Large,
                 onClick = { /*TODO*/ },
                 contentHorizontalPadding = 131.dp,
                 text = "Button"
             )
             Spacer(modifier = Modifier.padding(16.dp))
-            SharingButton(
+            FunchSharingButton(
                 buttonType = FunchButtonType.Medium,
                 onClick = { /*TODO*/ },
                 contentHorizontalPadding = 60.dp,
                 text = "Button"
             )
             Spacer(modifier = Modifier.padding(16.dp))
-            SharingButton(
+            FunchSharingButton(
                 buttonType = FunchButtonType.Small,
                 onClick = { /*TODO*/ },
                 contentHorizontalPadding = 16.dp,
                 text = "Button"
             )
             Spacer(modifier = Modifier.padding(16.dp))
-            SharingButton(
+            FunchSharingButton(
                 buttonType = FunchButtonType.XSmall,
                 onClick = { /*TODO*/ },
                 text = "Button",
