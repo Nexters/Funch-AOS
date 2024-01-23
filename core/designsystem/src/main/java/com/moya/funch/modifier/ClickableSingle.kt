@@ -22,6 +22,7 @@ fun Modifier.clickableSingle(
     enabled: Boolean = true,
     onClickLabel: String? = null,
     role: Role? = null,
+    interactionSource: MutableInteractionSource? = null,
     onClick: () -> Unit,
 ): Modifier = composed(inspectorInfo = debugInspectorInfo {
     name = "clickable"
@@ -36,7 +37,7 @@ fun Modifier.clickableSingle(
         onClick = { manager.handle { onClick() } },
         role = role,
         indication = LocalIndication.current,
-        interactionSource = remember { MutableInteractionSource() })
+        interactionSource = interactionSource ?: remember { MutableInteractionSource() })
 }
 
 fun interface SingleEventHandler {
