@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.moya.funch.modifier.clickableSingle
-import com.moya.funch.modifier.punchShadow
+import com.moya.funch.modifier.funchShadow
 import com.moya.funch.theme.FunchTheme
 import com.moya.funch.theme.Gray900
 import com.moya.funch.theme.Lemon500
@@ -68,7 +68,7 @@ fun SharingButton(
     Box(
         modifier = modifier
             .then(
-                if (enabled) Modifier.punchShadow(
+                if (enabled) Modifier.funchShadow(
                     color = Lemon500, borderRadius = 16.dp
                 ) else Modifier
             )

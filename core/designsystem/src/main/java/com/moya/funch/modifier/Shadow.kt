@@ -42,7 +42,7 @@ import com.moya.funch.theme.Yellow500
  *
  * @return Composable에 그림자 효과를 적용하는 Modifier
  */
-fun Modifier.punchShadow(
+fun Modifier.funchShadow(
     color: Color = Color.Yellow,
     borderRadius: Dp = 0.dp,
     blurRadius: Dp = 8.dp,
@@ -97,7 +97,7 @@ private fun ShadowPreview() {
                 modifier = Modifier
                     .padding(16.dp)
                     .padding(horizontal = 4.dp)
-                    .punchShadow(
+                    .funchShadow(
                         color = Lemon500,
                         borderRadius = 16.dp
                     )
