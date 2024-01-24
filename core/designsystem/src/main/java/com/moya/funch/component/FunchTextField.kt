@@ -203,7 +203,7 @@ fun FunchTextFieldIconType(
     value: String,
     onValueChange: (String) -> Unit,
     hint: String,
-    iconType: IconType,
+    iconType: FunchIcon,
     isError: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     isFocus: Boolean = interactionSource.collectIsFocusedAsState().value,
@@ -280,7 +280,7 @@ fun FunchTextFieldButtonType(
     onValueChange: (String) -> Unit,
     hint: String,
     buttonBackGround: Color,
-    iconType: IconType,
+    funchIcon: FunchIcon,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     isFocus: Boolean = interactionSource.collectIsFocusedAsState().value,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -340,7 +340,7 @@ fun FunchTextFieldButtonType(
                             shape = RoundedCornerShape(12.dp)
                         ),
                     onClick = onClick,
-                    iconType = iconType,
+                    funchIcon = funchIcon,
                 )
             }
         }
@@ -461,7 +461,7 @@ fun FunchTextFieldIconTypePreview() {
                 value = text,
                 onValueChange = { innerText -> text = innerText },
                 hint = "가까운 지하철역 검색",
-                iconType = IconType(
+                iconType = FunchIcon(
                     resId = FunchIconAsset.Search.search_24,
                     description = "",
                     tint = Gray500
@@ -489,7 +489,7 @@ fun FunchTextFieldButtonTypePreview() {
                 value = text,
                 onValueChange = { innerText -> text = innerText },
                 hint = "친구 코드를 입력하고 매칭하기",
-                iconType = IconType(
+                funchIcon = FunchIcon(
                     resId = FunchIconAsset.Search.search_24,
                     description = "",
                     tint = Yellow500
