@@ -42,7 +42,7 @@ import com.moya.funch.theme.Yellow500
  *
  * @return Composable에 그림자 효과를 적용하는 Modifier
  */
-fun Modifier.funchShadow(
+fun Modifier.neonSign(
     color: Color = Color.Yellow,
     borderRadius: Dp = 0.dp,
     blurRadius: Dp = 8.dp,
@@ -97,8 +97,9 @@ private fun ShadowPreview() {
                 modifier = Modifier
                     .padding(16.dp)
                     .padding(horizontal = 4.dp)
-                    .funchShadow(
+                    .neonSign(
                         color = Lemon500,
+                        blurRadius = 20.dp,
                         borderRadius = 16.dp
                     )
                     .size(320.dp, 64.dp)
