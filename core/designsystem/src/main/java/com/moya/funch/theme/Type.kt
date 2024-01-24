@@ -97,14 +97,14 @@ internal fun funchTypography(): FunchTypography {
         ),
         sbt1 = TextStyle(
             fontFamily = spoqaHanSansNeo,
-            fontWeight = FontWeight.Medium,
+            fontWeight = FontWeight.Bold,
             fontSize = 18.sp,
             letterSpacing = (-0.02).em,
             lineHeight = 23.4.sp
         ),
         sbt2 = TextStyle(
             fontFamily = spoqaHanSansNeo,
-            fontWeight = FontWeight.Medium,
+            fontWeight = FontWeight.Bold,
             fontSize = 16.sp,
             letterSpacing = (-0.02).sp,
             lineHeight = 20.8.sp
