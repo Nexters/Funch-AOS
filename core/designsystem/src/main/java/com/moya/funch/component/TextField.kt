@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -275,12 +276,10 @@ fun FunchIconTextField(
 @Composable
 fun FunchButtonTextField(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
     value: String,
     onValueChange: (String) -> Unit,
     hint: String,
-    buttonBackGround: Color,
-    funchIcon: FunchIcon,
+    iconButton: @Composable () -> Unit,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     isFocus: Boolean = interactionSource.collectIsFocusedAsState().value,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -333,15 +332,7 @@ fun FunchButtonTextField(
                     innerTextField()
                 }
                 Spacer(modifier = Modifier.width(8.dp))
-                FunchIconLargeButton(
-                    modifier = Modifier
-                        .background(
-                            color = buttonBackGround,
-                            shape = RoundedCornerShape(12.dp)
-                        ),
-                    onClick = onClick,
-                    funchIcon = funchIcon,
-                )
+                iconButton()
             }
         }
     )
@@ -485,16 +476,22 @@ fun FunchTextFieldButtonTypePreview() {
     FunchTheme {
         Column {
             FunchButtonTextField(
-                onClick = { /*TODO*/ },
                 value = text,
                 onValueChange = { innerText -> text = innerText },
                 hint = "친구 코드를 입력하고 매칭하기",
-                funchIcon = FunchIcon(
-                    resId = FunchIconAsset.Search.search_24,
-                    description = "",
-                    tint = Yellow500
-                ),
-                buttonBackGround = Gray500,
+                iconButton = {
+                    FunchIconButton(
+                        modifier = Modifier.size(40.dp),
+                        backgroundColor = Gray500,
+                        onClick = { /*TODO*/ },
+                        roundedCornerShape = RoundedCornerShape(12.dp),
+                        funchIcon = FunchIcon(
+                            resId = FunchIconAsset.Search.search_24,
+                            description = "",
+                            tint = Yellow500,
+                        ),
+                    )
+                }
             )
             FunchErrorCaption(
                 isError = isError.value,

@@ -1,18 +1,22 @@
 package com.moya.funch.component
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Indication
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,23 +33,28 @@ data class FunchIcon(
 )
 
 @Composable
-fun FunchIconLargeButton(
-    onClick: () -> Unit,
+fun FunchIconButton(
     modifier: Modifier = Modifier,
+    onClick: () -> Unit,
     funchIcon: FunchIcon,
+    backgroundColor: Color = Color.Transparent,
+    roundedCornerShape: RoundedCornerShape = RoundedCornerShape(0.dp),
+    indication: Indication? = LocalIndication.current,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
-
     Box(
-        contentAlignment = Alignment.Center,
         modifier = modifier
-            .size(40.dp)
-            .padding(8.dp)
+            .background(
+                color = backgroundColor,
+                shape = roundedCornerShape,
+            )
+            .clip(roundedCornerShape)
             .clickable(
                 onClick = onClick,
-                indication = null,
+                indication = indication,
                 interactionSource = interactionSource,
             ),
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             painter = painterResource(id = funchIcon.resId),
@@ -55,35 +64,15 @@ fun FunchIconLargeButton(
     }
 }
 
-@Composable
-fun FunchIconButton(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit,
-    funchIcon: FunchIcon,
-) {
-    val interactionSource = remember { MutableInteractionSource() }
-
-    Icon(
-        modifier = modifier.clickable(
-            onClick = onClick,
-            indication = null,
-            interactionSource = interactionSource,
-        ),
-        painter = painterResource(id = funchIcon.resId),
-        contentDescription = funchIcon.description,
-        tint = funchIcon.tint,
-    )
-}
-
 /*============================== Preview =================================*/
 
-@Preview(showBackground = true, backgroundColor = 0xFF2C2C2C)
+@Preview("Icon Large Button", showBackground = true, backgroundColor = 0xFFFFFF)
 @Composable
 fun FunchLargeIconButtonPreview() {
-    FunchIconLargeButton(
-        modifier = Modifier.background(
-            color = Gray500, shape = RoundedCornerShape(12.dp)
-        ),
+    FunchIconButton(
+        modifier = Modifier.size(40.dp),
+        roundedCornerShape = RoundedCornerShape(12.dp),
+        backgroundColor = Gray500,
         onClick = { /*TODO*/ },
         funchIcon = FunchIcon(
             resId = FunchIconAsset.Search.search_24,
@@ -93,7 +82,7 @@ fun FunchLargeIconButtonPreview() {
     )
 }
 
-@Preview(showBackground = true)
+@Preview("Icon Medium Button", showBackground = true)
 @Composable
 fun FunchMediumIconButtonPreview() {
     FunchIconButton(
@@ -106,7 +95,7 @@ fun FunchMediumIconButtonPreview() {
     )
 }
 
-@Preview(showBackground = true)
+@Preview("Icon Small Button", showBackground = true)
 @Composable
 fun FunchSmallIconButtonPreview() {
     FunchIconButton(
@@ -116,5 +105,6 @@ fun FunchSmallIconButtonPreview() {
             description = "",
             tint = Gray400,
         ),
+        indication = null,
     )
 }
