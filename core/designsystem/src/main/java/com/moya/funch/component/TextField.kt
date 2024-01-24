@@ -48,7 +48,7 @@ import com.moya.funch.theme.White
 import com.moya.funch.theme.Yellow500
 
 @Composable
-fun FunchTextFieldDefaultType(
+fun FunchDefaultTextField(
     modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
@@ -114,7 +114,7 @@ fun FunchTextFieldDefaultType(
 }
 
 @Composable
-fun FunchTextFieldMaxLengthType(
+fun FunchMaxLengthTextField(
     modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
@@ -198,7 +198,7 @@ fun FunchTextFieldMaxLengthType(
 }
 
 @Composable
-fun FunchTextFieldIconType(
+fun FunchIconTextField(
     modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
@@ -273,7 +273,7 @@ fun FunchTextFieldIconType(
 }
 
 @Composable
-fun FunchTextFieldButtonType(
+fun FunchButtonTextField(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     value: String,
@@ -389,7 +389,7 @@ fun FunchTextFieldDefaultTypePreview() {
 
     FunchTheme {
         Column {
-            FunchTextFieldDefaultType(
+            FunchDefaultTextField(
                 value = text,
                 onValueChange = { innerText -> text = innerText },
                 hint = "최대 ${maxLength}글자",
@@ -425,7 +425,7 @@ fun FunchTextFieldMaxLengthTypePreview() {
 
     FunchTheme {
         Column {
-            FunchTextFieldMaxLengthType(
+            FunchMaxLengthTextField(
                 value = text,
                 onValueChange = { innerText ->
                     if (innerText.length <= maxLength) {
@@ -457,7 +457,7 @@ fun FunchTextFieldIconTypePreview() {
 
     FunchTheme {
         Column {
-            FunchTextFieldIconType(
+            FunchIconTextField(
                 value = text,
                 onValueChange = { innerText -> text = innerText },
                 hint = "가까운 지하철역 검색",
@@ -484,7 +484,7 @@ fun FunchTextFieldButtonTypePreview() {
 
     FunchTheme {
         Column {
-            FunchTextFieldButtonType(
+            FunchButtonTextField(
                 onClick = { /*TODO*/ },
                 value = text,
                 onValueChange = { innerText -> text = innerText },
