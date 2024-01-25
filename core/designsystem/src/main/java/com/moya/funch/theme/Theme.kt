@@ -1,6 +1,7 @@
 package com.moya.funch.theme
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -17,18 +18,18 @@ private val LocalFunchTypography = staticCompositionLocalOf<FunchTypography> {
     error("No FunchTypography provided")
 }
 
-private val DarkGradientColors =
-    GradientColors(top = Gray900, bottom = Gray900)
+private val DarkGradientColors = GradientColors(top = Gray900, bottom = Gray900)
 
 private val DarkAndroidBackgroundTheme = BackgroundTheme(color = Gray900)
 
 object FunchTheme {
     val colors: FunchColorSchema @Composable get() = LocalFunchColors.current
     val typography: FunchTypography @Composable get() = LocalFunchTypography.current
+    val shapes: FunchShapes @Composable get() = LocalFunchShapes.current
 }
 
 @Composable
-fun ProvidePophoryColorAndTypography(
+fun ProvideFunchProperty(
     colors: FunchColorSchema,
     typography: FunchTypography,
     content: @Composable () -> Unit,
@@ -37,8 +38,12 @@ fun ProvidePophoryColorAndTypography(
     provideColors.update(colors)
     val provideTypography = remember { typography.copy() }
     provideTypography.update(typography)
+    val provideShape = remember { FunchShapes() }
     CompositionLocalProvider(
-        LocalFunchColors provides provideColors, LocalFunchTypography provides provideTypography, content = content
+        LocalFunchColors provides provideColors,
+        LocalFunchTypography provides provideTypography,
+        LocalFunchShapes provides provideShape,
+        content = content
     )
 }
 
@@ -49,14 +54,14 @@ fun FunchTheme(
     // this version provides only dark theme
     val colors = funchDarkColorSchema()
     val gradientColors = DarkGradientColors
-    val typography = funchTypography()
+    val typography = funchTypography
     val backgroundTheme = DarkAndroidBackgroundTheme
 
     CompositionLocalProvider(
         LocalGradientColors provides gradientColors,
         LocalBackgroundTheme provides backgroundTheme,
     ) {
-        ProvidePophoryColorAndTypography(colors, typography) {
+        ProvideFunchProperty(colors, typography) {
             MaterialTheme(content = content)
         }
     }
@@ -73,15 +78,17 @@ private fun NiaThemePreview() {
         ) {
             Column {
                 Text(
-                    text = "Hello, Funch!",
-                    color = FunchTheme.colors.white,
-                    style = FunchTheme.typography.t1
+                    text = "Hello, Funch!", color = FunchTheme.colors.white, style = FunchTheme.typography.t1
                 )
                 Text(
-                    text = "Hello, Funch!",
-                    color = FunchTheme.colors.white,
-                    style = FunchTheme.typography.sbt1
+                    text = "Hello, Funch!", color = FunchTheme.colors.white, style = FunchTheme.typography.sbt1
                 )
+                Button(
+                    onClick = { /*TODO*/ },
+                    shape = FunchTheme.shapes.small,
+                ) {
+                    Text(text = "Button")
+                }
             }
 
         }
