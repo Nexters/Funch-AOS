@@ -1,18 +1,22 @@
 package com.moya.funch.component
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Indication
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,88 +26,85 @@ import com.moya.funch.theme.Gray400
 import com.moya.funch.theme.Gray500
 import com.moya.funch.theme.Yellow500
 
-@Composable
-fun FunchIconLargeButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    @DrawableRes resId: Int,
-    description: String = "",
-    tint: Color,
-) {
-    val interactionSource = remember { MutableInteractionSource() }
+data class FunchIcon(
+    @DrawableRes val resId: Int,
+    val description: String,
+    val tint: Color,
+)
 
+@Composable
+fun FunchIconButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    funchIcon: FunchIcon,
+    backgroundColor: Color = Color.Transparent,
+    roundedCornerShape: RoundedCornerShape = RoundedCornerShape(0.dp),
+    indication: Indication? = LocalIndication.current,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+) {
     Box(
-        contentAlignment = Alignment.Center,
         modifier = modifier
-            .size(40.dp)
-            .padding(8.dp)
+            .background(
+                color = backgroundColor,
+                shape = roundedCornerShape,
+            )
+            .clip(roundedCornerShape)
             .clickable(
                 onClick = onClick,
-                indication = null,
+                indication = indication,
                 interactionSource = interactionSource,
             ),
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
-            painter = painterResource(id = resId),
-            contentDescription = description,
-            tint = tint,
+            painter = painterResource(id = funchIcon.resId),
+            contentDescription = funchIcon.description,
+            tint = funchIcon.tint,
         )
     }
 }
 
-@Composable
-fun FunchIconButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    @DrawableRes resId: Int,
-    description: String = "",
-    tint: Color,
-) {
-    val interactionSource = remember { MutableInteractionSource() }
+/*============================== Preview =================================*/
 
-    Icon(
-        modifier = modifier.clickable(
-            onClick = onClick,
-            indication = null,
-            interactionSource = interactionSource,
-        ),
-        painter = painterResource(id = resId),
-        contentDescription = description,
-        tint = tint,
-    )
-}
-
-/*========================== PREVIEW =================================*/
-
-@Preview(showBackground = true, backgroundColor = 0xFF2C2C2C)
+@Preview("Icon Large Button", showBackground = true, backgroundColor = 0xFFFFFF)
 @Composable
 fun FunchLargeIconButtonPreview() {
-    FunchIconLargeButton(
+    FunchIconButton(
+        modifier = Modifier.size(40.dp),
+        roundedCornerShape = RoundedCornerShape(12.dp),
+        backgroundColor = Gray500,
         onClick = { /*TODO*/ },
-        resId = FunchIconAsset.Search.search_24,
-        modifier = Modifier.background(
-            color = Gray500, shape = RoundedCornerShape(12.dp)
+        funchIcon = FunchIcon(
+            resId = FunchIconAsset.Search.search_24,
+            description = "",
+            tint = Yellow500,
         ),
-        tint = Yellow500,
     )
 }
 
-@Preview(showBackground = true)
+@Preview("Icon Medium Button", showBackground = true)
 @Composable
 fun FunchMediumIconButtonPreview() {
     FunchIconButton(
         onClick = { /*TODO*/ },
-        resId = FunchIconAsset.Search.search_24,
-        tint = Gray400,
+        funchIcon = FunchIcon(
+            resId = FunchIconAsset.Search.search_24,
+            description = "",
+            tint = Gray400,
+        ),
     )
 }
 
-@Preview(showBackground = true)
+@Preview("Icon Small Button", showBackground = true)
 @Composable
 fun FunchSmallIconButtonPreview() {
     FunchIconButton(
         onClick = { /*TODO*/ },
-        resId = FunchIconAsset.Search.search_16,
-        tint = Gray400,
+        funchIcon = FunchIcon(
+            resId = FunchIconAsset.Search.search_16,
+            description = "",
+            tint = Gray400,
+        ),
+        indication = null,
     )
 }
