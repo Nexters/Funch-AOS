@@ -388,6 +388,7 @@ private fun Preview1() {
                 isError = isError.value,
             )
             FunchErrorCaption(
+                modifier = Modifier.padding(top = 4.dp, start = 4.dp),
                 isError = isError.value,
                 errorText = "errorText",
             )
@@ -434,6 +435,7 @@ private fun Preview2() {
                 isFocus = isFocused,
             )
             FunchErrorCaption(
+                modifier = Modifier.padding(top = 4.dp, start = 4.dp),
                 isError = isError.value,
                 errorText = if (isError.value) "최대 ${maxLength}글자까지 입력할 수 있어요" else "",
             )
@@ -445,7 +447,7 @@ private fun Preview2() {
 @Composable
 private fun Preview3() {
     var text by remember { mutableStateOf("") }
-    val isError = remember { mutableStateOf(false) }
+    val isError = remember { mutableStateOf(true) }
 
     FunchTheme {
         Column {
@@ -461,6 +463,7 @@ private fun Preview3() {
                 isError = isError.value,
             )
             FunchErrorCaption(
+                modifier = Modifier.padding(top = 4.dp, start = 4.dp),
                 isError = isError.value,
                 errorText = "존재하지 않는 지하철역이에요",
             )

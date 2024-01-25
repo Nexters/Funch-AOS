@@ -1,8 +1,9 @@
 package com.moya.funch.ui
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,23 +20,22 @@ import com.moya.funch.theme.FunchTheme
 
 @Composable
 fun FunchErrorCaption(
+    modifier: Modifier = Modifier,
     isError: Boolean = false,
     errorText: String,
     description: String = "",
 ) {
     if (isError) {
         Row(
-            modifier = Modifier
-                .wrapContentSize()
-                .padding(top = 4.dp),
+            modifier = modifier,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
-                modifier = Modifier.padding(start = 8.dp, end = 4.dp),
                 painter = painterResource(id = FunchIconAsset.Etc.information_24),
                 contentDescription = description,
                 tint = Coral500,
             )
+            Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = errorText,
                 color = Coral500,
@@ -54,6 +54,8 @@ private fun Preview1() {
 
     FunchTheme {
         FunchErrorCaption(
+            modifier = Modifier
+                .padding(top = 4.dp, start = 4.dp),
             isError = isError.value,
             errorText = "errorText",
         )
