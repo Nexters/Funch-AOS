@@ -5,5 +5,5 @@ plugins {
 }
 
 android {
-    namespace = "com.moya.funch.home"
+    namespace = "com.moya.funch.profile"
 }

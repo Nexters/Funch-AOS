@@ -47,6 +47,7 @@ import com.moya.funch.theme.Gray500
 import com.moya.funch.theme.Gray800
 import com.moya.funch.theme.White
 import com.moya.funch.theme.Yellow500
+import com.moya.funch.ui.FunchErrorCaption
 
 @Composable
 fun FunchDefaultTextField(
@@ -367,7 +368,7 @@ private fun annotatedStringMaxLengthType(
 
 @Preview("Default", showBackground = true, backgroundColor = 0xFF2C2C2C)
 @Composable
-fun FunchTextFieldDefaultTypePreview() {
+private fun Preview1() {
     var text by remember { mutableStateOf("") }
     val isError = remember { mutableStateOf(false) }
     val maxLength = 9
@@ -387,6 +388,7 @@ fun FunchTextFieldDefaultTypePreview() {
                 isError = isError.value,
             )
             FunchErrorCaption(
+                modifier = Modifier.padding(top = 4.dp, start = 4.dp),
                 isError = isError.value,
                 errorText = "errorText",
             )
@@ -401,7 +403,7 @@ fun FunchTextFieldDefaultTypePreview() {
 
 @Preview("MaxLengthType", showBackground = true, backgroundColor = 0xFF2C2C2C)
 @Composable
-fun FunchTextFieldMaxLengthTypePreview() {
+private fun Preview2() {
     var text by remember { mutableStateOf("") }
     val isError = remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
@@ -433,6 +435,7 @@ fun FunchTextFieldMaxLengthTypePreview() {
                 isFocus = isFocused,
             )
             FunchErrorCaption(
+                modifier = Modifier.padding(top = 4.dp, start = 4.dp),
                 isError = isError.value,
                 errorText = if (isError.value) "최대 ${maxLength}글자까지 입력할 수 있어요" else "",
             )
@@ -442,9 +445,9 @@ fun FunchTextFieldMaxLengthTypePreview() {
 
 @Preview("Icon", showBackground = true, backgroundColor = 0xFF2C2C2C)
 @Composable
-fun FunchTextFieldIconTypePreview() {
+private fun Preview3() {
     var text by remember { mutableStateOf("") }
-    val isError = remember { mutableStateOf(false) }
+    val isError = remember { mutableStateOf(true) }
 
     FunchTheme {
         Column {
@@ -460,6 +463,7 @@ fun FunchTextFieldIconTypePreview() {
                 isError = isError.value,
             )
             FunchErrorCaption(
+                modifier = Modifier.padding(top = 4.dp, start = 4.dp),
                 isError = isError.value,
                 errorText = "존재하지 않는 지하철역이에요",
             )
@@ -469,7 +473,7 @@ fun FunchTextFieldIconTypePreview() {
 
 @Preview("Button", showBackground = true, backgroundColor = 0xFF2C2C2C)
 @Composable
-fun FunchTextFieldButtonTypePreview() {
+private fun Preview4() {
     var text by remember { mutableStateOf("") }
     val isError = remember { mutableStateOf(false) }
 
