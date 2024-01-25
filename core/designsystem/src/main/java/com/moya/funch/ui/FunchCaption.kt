@@ -47,9 +47,9 @@ fun FunchErrorCaption(
 
 /*============================== Preview =================================*/
 
-@Preview("ErrorCaption", showBackground = true, backgroundColor = 0xFF2C2C2C)
+@Preview("Error Caption", showBackground = true, backgroundColor = 0xFF2C2C2C)
 @Composable
-fun FunchErrorCaptionPreview() {
+private fun Preview1() {
     val isError = remember { mutableStateOf(true) }
 
     FunchTheme {

@@ -368,7 +368,7 @@ private fun annotatedStringMaxLengthType(
 
 @Preview("Default", showBackground = true, backgroundColor = 0xFF2C2C2C)
 @Composable
-fun FunchTextFieldDefaultTypePreview() {
+private fun Preview1() {
     var text by remember { mutableStateOf("") }
     val isError = remember { mutableStateOf(false) }
     val maxLength = 9
@@ -402,7 +402,7 @@ fun FunchTextFieldDefaultTypePreview() {
 
 @Preview("MaxLengthType", showBackground = true, backgroundColor = 0xFF2C2C2C)
 @Composable
-fun FunchTextFieldMaxLengthTypePreview() {
+private fun Preview2() {
     var text by remember { mutableStateOf("") }
     val isError = remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
@@ -443,7 +443,7 @@ fun FunchTextFieldMaxLengthTypePreview() {
 
 @Preview("Icon", showBackground = true, backgroundColor = 0xFF2C2C2C)
 @Composable
-fun FunchTextFieldIconTypePreview() {
+private fun Preview3() {
     var text by remember { mutableStateOf("") }
     val isError = remember { mutableStateOf(false) }
 
@@ -470,7 +470,7 @@ fun FunchTextFieldIconTypePreview() {
 
 @Preview("Button", showBackground = true, backgroundColor = 0xFF2C2C2C)
 @Composable
-fun FunchTextFieldButtonTypePreview() {
+private fun Preview4() {
     var text by remember { mutableStateOf("") }
     val isError = remember { mutableStateOf(false) }
 
