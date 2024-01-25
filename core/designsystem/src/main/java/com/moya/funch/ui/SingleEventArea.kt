@@ -1,4 +1,4 @@
-package com.moya.funch.component
+package com.moya.funch.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

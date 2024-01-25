@@ -1,4 +1,4 @@
-package com.moya.funch.component.button
+package com.moya.funch.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -10,6 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.moya.funch.component.FunchButtonType
+import com.moya.funch.component.FunchSubButton
 import com.moya.funch.theme.FunchTheme
 import com.moya.funch.theme.Gray900
 
