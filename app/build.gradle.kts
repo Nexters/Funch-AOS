@@ -28,10 +28,11 @@ android {
 }
 
 dependencies {
-    // feature
-    implementation(projects.feature.home)
+    // core
     implementation(projects.core.designsystem)
-//    implementation(projects.feature.profile)
+
+    // feature
+    implementation(projects.feature.profile)
 //    implementation(projects.feature.match)
 
 //    implementation(libs.coil.core)
