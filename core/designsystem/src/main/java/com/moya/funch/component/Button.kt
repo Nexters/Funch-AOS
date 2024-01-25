@@ -168,6 +168,7 @@ fun FunchSubButton(
 
 @Composable
 fun FunchIconButton(
+    enabled: Boolean = true,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     funchIcon: FunchIcon,
@@ -184,8 +185,9 @@ fun FunchIconButton(
             )
             .clip(roundedCornerShape)
             .clickable(
+                enabled = enabled,
                 onClick = onClick,
-                indication = indication,
+                indication = if (enabled) indication else null,
                 interactionSource = interactionSource,
             ),
         contentAlignment = Alignment.Center,
@@ -318,8 +320,7 @@ private fun Preview3() {
             }
             Spacer(modifier = Modifier.padding(16.dp))
 
-            FunchMainButton(
-                enabled = false,
+            FunchMainButton(enabled = false,
                 contentPadding = PaddingValues(vertical = 16.dp, horizontal = 24.dp),
                 onClick = { }) {
                 Text(
