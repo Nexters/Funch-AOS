@@ -30,6 +30,7 @@ android {
 dependencies {
     // feature
     implementation(projects.feature.home)
+    implementation(projects.core.designsystem)
 //    implementation(projects.feature.profile)
 //    implementation(projects.feature.match)
 
