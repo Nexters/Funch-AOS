@@ -2,12 +2,11 @@ package com.moya.funch.theme
 
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ShapeDefaults
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.dp
 
-object ShapeDefaults {
+object FunchShapeDefaults {
     val ExtraSmall = RoundedCornerShape(10.dp)
     val Small = RoundedCornerShape(12.dp)
     val Medium = RoundedCornerShape(16.dp)
@@ -17,11 +16,11 @@ object ShapeDefaults {
 
 @Immutable
 class FunchShapes(
-    val extraSmall: CornerBasedShape = ShapeDefaults.ExtraSmall,
-    val small: CornerBasedShape = ShapeDefaults.Small,
-    val medium: CornerBasedShape = ShapeDefaults.Medium,
-    val large: CornerBasedShape = ShapeDefaults.Large,
-    val extraLarge: CornerBasedShape = ShapeDefaults.ExtraLarge,
+    val extraSmall: CornerBasedShape = FunchShapeDefaults.ExtraSmall,
+    val small: CornerBasedShape = FunchShapeDefaults.Small,
+    val medium: CornerBasedShape = FunchShapeDefaults.Medium,
+    val large: CornerBasedShape = FunchShapeDefaults.Large,
+    val extraLarge: CornerBasedShape = FunchShapeDefaults.ExtraLarge,
 ) {
     fun copy(
         extraSmall: CornerBasedShape = this.extraSmall,
