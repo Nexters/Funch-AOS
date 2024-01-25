@@ -47,6 +47,7 @@ import com.moya.funch.theme.Gray500
 import com.moya.funch.theme.Gray800
 import com.moya.funch.theme.White
 import com.moya.funch.theme.Yellow500
+import com.moya.funch.ui.FunchErrorCaption
 
 @Composable
 fun FunchDefaultTextField(
