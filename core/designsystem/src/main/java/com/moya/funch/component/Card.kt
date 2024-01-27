@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -22,11 +23,12 @@ import com.moya.funch.theme.Gray900
 import com.moya.funch.theme.Lemon500
 
 @Composable
-fun FunchNeonSignCard(
+private fun FunchNeonSignCard(
+    // TODO : @murjune : match feature 이동 예정
     modifier: Modifier = Modifier,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
-    content: @Composable () -> Unit,
+    content: @Composable ColumnScope.() -> Unit,
 ) {
     val brush = Brush.verticalGradient(
         0.1f to Lemon500,
