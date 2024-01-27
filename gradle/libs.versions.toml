@@ -65,6 +65,7 @@ lottie = "6.0.1"
 kakao = "2.14.0"
 splash-screen = "1.0.1"
 ktlint = "12.1.0"
+javax-inject = "1"
 
 [libraries]
 agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -88,6 +89,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 startup = { module = "androidx.startup:startup-runtime", version.ref = "startup" }
 security = { module = "androidx.security:security-crypto", version.ref = "security" }
 desugarLibs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugarJdk" }
+javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javax-inject" }
 
 # compose
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
