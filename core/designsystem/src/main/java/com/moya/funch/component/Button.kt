@@ -187,7 +187,7 @@ fun FunchIconButton(
             .clickable(
                 enabled = enabled,
                 onClick = onClick,
-                indication = if (enabled) indication else null,
+                indication = indication,
                 interactionSource = interactionSource,
             ),
         contentAlignment = Alignment.Center,
