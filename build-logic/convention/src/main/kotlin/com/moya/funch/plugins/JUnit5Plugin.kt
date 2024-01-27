@@ -13,11 +13,9 @@ class JUnit5Plugin : Plugin<Project> {
             }
 
             dependencies {
-                add("testImplementation", libs.findBundle("junit5.test").get())
-                add("androidTestImplementation", libs.findLibrary("junit5").get())
-                add("androidTestImplementation", libs.findLibrary("junit5.params").get())
-                add("androidTestImplementation", libs.findLibrary("junit5.android.test.core").get())
-                add("androidTestRuntimeOnly", libs.findLibrary("junit5.android.test.runner").get())
+                // 현재 파일
+                add("testImplementation", libs.findBundle("junit5").get())
+                add("testImplementation", libs.findLibrary("truth").get())
             }
         }
 }

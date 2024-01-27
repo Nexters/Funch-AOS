@@ -35,6 +35,9 @@ class AndroidTestPlugin : Plugin<Project> {
                 add("testImplementation", libs.findLibrary("junit").get())
                 add("debugImplementation", libs.findLibrary("truth").get())
                 add("testImplementation", libs.findLibrary("robolectric").get())
+                add("androidTestRuntimeOnly", libs.findLibrary("junit5-engine").get())
+                add("androidTestImplementation", libs.findLibrary("junit5-android-test-core").get())
+                add("androidTestRuntimeOnly", libs.findLibrary("junit5-android-test-runner").get())
                 add("androidTestImplementation", libs.findBundle("androidx.android.test").get())
             }
         }
