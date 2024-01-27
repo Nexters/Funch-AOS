@@ -1,4 +1,4 @@
-package hous.release.testing
+package com.moya.funch.rule
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.ExtensionContext
 
 @ExperimentalCoroutinesApi
 class CoroutinesTestExtension(
-    private val dispatcher: TestDispatcher = UnconfinedTestDispatcher()
+    private val dispatcher: TestDispatcher = UnconfinedTestDispatcher(),
 ) : BeforeEachCallback, AfterEachCallback {
 
     override fun beforeEach(context: ExtensionContext?) {
@@ -23,3 +23,4 @@ class CoroutinesTestExtension(
         Dispatchers.resetMain()
     }
 }
+

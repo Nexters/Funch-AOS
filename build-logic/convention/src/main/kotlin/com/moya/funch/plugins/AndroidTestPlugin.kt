@@ -12,6 +12,7 @@ class AndroidTestPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit =
         with(target) {
             apply<JUnit5Plugin>()
+            apply("de.mannodermaus.android-junit5")
 
             extensions.getByType<BaseExtension>().apply {
                 defaultConfig {

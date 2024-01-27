@@ -1,11 +1,11 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.funch.android.kotlin)
-}
-android {
-    namespace = "com.moya.funch.testing"
+    `java-library`
+    kotlin("jvm")
 }
 
 dependencies {
-
+    implementation(libs.javax.inject)
+    implementation(libs.bundles.junit5)
+    implementation(libs.kotlin.coroutines.core)
+    implementation(libs.kotlin.coroutines.test)
 }
