@@ -9,15 +9,13 @@ class AndroidHiltPlugin : Plugin<Project> {
     override fun apply(target: Project) =
         with(target) {
             with(plugins) {
-                apply("kotlin-kapt")
-                apply("com.google.dagger.hilt.android")
+                apply("com.google.devtools.ksp")
+                apply("dagger.hilt.android.plugin")
             }
 
             dependencies {
-                add("implementation", libs.findLibrary("hilt").get())
-                add("kapt", libs.findLibrary("hilt.kapt").get())
-                add("testImplementation", libs.findLibrary("hilt.testing").get())
-                add("kaptTest", libs.findLibrary("hilt.testing.compiler").get())
+                add("implementation", libs.findLibrary("hilt.android").get())
+                add("ksp", libs.findLibrary("hilt.compiler").get())
             }
         }
 }
