@@ -26,7 +26,7 @@ gradlePlugin {
             implementationClass = "com.moya.funch.plugins.AndroidFeaturePlugin"
         }
         create("android-kotlin") {
-            id = "com.moya.funch.kotlin"
+            id = "com.moya.funch.android.kotlin"
             implementationClass = "com.moya.funch.plugins.AndroidKotlinPlugin"
         }
         create("android-hilt") {
@@ -43,7 +43,7 @@ gradlePlugin {
             implementationClass = "com.moya.funch.plugins.JUnit5Plugin"
         }
         create("android-test") {
-            id = "com.moya.funch.test"
+            id = "com.moya.funch.android.test"
             implementationClass = "com.moya.funch.plugins.AndroidTestPlugin"
         }
         create("compose") {

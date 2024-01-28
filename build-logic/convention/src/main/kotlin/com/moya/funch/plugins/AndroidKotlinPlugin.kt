@@ -40,7 +40,7 @@ class AndroidKotlinPlugin : Plugin<Project> {
             dependencies {
                 add("coreLibraryDesugaring", libs.findLibrary("desugarLibs").get())
                 add("implementation", libs.findLibrary("kotlin").get())
-                add("implementation", libs.findLibrary("kotlin.coroutines").get())
+                add("implementation", libs.findLibrary("kotlin.coroutines.android").get())
             }
         }
 }

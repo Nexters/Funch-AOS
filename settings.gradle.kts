@@ -21,6 +21,7 @@ include(":app")
 
 // core
 include(":core:designsystem")
+include(":core:testing")
 //include(":core:network")
 
 // feature
