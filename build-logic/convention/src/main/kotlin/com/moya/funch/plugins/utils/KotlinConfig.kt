@@ -46,6 +46,11 @@ internal fun Project.configureKotlinJvm() {
     }
 
     configureKotlin()
+
+    dependencies {
+        add("implementation", libs.findLibrary("kotlin").get())
+        add("implementation", libs.findLibrary("kotlin.coroutines.core").get())
+    }
 }
 
 /**

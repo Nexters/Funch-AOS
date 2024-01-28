@@ -186,6 +186,7 @@ funch-kotlinx-serialization = { id = "com.moya.funch.kotlinx_serialization", ver
 funch-android-test = { id = "com.moya.funch.android.test", version = "unspecified" }
 funch-junit5 = { id = "com.moya.funch.junit5", version = "unspecified" }
 funch-compose = { id = "com.moya.funch.compose", version = "unspecified" }
+funch-jvm-library = { id = "com.moya.funch.jvm.library", version = "unspecified" }
 
 [bundles]
 firebase = ["firebase-analytics", "firebase-crashlytics"]

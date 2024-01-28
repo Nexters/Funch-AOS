@@ -50,5 +50,9 @@ gradlePlugin {
             id = "com.moya.funch.compose"
             implementationClass = "com.moya.funch.plugins.ComposePlugin"
         }
+        register("jvm-library") {
+            id = "com.moya.funch.jvm.library"
+            implementationClass = "com.moya.funch.plugins.JvmLibraryPlugin"
+        }
     }
 }
