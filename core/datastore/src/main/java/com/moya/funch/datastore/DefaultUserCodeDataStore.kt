@@ -16,9 +16,9 @@ class DefaultUserCodeDataStore @Inject constructor(
     @ApplicationContext private val context: Context,
 ) : UserCodeDataStore() {
 
-    private var deviceId: String
+    override var userId: String
         get() {
-            initDeviceId()
+            initUserId()
             return preferences.getString(DEVICE_ID, "").orEmpty()
         }
         set(value) {
@@ -27,9 +27,9 @@ class DefaultUserCodeDataStore @Inject constructor(
             }
         }
 
-    private fun initDeviceId() {
+    private fun initUserId() {
         if (preferences.contains(DEVICE_ID).not()) {
-            deviceId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+            userId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         }
     }
 
