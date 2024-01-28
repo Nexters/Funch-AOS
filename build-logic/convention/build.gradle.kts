@@ -34,7 +34,7 @@ gradlePlugin {
             implementationClass = "com.moya.funch.plugins.AndroidHiltPlugin"
         }
         create("kotlin-serialization") {
-            id = "com.moya.funch.serialization"
+            id = "com.moya.funch.kotlinx_serialization"
             implementationClass =
                 "com.moya.funch.plugins.KotlinSerializationPlugin"
         }
