@@ -8,15 +8,17 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.moya.funch.component.FunchButtonType
 import com.moya.funch.component.FunchSubButton
+import com.moya.funch.designsystem.R
 import com.moya.funch.theme.FunchTheme
 import com.moya.funch.theme.Gray900
 
 @Composable
-fun FunchFeedbackButton(
+internal fun FunchFeedbackButton(
     enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
@@ -25,7 +27,7 @@ fun FunchFeedbackButton(
         enabled = enabled,
         buttonType = FunchButtonType.XSmall,
         onClick = onClick,
-        text = "피드백 보내기",
+        text = stringResource(id = R.string.send_feed_back),
         contentHorizontalPadding = 12.dp
     )
 }
