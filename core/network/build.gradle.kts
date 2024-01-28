@@ -1,8 +1,5 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.funch.android.kotlin)
-    alias(libs.plugins.funch.hilt)
-    alias(libs.plugins.funch.kotlinx.serialization)
+    alias(libs.plugins.funch.android.library)
 }
 
 android {
@@ -10,7 +7,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.timber)
     implementation(libs.bundles.retrofit)
     implementation(platform(libs.okhttp.bom))
     implementation(libs.okhttp.logging.interceptor)

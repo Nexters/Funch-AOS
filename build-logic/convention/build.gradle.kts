@@ -12,6 +12,7 @@ java {
 dependencies {
     compileOnly(libs.agp)
     compileOnly(libs.kotlin.gradleplugin)
+    compileOnly(libs.ksp.gradlePlugin)
 }
 
 gradlePlugin {
@@ -21,13 +22,13 @@ gradlePlugin {
             implementationClass =
                 "com.moya.funch.plugins.AndroidApplicationPlugin"
         }
+        create("android-library") {
+            id = "com.moya.funch.library"
+            implementationClass = "com.moya.funch.plugins.AndroidLibraryPlugin"
+        }
         create("android-feature") {
             id = "com.moya.funch.feature"
             implementationClass = "com.moya.funch.plugins.AndroidFeaturePlugin"
-        }
-        create("android-kotlin") {
-            id = "com.moya.funch.android.kotlin"
-            implementationClass = "com.moya.funch.plugins.AndroidKotlinPlugin"
         }
         create("android-hilt") {
             id = "com.moya.funch.hilt"
