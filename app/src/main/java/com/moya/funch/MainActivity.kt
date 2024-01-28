@@ -26,7 +26,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = backgroundColor,
                 ) {
-                    FunchApp()
+                    FunchApp(
+                        matchingCode = "",
+                        onMatchingCodeChange = {},
+                        onSearchClick = {},
+                        myCode = "",
+                        onMyProfileClick = {},
+                    )
                 }
             }
         }
