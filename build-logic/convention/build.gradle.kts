@@ -12,6 +12,7 @@ java {
 dependencies {
     compileOnly(libs.agp)
     compileOnly(libs.kotlin.gradleplugin)
+    compileOnly(libs.ksp.gradlePlugin)
 }
 
 gradlePlugin {
@@ -21,20 +22,20 @@ gradlePlugin {
             implementationClass =
                 "com.moya.funch.plugins.AndroidApplicationPlugin"
         }
+        create("android-library") {
+            id = "com.moya.funch.library"
+            implementationClass = "com.moya.funch.plugins.AndroidLibraryPlugin"
+        }
         create("android-feature") {
             id = "com.moya.funch.feature"
             implementationClass = "com.moya.funch.plugins.AndroidFeaturePlugin"
-        }
-        create("android-kotlin") {
-            id = "com.moya.funch.android.kotlin"
-            implementationClass = "com.moya.funch.plugins.AndroidKotlinPlugin"
         }
         create("android-hilt") {
             id = "com.moya.funch.hilt"
             implementationClass = "com.moya.funch.plugins.AndroidHiltPlugin"
         }
         create("kotlin-serialization") {
-            id = "com.moya.funch.serialization"
+            id = "com.moya.funch.kotlinx_serialization"
             implementationClass =
                 "com.moya.funch.plugins.KotlinSerializationPlugin"
         }
@@ -49,6 +50,10 @@ gradlePlugin {
         create("compose") {
             id = "com.moya.funch.compose"
             implementationClass = "com.moya.funch.plugins.ComposePlugin"
+        }
+        register("jvm-library") {
+            id = "com.moya.funch.jvm.library"
+            implementationClass = "com.moya.funch.plugins.JvmLibraryPlugin"
         }
     }
 }
