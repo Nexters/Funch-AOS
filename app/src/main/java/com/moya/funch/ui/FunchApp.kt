@@ -45,6 +45,7 @@ import com.moya.funch.theme.Gray700
 import com.moya.funch.theme.Gray800
 import com.moya.funch.theme.Lemon500
 import com.moya.funch.theme.LocalBackgroundTheme
+import com.moya.funch.theme.White
 import com.moya.funch.theme.Yellow500
 
 private val brush = Brush.horizontalGradient(
@@ -59,6 +60,7 @@ fun FunchApp(
     onSearchClick: () -> Unit,
     myCode: String,
     onMyProfileClick: () -> Unit,
+    viewCount: Int,
 ) {
     Column(
         modifier = Modifier
@@ -87,6 +89,9 @@ fun FunchApp(
                 onMyProfileClick = onMyProfileClick
             )
         }
+        ProfileViewCounterCard(
+            viewCount = viewCount
+        )
     }
 }
 
@@ -107,7 +112,7 @@ private fun MatchingCard(
                 letterSpacing = FunchTheme.typography.t2.letterSpacing,
             )
         ) {
-            append(stringResource(id = R.string.matching_card_text_1))
+            append(stringResource(id = R.string.matching_card_1))
         }
         withStyle(
             style = SpanStyle(
@@ -119,7 +124,7 @@ private fun MatchingCard(
                 letterSpacing = FunchTheme.typography.b.letterSpacing,
             )
         ) {
-            append(stringResource(id = R.string.matching_card_text_2))
+            append(stringResource(id = R.string.matching_card_2))
         }
     }
 
@@ -181,7 +186,7 @@ private fun CodeCard(
                 letterSpacing = FunchTheme.typography.b.letterSpacing,
             )
         ) {
-            append(stringResource(id = R.string.my_code))
+            append(stringResource(id = R.string.my_code_card_1))
         }
         withStyle(
             style = SpanStyle(
@@ -193,7 +198,7 @@ private fun CodeCard(
                 letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
             )
         ) {
-            append(stringResource(id = R.string.code, myCode))
+            append(stringResource(id = R.string.my_code_card_2, myCode))
         }
     }
 
@@ -246,10 +251,64 @@ private fun MyProfileCard(
             tint = Gray400,
         )
         Text(
-            text = stringResource(id = R.string.my_profile),
+            text = stringResource(id = R.string.my_profile_card_1),
             style = FunchTheme.typography.b,
             color = Gray400,
         )
+    }
+}
+
+@Composable
+private fun ProfileViewCounterCard(
+    viewCount: Int,
+) {
+    val annotatedString = buildAnnotatedString {
+        withStyle(
+            style = SpanStyle(
+                color = Gray400,
+                fontStyle = FunchTheme.typography.b.fontStyle,
+                fontFamily = FunchTheme.typography.b.fontFamily,
+                fontWeight = FunchTheme.typography.b.fontWeight,
+                fontSize = FunchTheme.typography.b.fontSize,
+                letterSpacing = FunchTheme.typography.b.letterSpacing,
+            )
+        ) {
+            append(stringResource(id = R.string.profile_view_counter_card_1))
+        }
+        withStyle(
+            style = SpanStyle(
+                color = White,
+                fontStyle = FunchTheme.typography.sbt2.fontStyle,
+                fontFamily = FunchTheme.typography.sbt2.fontFamily,
+                fontWeight = FunchTheme.typography.sbt2.fontWeight,
+                fontSize = FunchTheme.typography.sbt2.fontSize,
+                letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
+            )
+        ) {
+            append(stringResource(id = R.string.profile_view_counter_card_2, viewCount))
+        }
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(
+                color = Gray800,
+                shape = FunchTheme.shapes.medium
+            )
+            .padding(
+                top = 24.dp,
+                bottom = 24.dp,
+                start = 20.dp,
+            ),
+        horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
+    ) {
+        Icon(
+            modifier = Modifier.padding(8.dp),
+            painter = painterResource(id = FunchIconAsset.Search.search_24),
+            contentDescription = "",
+            tint = Gray400,
+        )
+        Text(text = annotatedString)
     }
 }
 
@@ -274,6 +333,7 @@ private fun Preview1() {
                 onSearchClick = {},
                 myCode = code,
                 onMyProfileClick = {},
+                viewCount = 23
             )
         }
     }

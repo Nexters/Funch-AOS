@@ -32,6 +32,7 @@ class MainActivity : ComponentActivity() {
                         onSearchClick = {},
                         myCode = "",
                         onMyProfileClick = {},
+                        viewCount = 12
                     )
                 }
             }
