@@ -10,6 +10,10 @@ plugins {
 android {
     namespace = "com.moya.funch"
 
+    packaging {
+        resources.excludes.add("META-INF/LICENSE*")
+    }
+
     defaultConfig {
         applicationId = "com.moya.funch"
         versionCode = libs.versions.versionCode.get().toInt()
