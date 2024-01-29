@@ -21,10 +21,11 @@ import javax.inject.Singleton
 object RetrofitModule {
     @Provides
     @Singleton
-    fun provideJson(): Json = Json {
-        ignoreUnknownKeys = true
-        coerceInputValues = true
-    }
+    fun provideJson(): Json =
+        Json {
+            ignoreUnknownKeys = true
+            coerceInputValues = true
+        }
 
     @Singleton
     @Provides
@@ -34,13 +35,14 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideLoggingInterceptor(): Interceptor = HttpLoggingInterceptor().setLevel(
-        if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor.Level.BODY
-        } else {
-            HttpLoggingInterceptor.Level.NONE
-        },
-    )
+    fun provideLoggingInterceptor(): Interceptor =
+        HttpLoggingInterceptor().setLevel(
+            if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            },
+        )
 
     @Singleton
     @Provides
@@ -53,6 +55,7 @@ object RetrofitModule {
     fun provideRetrofit(
         client: OkHttpClient,
         converterFactory: Converter.Factory,
-    ): Retrofit = Retrofit.Builder().baseUrl(BuildConfig.FUNCH_DEBUG_BASE_URL).client(client)
-        .addConverterFactory(converterFactory).build()
+    ): Retrofit =
+        Retrofit.Builder().baseUrl(BuildConfig.FUNCH_DEBUG_BASE_URL).client(client)
+            .addConverterFactory(converterFactory).build()
 }
