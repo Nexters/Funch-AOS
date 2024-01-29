@@ -4,7 +4,10 @@ import com.google.common.truth.Truth.assertThat
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.moya.funch.network.dto.request.MatchingRequest
 import com.moya.funch.network.dto.response.BaseResponse
-import com.moya.funch.network.dto.response.MatchingResponse
+import com.moya.funch.network.dto.response.match.ChemistryResponse
+import com.moya.funch.network.dto.response.match.MatchingResponse
+import com.moya.funch.network.dto.response.match.RecommendResponse
+import com.moya.funch.network.dto.response.profile.ProfileResponse
 import com.moya.funch.rule.CoroutinesTestExtension
 import io.mockk.junit5.MockKExtension
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -54,7 +57,7 @@ internal class MatchingServiceTest {
                     data =
                         MatchingResponse(
                             profile =
-                                MatchingResponse.ProfileResponse(
+                                ProfileResponse(
                                     "aaa",
                                     "안드로이드",
                                     listOf(),
@@ -65,19 +68,19 @@ internal class MatchingServiceTest {
                             similarity = 40,
                             chemistryInfos =
                                 listOf(
-                                    MatchingResponse.ChemistryResponse(
+                                    ChemistryResponse(
                                         "기막힌 타이밍에 등장한 너!",
                                         "미정",
                                     ),
-                                    MatchingResponse.ChemistryResponse(
+                                    ChemistryResponse(
                                         "서로 비슷한 똑! 닮은 꼴",
                                         "미정",
                                     ),
                                 ),
                             recommends =
                                 listOf(
-                                    MatchingResponse.RecommendResponse("ENFJ"),
-                                    MatchingResponse.RecommendResponse("전갈자리"),
+                                    RecommendResponse("ENFJ"),
+                                    RecommendResponse("전갈자리"),
                                 ),
                             subways = listOf(),
                         ),
