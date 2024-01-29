@@ -48,9 +48,11 @@ import com.moya.funch.theme.LocalBackgroundTheme
 import com.moya.funch.theme.White
 import com.moya.funch.theme.Yellow500
 
-private val brush = Brush.horizontalGradient(
-    0.5f to Lemon500, 0.5f to Color(0xFFFFD440)
-)
+private val brush =
+    Brush.horizontalGradient(
+        0.5f to Lemon500,
+        0.5f to Color(0xFFFFD440),
+    )
 
 @Composable
 fun FunchApp(
@@ -62,13 +64,14 @@ fun FunchApp(
     viewCount: Int,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(
-                top = 8.dp,
-                start = 20.dp,
-                end = 20.dp,
-            ),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(
+                    top = 8.dp,
+                    start = 20.dp,
+                    end = 20.dp,
+                ),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         MatchingCard(
@@ -81,14 +84,15 @@ fun FunchApp(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             CodeCard(
-                modifier = Modifier.weight(1f), myCode = myCode
+                modifier = Modifier.weight(1f),
+                myCode = myCode,
             )
             MyProfileCard(
-                onMyProfileClick = onMyProfileClick
+                onMyProfileClick = onMyProfileClick,
             )
         }
         ProfileViewCounterCard(
-            viewCount = viewCount
+            viewCount = viewCount,
         )
     }
 }
@@ -99,49 +103,59 @@ private fun MatchingCard(
     onValueChange: (String) -> Unit,
     onSearchClick: () -> Unit,
 ) {
-    val annotatedString = buildAnnotatedString {
-        withStyle(
-            style = SpanStyle(
-                color = Color.White,
-                fontStyle = FunchTheme.typography.t2.fontStyle,
-                fontFamily = FunchTheme.typography.t2.fontFamily,
-                fontWeight = FunchTheme.typography.t2.fontWeight,
-                fontSize = FunchTheme.typography.t2.fontSize,
-                letterSpacing = FunchTheme.typography.t2.letterSpacing,
-            )
-        ) {
-            append(stringResource(id = R.string.matching_card_1))
+    val annotatedString =
+        buildAnnotatedString {
+            withStyle(
+                style =
+                    SpanStyle(
+                        color = Color.White,
+                        fontStyle = FunchTheme.typography.t2.fontStyle,
+                        fontFamily = FunchTheme.typography.t2.fontFamily,
+                        fontWeight = FunchTheme.typography.t2.fontWeight,
+                        fontSize = FunchTheme.typography.t2.fontSize,
+                        letterSpacing = FunchTheme.typography.t2.letterSpacing,
+                    ),
+            ) {
+                append(stringResource(id = R.string.matching_card_1))
+            }
+            withStyle(
+                style =
+                    SpanStyle(
+                        color = Gray300,
+                        fontStyle = FunchTheme.typography.b.fontStyle,
+                        fontFamily = FunchTheme.typography.b.fontFamily,
+                        fontWeight = FunchTheme.typography.b.fontWeight,
+                        fontSize = FunchTheme.typography.b.fontSize,
+                        letterSpacing = FunchTheme.typography.b.letterSpacing,
+                    ),
+            ) {
+                append(stringResource(id = R.string.matching_card_2))
+            }
         }
-        withStyle(
-            style = SpanStyle(
-                color = Gray300,
-                fontStyle = FunchTheme.typography.b.fontStyle,
-                fontFamily = FunchTheme.typography.b.fontFamily,
-                fontWeight = FunchTheme.typography.b.fontWeight,
-                fontSize = FunchTheme.typography.b.fontSize,
-                letterSpacing = FunchTheme.typography.b.letterSpacing,
-            )
-        ) {
-            append(stringResource(id = R.string.matching_card_2))
-        }
-    }
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(178.dp)
-            .border(
-                width = 1.dp, brush = brush, shape = RoundedCornerShape(20.dp)
-            )
-            .clip(RoundedCornerShape(20.dp))
-            .background(Gray800)
-            .padding(
-                top = 24.dp, bottom = 33.dp, start = 16.dp, end = 16.dp
-            ),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .height(178.dp)
+                .border(
+                    width = 1.dp,
+                    brush = brush,
+                    shape = RoundedCornerShape(20.dp),
+                )
+                .clip(RoundedCornerShape(20.dp))
+                .background(Gray800)
+                .padding(
+                    top = 24.dp,
+                    bottom = 33.dp,
+                    start = 16.dp,
+                    end = 16.dp,
+                ),
         verticalArrangement = Arrangement.spacedBy(space = 16.dp),
     ) {
         Text(text = annotatedString)
-        FunchButtonTextField(backgroundColor = Gray700,
+        FunchButtonTextField(
+            backgroundColor = Gray700,
             value = value,
             onValueChange = onValueChange,
             hint = stringResource(id = R.string.matching_card_hint),
@@ -151,13 +165,15 @@ private fun MatchingCard(
                     roundedCornerShape = RoundedCornerShape(12.dp),
                     backgroundColor = Gray500,
                     onClick = onSearchClick,
-                    funchIcon = FunchIcon(
-                        resId = FunchIconAsset.Search.search_24,
-                        description = "",
-                        tint = Yellow500,
-                    ),
+                    funchIcon =
+                        FunchIcon(
+                            resId = FunchIconAsset.Search.search_24,
+                            description = "",
+                            tint = Yellow500,
+                        ),
                 )
-            })
+            },
+        )
     }
 }
 
@@ -166,43 +182,48 @@ private fun CodeCard(
     modifier: Modifier = Modifier,
     myCode: String,
 ) {
-    val annotatedString = buildAnnotatedString {
-        withStyle(
-            style = SpanStyle(
-                color = Gray400,
-                fontStyle = FunchTheme.typography.b.fontStyle,
-                fontFamily = FunchTheme.typography.b.fontFamily,
-                fontWeight = FunchTheme.typography.b.fontWeight,
-                fontSize = FunchTheme.typography.b.fontSize,
-                letterSpacing = FunchTheme.typography.b.letterSpacing,
-            )
-        ) {
-            append(stringResource(id = R.string.my_code_card_1))
+    val annotatedString =
+        buildAnnotatedString {
+            withStyle(
+                style =
+                    SpanStyle(
+                        color = Gray400,
+                        fontStyle = FunchTheme.typography.b.fontStyle,
+                        fontFamily = FunchTheme.typography.b.fontFamily,
+                        fontWeight = FunchTheme.typography.b.fontWeight,
+                        fontSize = FunchTheme.typography.b.fontSize,
+                        letterSpacing = FunchTheme.typography.b.letterSpacing,
+                    ),
+            ) {
+                append(stringResource(id = R.string.my_code_card_1))
+            }
+            withStyle(
+                style =
+                    SpanStyle(
+                        brush = brush,
+                        fontStyle = FunchTheme.typography.sbt2.fontStyle,
+                        fontFamily = FunchTheme.typography.sbt2.fontFamily,
+                        fontWeight = FunchTheme.typography.sbt2.fontWeight,
+                        fontSize = FunchTheme.typography.sbt2.fontSize,
+                        letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
+                    ),
+            ) {
+                append(stringResource(id = R.string.my_code_card_2, myCode))
+            }
         }
-        withStyle(
-            style = SpanStyle(
-                brush = brush,
-                fontStyle = FunchTheme.typography.sbt2.fontStyle,
-                fontFamily = FunchTheme.typography.sbt2.fontFamily,
-                fontWeight = FunchTheme.typography.sbt2.fontWeight,
-                fontSize = FunchTheme.typography.sbt2.fontSize,
-                letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
-            )
-        ) {
-            append(stringResource(id = R.string.my_code_card_2, myCode))
-        }
-    }
 
     Row(
-        modifier = modifier
-            .background(
-                color = Gray800, shape = FunchTheme.shapes.medium
-            )
-            .padding(
-                top = 24.dp,
-                bottom = 24.dp,
-                start = 20.dp,
-            ),
+        modifier =
+            modifier
+                .background(
+                    color = Gray800,
+                    shape = FunchTheme.shapes.medium,
+                )
+                .padding(
+                    top = 24.dp,
+                    bottom = 24.dp,
+                    start = 20.dp,
+                ),
         horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
     ) {
         Icon(
@@ -221,15 +242,17 @@ private fun MyProfileCard(
     onMyProfileClick: () -> Unit,
 ) {
     Column(
-        modifier = modifier
-            .background(
-                color = Gray800,
-                shape = FunchTheme.shapes.medium,
-            )
-            .clickable(onClick = onMyProfileClick)
-            .padding(
-                vertical = 12.5f.dp, horizontal = 24.dp
-            ),
+        modifier =
+            modifier
+                .background(
+                    color = Gray800,
+                    shape = FunchTheme.shapes.medium,
+                )
+                .clickable(onClick = onMyProfileClick)
+                .padding(
+                    vertical = 12.5f.dp,
+                    horizontal = 24.dp,
+                ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(space = 8.dp),
     ) {
@@ -248,46 +271,49 @@ private fun MyProfileCard(
 }
 
 @Composable
-private fun ProfileViewCounterCard(
-    viewCount: Int,
-) {
-    val annotatedString = buildAnnotatedString {
-        withStyle(
-            style = SpanStyle(
-                color = Gray400,
-                fontStyle = FunchTheme.typography.b.fontStyle,
-                fontFamily = FunchTheme.typography.b.fontFamily,
-                fontWeight = FunchTheme.typography.b.fontWeight,
-                fontSize = FunchTheme.typography.b.fontSize,
-                letterSpacing = FunchTheme.typography.b.letterSpacing,
-            )
-        ) {
-            append(stringResource(id = R.string.profile_view_counter_card_1))
+private fun ProfileViewCounterCard(viewCount: Int) {
+    val annotatedString =
+        buildAnnotatedString {
+            withStyle(
+                style =
+                    SpanStyle(
+                        color = Gray400,
+                        fontStyle = FunchTheme.typography.b.fontStyle,
+                        fontFamily = FunchTheme.typography.b.fontFamily,
+                        fontWeight = FunchTheme.typography.b.fontWeight,
+                        fontSize = FunchTheme.typography.b.fontSize,
+                        letterSpacing = FunchTheme.typography.b.letterSpacing,
+                    ),
+            ) {
+                append(stringResource(id = R.string.profile_view_counter_card_1))
+            }
+            withStyle(
+                style =
+                    SpanStyle(
+                        color = White,
+                        fontStyle = FunchTheme.typography.sbt2.fontStyle,
+                        fontFamily = FunchTheme.typography.sbt2.fontFamily,
+                        fontWeight = FunchTheme.typography.sbt2.fontWeight,
+                        fontSize = FunchTheme.typography.sbt2.fontSize,
+                        letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
+                    ),
+            ) {
+                append(stringResource(id = R.string.profile_view_counter_card_2, viewCount))
+            }
         }
-        withStyle(
-            style = SpanStyle(
-                color = White,
-                fontStyle = FunchTheme.typography.sbt2.fontStyle,
-                fontFamily = FunchTheme.typography.sbt2.fontFamily,
-                fontWeight = FunchTheme.typography.sbt2.fontWeight,
-                fontSize = FunchTheme.typography.sbt2.fontSize,
-                letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
-            )
-        ) {
-            append(stringResource(id = R.string.profile_view_counter_card_2, viewCount))
-        }
-    }
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(
-                color = Gray800, shape = FunchTheme.shapes.medium
-            )
-            .padding(
-                top = 24.dp,
-                bottom = 24.dp,
-                start = 20.dp,
-            ),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(
+                    color = Gray800,
+                    shape = FunchTheme.shapes.medium,
+                )
+                .padding(
+                    top = 24.dp,
+                    bottom = 24.dp,
+                    start = 20.dp,
+                ),
         horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
     ) {
         Icon(
@@ -301,7 +327,10 @@ private fun ProfileViewCounterCard(
 }
 
 @Preview(
-    "Home UI", showBackground = true, widthDp = 360, heightDp = 640
+    "Home UI",
+    showBackground = true,
+    widthDp = 360,
+    heightDp = 640,
 )
 @Composable
 private fun Preview1() {
@@ -320,7 +349,7 @@ private fun Preview1() {
                 onSearchClick = {},
                 myCode = code,
                 onMyProfileClick = {},
-                viewCount = 23
+                viewCount = 23,
             )
         }
     }
