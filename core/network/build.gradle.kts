@@ -15,11 +15,13 @@ android {
     namespace = "com.moja.funch.network"
 
     buildTypes {
-        // getByName("release") {
-        //     buildConfigField(
-        //         "String", "FUNCH_BASE_URL", properties.getProperty("FUNCH_BASE_URL")
-        //     )
-        // }
+        getByName("release") {
+            buildConfigField(
+                "String",
+                "FUNCH_DEBUG_BASE_URL",
+                properties.getProperty("FUNCH_DEBUG_BASE_URL"),
+            )
+        }
         getByName("debug") {
             buildConfigField(
                 "String",
