@@ -80,11 +80,10 @@ fun FunchApp(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             CodeCard(
-                modifier = Modifier.weight(2f),
+                modifier = Modifier.weight(1f),
                 myCode = myCode
             )
             MyProfileCard(
-                modifier = Modifier.weight(1f),
                 onMyProfileClick = onMyProfileClick
             )
         }
@@ -135,9 +134,13 @@ private fun MatchingCard(
             )
             .clip(RoundedCornerShape(20.dp))
             .background(Gray800)
-            .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.Start,
+            .padding(
+                top = 24.dp,
+                bottom = 33.dp,
+                start = 16.dp,
+                end = 16.dp
+            ),
+        verticalArrangement = Arrangement.spacedBy(space = 16.dp),
     ) {
         Text(text = annotatedString)
         FunchButtonTextField(
@@ -196,17 +199,16 @@ private fun CodeCard(
 
     Row(
         modifier = modifier
-            .height(92.dp)
             .background(
                 color = Gray800,
                 shape = FunchTheme.shapes.medium
             )
-            .padding(start = 20.dp),
-        horizontalArrangement = Arrangement.spacedBy(
-            space = 12.dp,
-            alignment = Alignment.Start
-        ),
-        verticalAlignment = Alignment.CenterVertically,
+            .padding(
+                top = 24.dp,
+                bottom = 24.dp,
+                start = 20.dp,
+            ),
+        horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
     ) {
         Icon(
             modifier = Modifier.padding(8.dp),
@@ -225,17 +227,17 @@ private fun MyProfileCard(
 ) {
     Column(
         modifier = modifier
-            .height(92.dp)
             .background(
                 color = Gray800,
                 shape = FunchTheme.shapes.medium,
             )
-            .clickable(onClick = onMyProfileClick),
+            .clickable(onClick = onMyProfileClick)
+            .padding(
+                vertical = 12.5f.dp,
+                horizontal = 24.dp
+            ),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(
-            space = 8.dp,
-            alignment = Alignment.CenterVertically
-        ),
+        verticalArrangement = Arrangement.spacedBy(space = 8.dp),
     ) {
         Icon(
             modifier = Modifier.padding(8.dp),
@@ -251,7 +253,10 @@ private fun MyProfileCard(
     }
 }
 
-@Preview("Home UI", showBackground = true)
+@Preview(
+    "Home UI", showBackground = true,
+    widthDp = 360, heightDp = 640
+)
 @Composable
 private fun Preview1() {
     var text by remember { mutableStateOf("") }
@@ -265,7 +270,7 @@ private fun Preview1() {
         ) {
             FunchApp(
                 matchingCode = text,
-                onMatchingCodeChange = { text = it},
+                onMatchingCodeChange = { text = it },
                 onSearchClick = {},
                 myCode = code,
                 onMyProfileClick = {},
