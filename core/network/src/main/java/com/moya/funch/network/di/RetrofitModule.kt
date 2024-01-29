@@ -23,7 +23,6 @@ object RetrofitModule {
     @Singleton
     fun provideJson(): Json =
         Json {
-            ignoreUnknownKeys = true
             coerceInputValues = true
         }
 
@@ -47,8 +46,12 @@ object RetrofitModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(logInterceptor: Interceptor): OkHttpClient =
-        OkHttpClient.Builder().addInterceptor(logInterceptor).connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS).writeTimeout(15, TimeUnit.SECONDS).build()
+        OkHttpClient
+            .Builder()
+            .addInterceptor(logInterceptor)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS).build()
 
     @Singleton
     @Provides
@@ -56,6 +59,9 @@ object RetrofitModule {
         client: OkHttpClient,
         converterFactory: Converter.Factory,
     ): Retrofit =
-        Retrofit.Builder().baseUrl(BuildConfig.FUNCH_DEBUG_BASE_URL).client(client)
-            .addConverterFactory(converterFactory).build()
+        Retrofit.Builder()
+            .baseUrl(BuildConfig.FUNCH_DEBUG_BASE_URL)
+            .client(client)
+            .addConverterFactory(converterFactory)
+            .build()
 }
