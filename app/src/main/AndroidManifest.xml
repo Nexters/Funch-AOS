@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".FunchApp"
@@ -14,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PunchAOS"
+        android:usesCleartextTraffic="true"
         tools:targetApi="34">
         <activity
             android:name=".MainActivity"
