@@ -23,6 +23,7 @@ include(":app")
 include(":core:designsystem")
 include(":core:testing")
 include(":core:network")
+include(":core:datastore")
 
 // feature
 include(":feature:profile")
