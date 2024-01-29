@@ -34,7 +34,7 @@ android {
 dependencies {
     // core
     implementation(projects.core.designsystem)
-
+    implementation(projects.core.network) // @murjune TODO : 삭제
     // feature
     implementation(projects.feature.profile)
 //    implementation(projects.feature.match)
