@@ -49,8 +49,7 @@ import com.moya.funch.theme.White
 import com.moya.funch.theme.Yellow500
 
 private val brush = Brush.horizontalGradient(
-    0.5f to Lemon500,
-    0.5f to Color(0xFFFFD440)
+    0.5f to Lemon500, 0.5f to Color(0xFFFFD440)
 )
 
 @Composable
@@ -82,8 +81,7 @@ fun FunchApp(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             CodeCard(
-                modifier = Modifier.weight(1f),
-                myCode = myCode
+                modifier = Modifier.weight(1f), myCode = myCode
             )
             MyProfileCard(
                 onMyProfileClick = onMyProfileClick
@@ -133,23 +131,17 @@ private fun MatchingCard(
             .fillMaxWidth()
             .height(178.dp)
             .border(
-                width = 1.dp,
-                brush = brush,
-                shape = RoundedCornerShape(20.dp)
+                width = 1.dp, brush = brush, shape = RoundedCornerShape(20.dp)
             )
             .clip(RoundedCornerShape(20.dp))
             .background(Gray800)
             .padding(
-                top = 24.dp,
-                bottom = 33.dp,
-                start = 16.dp,
-                end = 16.dp
+                top = 24.dp, bottom = 33.dp, start = 16.dp, end = 16.dp
             ),
         verticalArrangement = Arrangement.spacedBy(space = 16.dp),
     ) {
         Text(text = annotatedString)
-        FunchButtonTextField(
-            backgroundColor = Gray700,
+        FunchButtonTextField(backgroundColor = Gray700,
             value = value,
             onValueChange = onValueChange,
             hint = stringResource(id = R.string.matching_card_hint),
@@ -165,8 +157,7 @@ private fun MatchingCard(
                         tint = Yellow500,
                     ),
                 )
-            }
-        )
+            })
     }
 }
 
@@ -205,8 +196,7 @@ private fun CodeCard(
     Row(
         modifier = modifier
             .background(
-                color = Gray800,
-                shape = FunchTheme.shapes.medium
+                color = Gray800, shape = FunchTheme.shapes.medium
             )
             .padding(
                 top = 24.dp,
@@ -238,8 +228,7 @@ private fun MyProfileCard(
             )
             .clickable(onClick = onMyProfileClick)
             .padding(
-                vertical = 12.5f.dp,
-                horizontal = 24.dp
+                vertical = 12.5f.dp, horizontal = 24.dp
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(space = 8.dp),
@@ -292,8 +281,7 @@ private fun ProfileViewCounterCard(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                color = Gray800,
-                shape = FunchTheme.shapes.medium
+                color = Gray800, shape = FunchTheme.shapes.medium
             )
             .padding(
                 top = 24.dp,
@@ -313,8 +301,7 @@ private fun ProfileViewCounterCard(
 }
 
 @Preview(
-    "Home UI", showBackground = true,
-    widthDp = 360, heightDp = 640
+    "Home UI", showBackground = true, widthDp = 360, heightDp = 640
 )
 @Composable
 private fun Preview1() {
