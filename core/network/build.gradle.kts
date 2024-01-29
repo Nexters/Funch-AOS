@@ -42,4 +42,3 @@ dependencies {
     testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.mockk.webserver)
 }
-
