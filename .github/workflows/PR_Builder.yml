@@ -41,7 +41,7 @@ jobs:
 
     - name: Access Local Properties
       env:
-        PUNCH_DEBUG_URL: ${{ secrets.FUNCH_DEBUG_BASE_URL }}
+        FUNCH_DEBUG_BASE_URL: ${{ secrets.FUNCH_DEBUG_BASE_URL }}
 #        HOST_RELEASE_URI: ${{ secrets.HOST_RELEASE_URI }}
 #        KAKAO_NATIVE_APP_KEY: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
 #        KAKAO_REDIRECT_SCHEME: ${{ secrets.KAKAO_REDIRECT_SCHEME }}

@@ -11,8 +11,8 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RetrofitServiceModule {
+object ServiceModule {
     @Provides
     @Singleton
-    fun providesRefreshService(retrofit: Retrofit): MatchingService = retrofit.create()
+    fun providesMatchingService(retrofit: Retrofit): MatchingService = retrofit.create()
 }
