@@ -37,6 +37,7 @@ import com.moya.funch.component.FunchButtonTextField
 import com.moya.funch.component.FunchIcon
 import com.moya.funch.component.FunchIconButton
 import com.moya.funch.icon.FunchIconAsset
+import com.moya.funch.modifier.clickableSingle
 import com.moya.funch.theme.FunchTheme
 import com.moya.funch.theme.Gray300
 import com.moya.funch.theme.Gray400
@@ -248,7 +249,8 @@ private fun MyProfileCard(
                     color = Gray800,
                     shape = FunchTheme.shapes.medium,
                 )
-                .clickable(onClick = onMyProfileClick)
+                .clip(FunchTheme.shapes.medium)
+                .clickableSingle(onClick = onMyProfileClick)
                 .padding(
                     vertical = 12.5f.dp,
                     horizontal = 24.dp,
