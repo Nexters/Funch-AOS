@@ -2,10 +2,10 @@ package com.moya.funch.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -66,13 +67,13 @@ fun FunchApp(
 ) {
     Column(
         modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(
-                    top = 8.dp,
-                    start = 20.dp,
-                    end = 20.dp,
-                ),
+        Modifier
+            .fillMaxSize()
+            .padding(
+                top = 8.dp,
+                start = 20.dp,
+                end = 20.dp,
+            ),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         MatchingCard(
@@ -104,56 +105,36 @@ private fun MatchingCard(
     onValueChange: (String) -> Unit,
     onSearchClick: () -> Unit,
 ) {
-    val annotatedString =
-        buildAnnotatedString {
-            withStyle(
-                style =
-                    SpanStyle(
-                        color = Color.White,
-                        fontStyle = FunchTheme.typography.t2.fontStyle,
-                        fontFamily = FunchTheme.typography.t2.fontFamily,
-                        fontWeight = FunchTheme.typography.t2.fontWeight,
-                        fontSize = FunchTheme.typography.t2.fontSize,
-                        letterSpacing = FunchTheme.typography.t2.letterSpacing,
-                    ),
-            ) {
-                append(stringResource(id = R.string.matching_card_title))
-            }
-            withStyle(
-                style =
-                    SpanStyle(
-                        color = Gray300,
-                        fontStyle = FunchTheme.typography.b.fontStyle,
-                        fontFamily = FunchTheme.typography.b.fontFamily,
-                        fontWeight = FunchTheme.typography.b.fontWeight,
-                        fontSize = FunchTheme.typography.b.fontSize,
-                        letterSpacing = FunchTheme.typography.b.letterSpacing,
-                    ),
-            ) {
-                append(stringResource(id = R.string.matching_card_caption))
-            }
-        }
-
     Column(
         modifier =
-            Modifier
-                .fillMaxWidth()
-                .border(
-                    width = 1.dp,
-                    brush = brush,
-                    shape = RoundedCornerShape(20.dp),
-                )
-                .clip(RoundedCornerShape(20.dp))
-                .background(Gray800)
-                .padding(
-                    top = 24.dp,
-                    bottom = 33.dp,
-                    start = 16.dp,
-                    end = 16.dp,
-                ),
-        verticalArrangement = Arrangement.spacedBy(space = 16.dp),
+        Modifier
+            .fillMaxWidth()
+            .border(
+                width = 1.dp,
+                brush = brush,
+                shape = RoundedCornerShape(20.dp),
+            )
+            .clip(RoundedCornerShape(20.dp))
+            .background(Gray800)
+            .padding(
+                top = 24.dp,
+                bottom = 33.dp,
+                start = 16.dp,
+                end = 16.dp,
+            ),
     ) {
-        Text(text = annotatedString)
+        Text(
+            text = stringResource(id = R.string.matching_card_title),
+            style = FunchTheme.typography.t2,
+            color = White,
+        )
+        Spacer(modifier = Modifier.height(2.dp))
+        Text(
+            text = stringResource(id = R.string.matching_card_caption),
+            style = FunchTheme.typography.b,
+            color = Gray300,
+        )
+        Spacer(modifier = Modifier.height(16.dp))
         FunchButtonTextField(
             backgroundColor = Gray700,
             value = value,
@@ -166,11 +147,11 @@ private fun MatchingCard(
                     backgroundColor = Gray500,
                     onClick = onSearchClick,
                     funchIcon =
-                        FunchIcon(
-                            resId = FunchIconAsset.Search.search_24,
-                            description = "",
-                            tint = Yellow500,
-                        ),
+                    FunchIcon(
+                        resId = FunchIconAsset.Search.search_24,
+                        description = "",
+                        tint = Yellow500,
+                    ),
                 )
             },
         )
@@ -182,48 +163,18 @@ private fun CodeCard(
     modifier: Modifier = Modifier,
     myCode: String,
 ) {
-    val annotatedString =
-        buildAnnotatedString {
-            withStyle(
-                style =
-                    SpanStyle(
-                        color = Gray400,
-                        fontStyle = FunchTheme.typography.b.fontStyle,
-                        fontFamily = FunchTheme.typography.b.fontFamily,
-                        fontWeight = FunchTheme.typography.b.fontWeight,
-                        fontSize = FunchTheme.typography.b.fontSize,
-                        letterSpacing = FunchTheme.typography.b.letterSpacing,
-                    ),
-            ) {
-                append(stringResource(id = R.string.my_code_card_caption))
-            }
-            withStyle(
-                style =
-                    SpanStyle(
-                        brush = brush,
-                        fontStyle = FunchTheme.typography.sbt2.fontStyle,
-                        fontFamily = FunchTheme.typography.sbt2.fontFamily,
-                        fontWeight = FunchTheme.typography.sbt2.fontWeight,
-                        fontSize = FunchTheme.typography.sbt2.fontSize,
-                        letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
-                    ),
-            ) {
-                append(stringResource(id = R.string.my_code, myCode))
-            }
-        }
-
     Row(
         modifier =
-            modifier
-                .background(
-                    color = Gray800,
-                    shape = FunchTheme.shapes.medium,
-                )
-                .padding(
-                    top = 24.dp,
-                    bottom = 24.dp,
-                    start = 20.dp,
-                ),
+        modifier
+            .background(
+                color = Gray800,
+                shape = FunchTheme.shapes.medium,
+            )
+            .padding(
+                top = 24.dp,
+                bottom = 24.dp,
+                start = 20.dp,
+            ),
         horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
     ) {
         Icon(
@@ -232,7 +183,27 @@ private fun CodeCard(
             contentDescription = "",
             tint = Gray400,
         )
-        Text(text = annotatedString)
+        Column(
+            verticalArrangement = Arrangement.spacedBy(space = 2.dp)
+        ) {
+            Text(
+                text = stringResource(id = R.string.my_code_card_caption),
+                style = FunchTheme.typography.b,
+                color = Gray400,
+            )
+            Text(
+                text = stringResource(id = R.string.my_code, myCode),
+                style = TextStyle(
+                    brush = brush,
+                    fontStyle = FunchTheme.typography.sbt2.fontStyle,
+                    fontFamily = FunchTheme.typography.sbt2.fontFamily,
+                    fontWeight = FunchTheme.typography.sbt2.fontWeight,
+                    fontSize = FunchTheme.typography.sbt2.fontSize,
+                    letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
+                    lineHeight = FunchTheme.typography.sbt2.lineHeight,
+                ),
+            )
+        }
     }
 }
 
@@ -243,17 +214,17 @@ private fun MyProfileCard(
 ) {
     Column(
         modifier =
-            modifier
-                .background(
-                    color = Gray800,
-                    shape = FunchTheme.shapes.medium,
-                )
-                .clip(FunchTheme.shapes.medium)
-                .clickableSingle(onClick = onMyProfileClick)
-                .padding(
-                    vertical = 12.5f.dp,
-                    horizontal = 24.dp,
-                ),
+        modifier
+            .background(
+                color = Gray800,
+                shape = FunchTheme.shapes.medium,
+            )
+            .clip(FunchTheme.shapes.medium)
+            .clickableSingle(onClick = onMyProfileClick)
+            .padding(
+                vertical = 11.5.dp,
+                horizontal = 24.dp,
+            ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(space = 8.dp),
     ) {
@@ -277,44 +248,44 @@ private fun ProfileViewCounterCard(viewCount: Int) {
         buildAnnotatedString {
             withStyle(
                 style =
-                    SpanStyle(
-                        color = Gray400,
-                        fontStyle = FunchTheme.typography.b.fontStyle,
-                        fontFamily = FunchTheme.typography.b.fontFamily,
-                        fontWeight = FunchTheme.typography.b.fontWeight,
-                        fontSize = FunchTheme.typography.b.fontSize,
-                        letterSpacing = FunchTheme.typography.b.letterSpacing,
-                    ),
+                SpanStyle(
+                    color = Gray400,
+                    fontStyle = FunchTheme.typography.b.fontStyle,
+                    fontFamily = FunchTheme.typography.b.fontFamily,
+                    fontWeight = FunchTheme.typography.b.fontWeight,
+                    fontSize = FunchTheme.typography.b.fontSize,
+                    letterSpacing = FunchTheme.typography.b.letterSpacing,
+                ),
             ) {
                 append(stringResource(id = R.string.profile_view_counter_caption))
             }
             withStyle(
                 style =
-                    SpanStyle(
-                        color = White,
-                        fontStyle = FunchTheme.typography.sbt2.fontStyle,
-                        fontFamily = FunchTheme.typography.sbt2.fontFamily,
-                        fontWeight = FunchTheme.typography.sbt2.fontWeight,
-                        fontSize = FunchTheme.typography.sbt2.fontSize,
-                        letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
-                    ),
+                SpanStyle(
+                    color = White,
+                    fontStyle = FunchTheme.typography.sbt2.fontStyle,
+                    fontFamily = FunchTheme.typography.sbt2.fontFamily,
+                    fontWeight = FunchTheme.typography.sbt2.fontWeight,
+                    fontSize = FunchTheme.typography.sbt2.fontSize,
+                    letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
+                ),
             ) {
                 append(stringResource(id = R.string.profile_view_counter_card_subtitle, viewCount))
             }
         }
     Row(
         modifier =
-            Modifier
-                .fillMaxWidth()
-                .background(
-                    color = Gray800,
-                    shape = FunchTheme.shapes.medium,
-                )
-                .padding(
-                    top = 24.dp,
-                    bottom = 24.dp,
-                    start = 20.dp,
-                ),
+        Modifier
+            .fillMaxWidth()
+            .background(
+                color = Gray800,
+                shape = FunchTheme.shapes.medium,
+            )
+            .padding(
+                top = 24.dp,
+                bottom = 24.dp,
+                start = 20.dp,
+            ),
         horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
     ) {
         Icon(
