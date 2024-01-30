@@ -138,7 +138,6 @@ private fun MatchingCard(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .height(178.dp)
                 .border(
                     width = 1.dp,
                     brush = brush,
