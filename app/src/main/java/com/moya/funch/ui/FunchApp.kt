@@ -117,7 +117,7 @@ private fun MatchingCard(
                         letterSpacing = FunchTheme.typography.t2.letterSpacing,
                     ),
             ) {
-                append(stringResource(id = R.string.matching_card_1))
+                append(stringResource(id = R.string.matching_card_title))
             }
             withStyle(
                 style =
@@ -130,7 +130,7 @@ private fun MatchingCard(
                         letterSpacing = FunchTheme.typography.b.letterSpacing,
                     ),
             ) {
-                append(stringResource(id = R.string.matching_card_2))
+                append(stringResource(id = R.string.matching_card_caption))
             }
         }
 
@@ -195,7 +195,7 @@ private fun CodeCard(
                         letterSpacing = FunchTheme.typography.b.letterSpacing,
                     ),
             ) {
-                append(stringResource(id = R.string.my_code_card_1))
+                append(stringResource(id = R.string.my_code_card_caption))
             }
             withStyle(
                 style =
@@ -208,7 +208,7 @@ private fun CodeCard(
                         letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
                     ),
             ) {
-                append(stringResource(id = R.string.my_code_card_2, myCode))
+                append(stringResource(id = R.string.my_code, myCode))
             }
         }
 
@@ -264,7 +264,7 @@ private fun MyProfileCard(
             tint = Gray400,
         )
         Text(
-            text = stringResource(id = R.string.my_profile_card_1),
+            text = stringResource(id = R.string.my_profile_card_caption),
             style = FunchTheme.typography.b,
             color = Gray400,
         )
@@ -286,7 +286,7 @@ private fun ProfileViewCounterCard(viewCount: Int) {
                         letterSpacing = FunchTheme.typography.b.letterSpacing,
                     ),
             ) {
-                append(stringResource(id = R.string.profile_view_counter_card_1))
+                append(stringResource(id = R.string.profile_view_counter_caption))
             }
             withStyle(
                 style =
@@ -299,7 +299,7 @@ private fun ProfileViewCounterCard(viewCount: Int) {
                         letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
                     ),
             ) {
-                append(stringResource(id = R.string.profile_view_counter_card_2, viewCount))
+                append(stringResource(id = R.string.profile_view_counter_card_subtitle, viewCount))
             }
         }
     Row(
