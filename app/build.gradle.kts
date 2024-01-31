@@ -10,6 +10,10 @@ plugins {
 android {
     namespace = "com.moya.funch"
 
+    packaging {
+        resources.excludes.add("META-INF/LICENSE*")
+    }
+
     defaultConfig {
         applicationId = "com.moya.funch"
         versionCode = libs.versions.versionCode.get().toInt()
@@ -30,7 +34,7 @@ android {
 dependencies {
     // core
     implementation(projects.core.designsystem)
-
+    implementation(projects.core.network) // @murjune TODO : 삭제
     // feature
     implementation(projects.feature.profile)
 //    implementation(projects.feature.match)
