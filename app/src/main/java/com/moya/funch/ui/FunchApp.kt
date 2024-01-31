@@ -65,13 +65,13 @@ fun FunchApp(
 ) {
     Column(
         modifier =
-        Modifier
-            .fillMaxSize()
-            .padding(
-                top = 8.dp,
-                start = 20.dp,
-                end = 20.dp,
-            ),
+            Modifier
+                .fillMaxSize()
+                .padding(
+                    top = 8.dp,
+                    start = 20.dp,
+                    end = 20.dp,
+                ),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         MatchingCard(
@@ -105,21 +105,21 @@ private fun MatchingCard(
 ) {
     Column(
         modifier =
-        Modifier
-            .fillMaxWidth()
-            .border(
-                width = 1.dp,
-                brush = brush,
-                shape = RoundedCornerShape(20.dp),
-            )
-            .clip(RoundedCornerShape(20.dp))
-            .background(Gray800)
-            .padding(
-                top = 24.dp,
-                bottom = 33.dp,
-                start = 16.dp,
-                end = 16.dp,
-            ),
+            Modifier
+                .fillMaxWidth()
+                .border(
+                    width = 1.dp,
+                    brush = brush,
+                    shape = RoundedCornerShape(20.dp),
+                )
+                .clip(RoundedCornerShape(20.dp))
+                .background(Gray800)
+                .padding(
+                    top = 24.dp,
+                    bottom = 33.dp,
+                    start = 16.dp,
+                    end = 16.dp,
+                ),
     ) {
         Text(
             text = stringResource(id = R.string.matching_card_title),
@@ -145,11 +145,11 @@ private fun MatchingCard(
                     backgroundColor = Gray500,
                     onClick = onSearchClick,
                     funchIcon =
-                    FunchIcon(
-                        resId = FunchIconAsset.Search.search_24,
-                        description = "",
-                        tint = Yellow500,
-                    ),
+                        FunchIcon(
+                            resId = FunchIconAsset.Search.search_24,
+                            description = "",
+                            tint = Yellow500,
+                        ),
                 )
             },
         )
@@ -163,16 +163,16 @@ private fun CodeCard(
 ) {
     Row(
         modifier =
-        modifier
-            .background(
-                color = Gray800,
-                shape = FunchTheme.shapes.medium,
-            )
-            .padding(
-                top = 24.dp,
-                bottom = 24.dp,
-                start = 20.dp,
-            ),
+            modifier
+                .background(
+                    color = Gray800,
+                    shape = FunchTheme.shapes.medium,
+                )
+                .padding(
+                    top = 24.dp,
+                    bottom = 24.dp,
+                    start = 20.dp,
+                ),
         horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
     ) {
         Icon(
@@ -182,7 +182,7 @@ private fun CodeCard(
             tint = Gray400,
         )
         Column(
-            verticalArrangement = Arrangement.spacedBy(space = 2.dp)
+            verticalArrangement = Arrangement.spacedBy(space = 2.dp),
         ) {
             Text(
                 text = stringResource(id = R.string.my_code_card_caption),
@@ -191,19 +191,21 @@ private fun CodeCard(
             )
             Text(
                 text = stringResource(id = R.string.my_code, myCode),
-                style = TextStyle(
-                    brush = brush,
-                    fontStyle = FunchTheme.typography.sbt2.fontStyle,
-                    fontFamily = FunchTheme.typography.sbt2.fontFamily,
-                    fontWeight = FunchTheme.typography.sbt2.fontWeight,
-                    fontSize = FunchTheme.typography.sbt2.fontSize,
-                    letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
-                    lineHeight = FunchTheme.typography.sbt2.lineHeight,
-                    lineHeightStyle = LineHeightStyle(
-                        alignment = LineHeightStyle.Alignment.Proportional,
-                        trim = LineHeightStyle.Trim.None
+                style =
+                    TextStyle(
+                        brush = brush,
+                        fontStyle = FunchTheme.typography.sbt2.fontStyle,
+                        fontFamily = FunchTheme.typography.sbt2.fontFamily,
+                        fontWeight = FunchTheme.typography.sbt2.fontWeight,
+                        fontSize = FunchTheme.typography.sbt2.fontSize,
+                        letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
+                        lineHeight = FunchTheme.typography.sbt2.lineHeight,
+                        lineHeightStyle =
+                            LineHeightStyle(
+                                alignment = LineHeightStyle.Alignment.Proportional,
+                                trim = LineHeightStyle.Trim.None,
+                            ),
                     ),
-                ),
             )
         }
     }
@@ -216,17 +218,17 @@ private fun MyProfileCard(
 ) {
     Column(
         modifier =
-        modifier
-            .background(
-                color = Gray800,
-                shape = FunchTheme.shapes.medium,
-            )
-            .clip(FunchTheme.shapes.medium)
-            .clickableSingle(onClick = onMyProfileClick)
-            .padding(
-                vertical = 11.5.dp,
-                horizontal = 24.dp,
-            ),
+            modifier
+                .background(
+                    color = Gray800,
+                    shape = FunchTheme.shapes.medium,
+                )
+                .clip(FunchTheme.shapes.medium)
+                .clickableSingle(onClick = onMyProfileClick)
+                .padding(
+                    vertical = 11.5.dp,
+                    horizontal = 24.dp,
+                ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(space = 8.dp),
     ) {
@@ -248,17 +250,17 @@ private fun MyProfileCard(
 private fun ProfileViewCounterCard(viewCount: Int) {
     Row(
         modifier =
-        Modifier
-            .fillMaxWidth()
-            .background(
-                color = Gray800,
-                shape = FunchTheme.shapes.medium,
-            )
-            .padding(
-                top = 24.dp,
-                bottom = 24.dp,
-                start = 20.dp,
-            ),
+            Modifier
+                .fillMaxWidth()
+                .background(
+                    color = Gray800,
+                    shape = FunchTheme.shapes.medium,
+                )
+                .padding(
+                    top = 24.dp,
+                    bottom = 24.dp,
+                    start = 20.dp,
+                ),
         horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
     ) {
         Icon(
@@ -268,7 +270,7 @@ private fun ProfileViewCounterCard(viewCount: Int) {
             tint = Gray400,
         )
         Column(
-            verticalArrangement = Arrangement.spacedBy(space = 2.dp)
+            verticalArrangement = Arrangement.spacedBy(space = 2.dp),
         ) {
             Text(
                 text = stringResource(id = R.string.profile_view_counter_caption),
