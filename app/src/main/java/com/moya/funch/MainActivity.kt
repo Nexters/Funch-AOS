@@ -4,16 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
 import com.moya.funch.network.dto.request.MatchingRequest
 import com.moya.funch.network.service.MatchingService
 import com.moya.funch.theme.FunchTheme
+import com.moya.funch.theme.LocalBackgroundTheme
+import com.moya.funch.ui.FunchApp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -45,33 +43,21 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             FunchTheme {
-                // A surface container using the 'background' color from the theme
+                val backgroundColor = LocalBackgroundTheme.current.color
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
+                    color = backgroundColor,
                 ) {
-                    Greeting(name = "Android")
+                    FunchApp(
+                        matchingCode = "",
+                        onMatchingCodeChange = {},
+                        onSearchClick = {},
+                        myCode = "",
+                        onMyProfileClick = {},
+                        viewCount = 12,
+                    )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(
-    name: String,
-    modifier: Modifier = Modifier,
-) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier,
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    FunchTheme {
-        Greeting("Android")
     }
 }

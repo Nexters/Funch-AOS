@@ -277,12 +277,12 @@ fun FunchIconTextField(
 @Composable
 fun FunchButtonTextField(
     modifier: Modifier = Modifier,
+    backgroundColor: Color,
     value: String,
     onValueChange: (String) -> Unit,
     hint: String,
     iconButton: @Composable () -> Unit,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    isFocus: Boolean = interactionSource.collectIsFocusedAsState().value,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
 ) {
@@ -307,16 +307,7 @@ fun FunchButtonTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
-                    .background(Gray800, RoundedCornerShape(16.dp))
-                    .then(
-                        if (isFocus)
-                            Modifier.border(
-                                width = 1.dp,
-                                color = Color.White,
-                                shape = RoundedCornerShape(16.dp)
-                            )
-                        else Modifier
-                    )
+                    .background(backgroundColor, RoundedCornerShape(16.dp))
                     .padding(start = 16.dp, end = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -483,6 +474,7 @@ private fun Preview4() {
                 value = text,
                 onValueChange = { innerText -> text = innerText },
                 hint = "친구 코드를 입력하고 매칭하기",
+                backgroundColor = Gray800,
                 iconButton = {
                     FunchIconButton(
                         modifier = Modifier.size(40.dp),
