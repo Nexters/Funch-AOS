@@ -9,6 +9,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.moya.funch.designsystem.R
@@ -86,42 +87,66 @@ internal fun funchTypography(): FunchTypography {
             fontWeight = FontWeight.Bold,
             fontSize = 22.sp,
             letterSpacing = (-0.02).em,
-            lineHeight = 28.6.sp
+            lineHeight = 28.6.sp,
+            lineHeightStyle = LineHeightStyle(
+                alignment = LineHeightStyle.Alignment.Proportional,
+                trim = LineHeightStyle.Trim.None
+            )
         ),
         t2 = TextStyle(
             fontFamily = spoqaHanSansNeo,
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
             letterSpacing = (-0.02).em,
-            lineHeight = 26.sp
+            lineHeight = 26.sp,
+            lineHeightStyle = LineHeightStyle(
+                alignment = LineHeightStyle.Alignment.Proportional,
+                trim = LineHeightStyle.Trim.None
+            )
         ),
         sbt1 = TextStyle(
             fontFamily = spoqaHanSansNeo,
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp,
             letterSpacing = (-0.02).em,
-            lineHeight = 23.4.sp
+            lineHeight = 23.4.sp,
+            lineHeightStyle = LineHeightStyle(
+                alignment = LineHeightStyle.Alignment.Proportional,
+                trim = LineHeightStyle.Trim.None
+            )
         ),
         sbt2 = TextStyle(
             fontFamily = spoqaHanSansNeo,
             fontWeight = FontWeight.Bold,
             fontSize = 16.sp,
             letterSpacing = (-0.02).sp,
-            lineHeight = 20.8.sp
+            lineHeight = 20.8.sp,
+            lineHeightStyle = LineHeightStyle(
+                alignment = LineHeightStyle.Alignment.Proportional,
+                trim = LineHeightStyle.Trim.None
+            )
         ),
         b = TextStyle(
             fontFamily = spoqaHanSansNeo,
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
             letterSpacing = (-0.03).em,
-            lineHeight = 21.sp
+            lineHeight = 21.sp,
+            lineHeightStyle = LineHeightStyle(
+                alignment = LineHeightStyle.Alignment.Proportional,
+                trim = LineHeightStyle.Trim.None
+            )
         ),
         caption = TextStyle(
             fontFamily = spoqaHanSansNeo,
             fontWeight = FontWeight.Normal,
             fontSize = 12.sp,
             letterSpacing = (-0.03).em,
-            lineHeight = 18.sp
+            lineHeight = 18.sp,
+            lineHeightStyle = LineHeightStyle(
+                alignment = LineHeightStyle.Alignment.Proportional,
+                trim = LineHeightStyle.Trim.None
+            )
         )
     )
 }
