@@ -27,10 +27,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -249,35 +246,6 @@ private fun MyProfileCard(
 
 @Composable
 private fun ProfileViewCounterCard(viewCount: Int) {
-    val annotatedString =
-        buildAnnotatedString {
-            withStyle(
-                style =
-                SpanStyle(
-                    color = Gray400,
-                    fontStyle = FunchTheme.typography.b.fontStyle,
-                    fontFamily = FunchTheme.typography.b.fontFamily,
-                    fontWeight = FunchTheme.typography.b.fontWeight,
-                    fontSize = FunchTheme.typography.b.fontSize,
-                    letterSpacing = FunchTheme.typography.b.letterSpacing,
-                ),
-            ) {
-                append(stringResource(id = R.string.profile_view_counter_caption))
-            }
-            withStyle(
-                style =
-                SpanStyle(
-                    color = White,
-                    fontStyle = FunchTheme.typography.sbt2.fontStyle,
-                    fontFamily = FunchTheme.typography.sbt2.fontFamily,
-                    fontWeight = FunchTheme.typography.sbt2.fontWeight,
-                    fontSize = FunchTheme.typography.sbt2.fontSize,
-                    letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
-                ),
-            ) {
-                append(stringResource(id = R.string.profile_view_counter_card_subtitle, viewCount))
-            }
-        }
     Row(
         modifier =
         Modifier
@@ -299,7 +267,20 @@ private fun ProfileViewCounterCard(viewCount: Int) {
             contentDescription = "",
             tint = Gray400,
         )
-        Text(text = annotatedString)
+        Column(
+            verticalArrangement = Arrangement.spacedBy(space = 2.dp)
+        ) {
+            Text(
+                text = stringResource(id = R.string.profile_view_counter_caption),
+                style = FunchTheme.typography.b,
+                color = Gray400,
+            )
+            Text(
+                text = stringResource(id = R.string.profile_view_counter_card_subtitle, viewCount),
+                style = FunchTheme.typography.sbt2,
+                color = White,
+            )
+        }
     }
 }
 

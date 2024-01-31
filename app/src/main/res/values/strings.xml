@@ -8,6 +8,6 @@
     <string name="my_code_card_caption">나의 코드</string>
     <string name="my_code">%s</string>
     <string name="my_profile_card_caption">내 프로필</string>
-    <string name="profile_view_counter_caption">내 프로필을\n</string>
+    <string name="profile_view_counter_caption">내 프로필을</string>
     <string name="profile_view_counter_card_subtitle">%d명이 조회했어요</string>
 </resources>
