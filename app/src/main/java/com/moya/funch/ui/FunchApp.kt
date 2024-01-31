@@ -31,6 +31,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.moya.funch.R
@@ -201,6 +202,10 @@ private fun CodeCard(
                     fontSize = FunchTheme.typography.sbt2.fontSize,
                     letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
                     lineHeight = FunchTheme.typography.sbt2.lineHeight,
+                    lineHeightStyle = LineHeightStyle(
+                        alignment = LineHeightStyle.Alignment.Proportional,
+                        trim = LineHeightStyle.Trim.None
+                    ),
                 ),
             )
         }
