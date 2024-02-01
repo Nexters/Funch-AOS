@@ -7,3 +7,7 @@ plugins {
 android {
     namespace = "com.moya.funch.profile"
 }
+
+dependencies {
+    implementation(projects.core.designsystem)
+}
