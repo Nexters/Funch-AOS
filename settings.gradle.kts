@@ -27,4 +27,5 @@ include(":core:datastore")
 
 // feature
 include(":feature:profile")
+include(":feature:home")
 // include(":feature:match")
