@@ -23,9 +23,5 @@ class AndroidLibraryPlugin : Plugin<Project> {
                 configureKotlinAndroid(this)
                 defaultConfig.targetSdk = libs.findVersion("targetSdk").get().requiredVersion.toInt()
             }
-
-            dependencies {
-                add("testImplementation", kotlin("test"))
-            }
         }
 }
