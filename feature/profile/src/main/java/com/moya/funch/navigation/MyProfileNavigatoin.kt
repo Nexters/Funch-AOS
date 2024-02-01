@@ -11,8 +11,7 @@ const val PROFILE_GRAPH_ROUTE = "profile_graph"
 
 fun NavController.navigateToMyProfile() = navigate(Profile.MyProfile.route)
 
-fun NavController.closeMyProfile() =
-    popBackStack() // 텍스트 필드의 값을 남기기 위해 사용
+fun NavController.closeMyProfile() = popBackStack() // 텍스트 필드의 값을 남기기 위해 사용
 
 fun NavGraphBuilder.profileGraph(
     onNavigateToHome: () -> Unit,
@@ -24,21 +23,19 @@ fun NavGraphBuilder.profileGraph(
     ) {
         composable(route = Profile.Create.route) {
             CreateProfileScreen(
-                onNavigateToHome = onNavigateToHome
+                onNavigateToHome = onNavigateToHome,
             )
         }
         composable(route = Profile.MyProfile.route) {
             MyProfileScreen(
-                onCloseMyProfile = onCloseMyProfile
+                onCloseMyProfile = onCloseMyProfile,
             )
         }
     }
 }
 
 internal sealed class Profile(val route: String) {
-
     data object MyProfile : Profile("my_profile")
 
     data object Create : Profile("create_profile")
-
 }

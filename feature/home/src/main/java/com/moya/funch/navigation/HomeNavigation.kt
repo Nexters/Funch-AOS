@@ -31,7 +31,5 @@ fun NavGraphBuilder.homeGraph(
 }
 
 internal sealed class Home(val route: String) {
-
     data object FunchHome : Home("home")
-
 }

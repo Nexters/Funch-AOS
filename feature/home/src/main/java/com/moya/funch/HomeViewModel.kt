@@ -13,48 +13,51 @@ data class HomeModel(
     val matchingCode: String,
 ) {
     companion object {
-        fun empty() = HomeModel(
-            myCode = "",
-            viewCount = 0,
-            matchingCode = ""
-        )
+        fun empty() =
+            HomeModel(
+                myCode = "",
+                viewCount = 0,
+                matchingCode = "",
+            )
     }
 }
 
 @HiltViewModel
-internal class HomeViewModel @Inject constructor(
-    // @Gun Hyung TODO : UseCase 추가
-) : ViewModel() {
-    private val _homeModel = MutableStateFlow(HomeModel.empty()) // @Gun Hyung TODO : 모델 초기화 필요
-    val homeModel = _homeModel.asStateFlow()
+internal class HomeViewModel
+    @Inject
+    constructor(
+        // @Gun Hyung TODO : UseCase 추가
+    ) : ViewModel() {
+        private val _homeModel = MutableStateFlow(HomeModel.empty()) // @Gun Hyung TODO : 모델 초기화 필요
+        val homeModel = _homeModel.asStateFlow()
 
-    init {
-        initHome()
-    }
+        init {
+            initHome()
+        }
 
-    private fun initHome() { // @Gun Hyung TODO : 도메인 완성시 init 함수 제작
-        setMyCode("u23c")
-        setViewCount(12)
-    }
+        private fun initHome() { // @Gun Hyung TODO : 도메인 완성시 init 함수 제작
+            // setMyCode("u23c")
+            // setViewCount(12)
+        }
 
-    fun setMyCode(code: String) {
-        _homeModel.value =
-            _homeModel.value.copy(
-                myCode = code.uppercase() // @Gun Hyung TODO : 도메인에서 .uppercase() 처리
-            )
-    }
+        private fun setMyCode(code: String) { // @Gun Hyung TODO : 도메인에서 .uppercase() 처리
+            _homeModel.value =
+                _homeModel.value.copy(
+                    myCode = code.uppercase(),
+                )
+        }
 
-    fun setViewCount(count: Int) {
-        _homeModel.value =
-            _homeModel.value.copy(
-                viewCount = count
-            )
-    }
+        private fun setViewCount(count: Int) {
+            _homeModel.value =
+                _homeModel.value.copy(
+                    viewCount = count,
+                )
+        }
 
-    fun setMatchingCode(code: String) {
-        _homeModel.value =
-            _homeModel.value.copy(
-                matchingCode = code.uppercase()
-            )
+        fun setMatchingCode(code: String) {
+            _homeModel.value =
+                _homeModel.value.copy(
+                    matchingCode = code.uppercase(),
+                )
+        }
     }
-}
