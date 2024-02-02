@@ -43,7 +43,7 @@ import com.moya.funch.theme.Yellow500
  * @return Composable에 그림자 효과를 적용하는 Modifier
  */
 fun Modifier.neonSign(
-    color: Color = Color.Yellow,
+    color: Color = Lemon500,
     borderRadius: Dp = 0.dp,
     blurRadius: Dp = 8.dp,
     offsetY: Dp = 0.dp,
