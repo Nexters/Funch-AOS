@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -24,36 +25,45 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.moya.funch.icon.FunchIconAsset
+import com.moya.funch.modifier.neonSign
+import com.moya.funch.theme.FunchRadiusDefaults
 import com.moya.funch.theme.FunchTheme
 import com.moya.funch.theme.Gray400
 import com.moya.funch.theme.Gray500
 import com.moya.funch.theme.Gray800
 import com.moya.funch.theme.Gray900
+import com.moya.funch.theme.Lemon500
 import com.moya.funch.theme.White
+import com.moya.funch.theme.Yellow500
 
 private val FunchChipContentMinHeight = 21.dp
 private val FunchMinHeight = 48.dp
+val MATCHED_BORDER_BRUSH = Brush.horizontalGradient(
+    listOf(Lemon500, Yellow500)
+)
 
 @Composable
 fun FunchChip(
     modifier: Modifier = Modifier,
+    matched: Boolean = false,
     selected: Boolean,
     enabled: Boolean,
     onSelected: () -> Unit = {},
-    shape: Shape = FunchTheme.shapes.medium,
+    shape: CornerBasedShape = FunchTheme.shapes.medium,
     label: @Composable () -> Unit,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
@@ -64,9 +74,23 @@ fun FunchChip(
     Row(
         modifier = modifier
             .defaultMinSize(minHeight = FunchMinHeight)
-            .clip(shape)
+            .then(
+                if (matched) {
+                    Modifier.neonSign(
+                        borderRadius = FunchRadiusDefaults.Medium,
+                        blurRadius = 5.dp,
+                        spread = PaddingValues((-1).dp)
+                    )
+                } else Modifier
+            )
             .background(
                 color = colors.provideContainerColor(enabled, selected),
+                shape = shape
+            )
+            .then(
+                if (matched) {
+                    Modifier.border(1.dp, MATCHED_BORDER_BRUSH, shape)
+                } else Modifier
             )
             .selectable(
                 selected = selected,
@@ -138,7 +162,9 @@ data class PunchChipColors(
     private val selectedLabelColor: Color = White,
     private val disabledLabelColor: Color = Gray400,
     private val disabledSelectedLabelColor: Color = White,
+    // private val
 ) {
+    @Stable
     fun provideContainerColor(enabled: Boolean, selected: Boolean): Color {
         return when {
             enabled && selected -> selectedContainerColor
@@ -148,6 +174,7 @@ data class PunchChipColors(
         }
     }
 
+    @Stable
     fun provideLabelColor(enabled: Boolean, selected: Boolean): Color {
         return when {
             enabled && selected -> selectedLabelColor
@@ -158,15 +185,18 @@ data class PunchChipColors(
     }
 }
 
+/**
+ * Preview
+ * */
 @Preview(
-    name = "FunchChip - Chip with leading and trailing icon",
-    showBackground = true
+    name = "FunchChip - Chip with leading and trailing icon", showBackground = true
 )
 @Composable
 private fun Preview1() {
     FunchTheme {
         val isSelected = remember { mutableStateOf(false) }
         val onSelected = { isSelected.value = !isSelected.value }
+
         FunchChip(
             selected = isSelected.value,
             enabled = true,
@@ -199,8 +229,7 @@ private fun Preview2() {
 
 @Composable
 @Preview(
-    name = "FunchChip - Chip with trailing icon",
-    showBackground = true
+    name = "FunchChip - Chip with trailing icon", showBackground = true
 )
 private fun Preview3() {
     FunchTheme {
@@ -217,13 +246,12 @@ private fun Preview3() {
 }
 
 @Preview(
-    name = "FunchChip - non interactive",
-    showBackground = true
+    name = "FunchChip - non interactive", showBackground = true
 )
 @Composable
 private fun Preview4() {
     FunchTheme {
-        Column {
+        Column(Modifier.background(Gray900)) {
             Spacer(modifier = Modifier.size(12.dp))
 
             FunchChip(
@@ -236,6 +264,28 @@ private fun Preview4() {
 
             FunchChip(
                 selected = true,
+                enabled = false,
+                leadingIcon = { LeadingIconForPreview() },
+                label = { Text(text = "안뇽") },
+            )
+        }
+    }
+}
+
+@Preview(
+    name = "FunchChip - matched", showBackground = true
+)
+@Composable
+private fun Preview5() {
+    FunchTheme {
+        Column(
+            Modifier
+                .background(Gray900)
+                .padding(10.dp)
+        ) {
+            FunchChip(
+                matched = true,
+                selected = false,
                 enabled = false,
                 leadingIcon = { LeadingIconForPreview() },
                 label = { Text(text = "안뇽") },
