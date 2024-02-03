@@ -1,11 +1,14 @@
 package com.moya.funch.datastore
 
-abstract class UserCodeDataStore {
+interface UserCodeDataStore {
 
-    abstract var userId: String
-    abstract var userCode: String
+    var userId: String
+    var userCode: String
+    var deviceId: String
 
-    abstract fun hasUserCode(): Boolean
+    fun hasUserCode(): Boolean
 
-    abstract fun clear()
+    fun hasUserId(): Boolean
+
+    fun clear()
 }

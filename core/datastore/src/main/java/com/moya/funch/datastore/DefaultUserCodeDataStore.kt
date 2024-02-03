@@ -14,11 +14,11 @@ import javax.inject.Singleton
 class DefaultUserCodeDataStore @Inject constructor(
     private val preferences: SharedPreferences,
     @ApplicationContext private val context: Context,
-) : UserCodeDataStore() {
+) : UserCodeDataStore {
 
-    override var userId: String
+    override var deviceId: String
         get() {
-            initUserId()
+            initDeviceId()
             return preferences.getString(DEVICE_ID, "").orEmpty()
         }
         set(value) {
@@ -27,7 +27,7 @@ class DefaultUserCodeDataStore @Inject constructor(
             }
         }
 
-    private fun initUserId() {
+    private fun initDeviceId() {
         if (preferences.contains(DEVICE_ID).not()) {
             userId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         }
@@ -40,9 +40,20 @@ class DefaultUserCodeDataStore @Inject constructor(
                 putString(USER_CODE, value)
             }
         }
+    override var userId: String
+        get() = preferences.getString(USER_ID, "").orEmpty()
+        set(value) {
+            preferences.edit(commit = true) {
+                putString(USER_ID, value)
+            }
+        }
 
     override fun hasUserCode(): Boolean {
         return preferences.contains(USER_CODE)
+    }
+
+    override fun hasUserId(): Boolean {
+        return preferences.contains(USER_ID)
     }
 
     override fun clear() {
@@ -54,5 +65,6 @@ class DefaultUserCodeDataStore @Inject constructor(
     private companion object {
         const val DEVICE_ID = "DEVICE_ID"
         const val USER_CODE = "USER_CODE"
+        const val USER_ID = "USER_ID"
     }
 }
