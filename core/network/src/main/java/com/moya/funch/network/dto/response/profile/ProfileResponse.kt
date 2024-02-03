@@ -13,8 +13,8 @@ data class ProfileResponse(
     val clubs: List<String> = listOf(),
     @SerialName("mbti")
     val mbti: String = "",
-    @SerialName("constellation")
-    val constellation: String = "",
+    @SerialName("bloodType")
+    val bloodType: String = "",
     @SerialName("subwayNames")
     val subwayNames: List<String> = listOf(),
 )
