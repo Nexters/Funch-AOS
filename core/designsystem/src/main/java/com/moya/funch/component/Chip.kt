@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
@@ -77,12 +78,14 @@ fun FunchChip(
             .then(
                 if (matched) {
                     Modifier
+                        .sizeIn()
                         .neonSign(
+                            color = Lemon500.copy(alpha = 0.6f),
                             borderRadius = FunchRadiusDefaults.Medium,
                             blurRadius = 5.dp,
                             spread = PaddingValues((-1).dp)
                         )
-                    .border(1.dp, MATCHED_BORDER_BRUSH, shape)
+                        .border(1.dp, MATCHED_BORDER_BRUSH, shape)
                 } else Modifier
             )
             .background(
@@ -103,7 +106,7 @@ fun FunchChip(
             labelColor = colors.provideLabelColor(enabled, selected),
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon,
-            paddingValues = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+            paddingValues = PaddingValues(vertical = 4.dp)
         )
     }
 }
@@ -280,13 +283,14 @@ private fun Preview5() {
                 .background(Gray900)
                 .padding(10.dp)
         ) {
-            FunchChip(
-                matched = true,
-                selected = false,
-                enabled = false,
-                leadingIcon = { LeadingIconForPreview() },
-                label = { Text(text = "안뇽") },
-            )
+            Column {
+                FunchChip(
+                    matched = true,
+                    selected = true,
+                    enabled = false,
+                    label = { Text(text = "Text", color = White, style = FunchTheme.typography.b) },
+                )
+            }
         }
     }
 }
