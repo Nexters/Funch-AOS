@@ -76,21 +76,18 @@ fun FunchChip(
             .defaultMinSize(minHeight = FunchMinHeight)
             .then(
                 if (matched) {
-                    Modifier.neonSign(
-                        borderRadius = FunchRadiusDefaults.Medium,
-                        blurRadius = 5.dp,
-                        spread = PaddingValues((-1).dp)
-                    )
+                    Modifier
+                        .neonSign(
+                            borderRadius = FunchRadiusDefaults.Medium,
+                            blurRadius = 5.dp,
+                            spread = PaddingValues((-1).dp)
+                        )
+                    .border(1.dp, MATCHED_BORDER_BRUSH, shape)
                 } else Modifier
             )
             .background(
                 color = colors.provideContainerColor(enabled, selected),
                 shape = shape
-            )
-            .then(
-                if (matched) {
-                    Modifier.border(1.dp, MATCHED_BORDER_BRUSH, shape)
-                } else Modifier
             )
             .selectable(
                 selected = selected,
