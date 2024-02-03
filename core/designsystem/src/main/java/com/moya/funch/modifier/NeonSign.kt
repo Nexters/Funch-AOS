@@ -106,7 +106,8 @@ private fun ShadowPreview() {
                     .clip(RoundedCornerShape(size = 16.dp))
                     .background(
                         brush
-                    ),
+                    )
+                    ,
                 contentAlignment = Alignment.Center
             ) {
                 Text(
