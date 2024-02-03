@@ -18,7 +18,7 @@ fun FunchNavHost(
             onNavigateToHome = navController::navigateToHome,
             onCloseMyProfile = navController::closeMyProfile,
         )
-        homeGraph(
+        homeScreen(
             onNavigateToMatching = { /* @Gun Hyung TODO : 매칭 라우터 연결 */ },
             onNavigateToMyProfile = navController::navigateToMyProfile,
         )
@@ -26,5 +26,5 @@ fun FunchNavHost(
 }
 
 private fun determineStartDestination(hasProfile: Boolean): String {
-    return if (hasProfile) HOME_GRAPH_ROUTE else PROFILE_GRAPH_ROUTE
+    return if (hasProfile) HOME_ROUTE else PROFILE_GRAPH_ROUTE
 }
