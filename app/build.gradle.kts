@@ -37,6 +37,7 @@ dependencies {
     implementation(projects.core.network) // @murjune TODO : 삭제
     // feature
     implementation(projects.feature.profile)
+    implementation(projects.feature.home)
 //    implementation(projects.feature.match)
 
 //    implementation(libs.coil.core)

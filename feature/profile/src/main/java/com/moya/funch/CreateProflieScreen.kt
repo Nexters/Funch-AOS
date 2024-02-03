@@ -8,15 +8,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun MyProfileScreen(onCloseMyProfile: () -> Unit) {
+fun CreateProfileScreen(onNavigateToHome: () -> Unit) {
     Column {
         Text(
-            text = "내 프로필 화면",
+            text = "프로필 생성 화면",
             fontSize = 12.sp,
             color = Color.White,
         )
-        Button(onClick = onCloseMyProfile) {
-            Text(text = "홈으로 가기")
+        Button(onClick = onNavigateToHome) {
+            Text(text = "프로필 생성")
         }
     }
 }
