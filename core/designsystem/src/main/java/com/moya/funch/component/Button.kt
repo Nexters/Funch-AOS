@@ -98,7 +98,9 @@ fun FunchMainButton(
         modifier = modifier
             .then(
                 if (enabled) Modifier.neonSign(
-                    color = Lemon500, borderRadius = 16.dp
+                    color = Lemon500.copy(alpha = 0.7f), borderRadius = 16.dp,
+                    blurRadius = 5.dp,
+                    spread = PaddingValues(top = (-4).dp, start = 0.dp, end = 0.dp, bottom = 4.dp),
                 ) else Modifier
             )
             .clip(shape = shape)
