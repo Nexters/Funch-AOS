@@ -82,7 +82,7 @@ fun FunchChip(
             labelColor = colors.provideLabelColor(enabled, selected),
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon,
-            paddingValues = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+            paddingValues = PaddingValues(vertical = 4.dp)
         )
     }
 }
