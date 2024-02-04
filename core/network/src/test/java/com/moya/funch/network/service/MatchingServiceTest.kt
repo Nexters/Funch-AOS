@@ -58,12 +58,12 @@ internal class MatchingServiceTest {
                         MatchingResponse(
                             profile =
                                 ProfileResponse(
-                                    "aaa",
-                                    "안드로이드",
-                                    listOf(),
-                                    "ENFJ",
-                                    "전갈자리",
-                                    listOf(),
+                                    name = "aaa",
+                                    jobGroup = "개발자",
+                                    clubs = listOf("DEPROMEET"),
+                                    mbti = "ENFJ",
+                                    bloodType = "AB",
+                                    subwayNames = listOf(),
                                 ),
                             similarity = 40,
                             chemistryInfos =
