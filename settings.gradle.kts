@@ -24,7 +24,7 @@ include(":core:designsystem")
 include(":core:testing")
 include(":core:network")
 include(":core:datastore")
-
+include(":core:data")
 // feature
 include(":feature:profile")
 include(":feature:home")
