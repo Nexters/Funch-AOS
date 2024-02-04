@@ -1,6 +1,6 @@
 package com.moya.funch.entity.match
 
-data class Chemistry(
+data class 름Chemistry(
     val title: String,
     val description: String,
 )
