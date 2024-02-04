@@ -7,31 +7,38 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.moya.funch.theme.FunchTheme
 import com.moya.funch.theme.Gray400
 import com.moya.funch.theme.Gray800
+import com.moya.funch.ui.Profile
+import com.moya.funch.ui.UsersDistinct
 
 @Composable
 internal fun MyProfileRoute(
-    onCloseMyProfile: () -> Unit
+    viewModel: MyProfileViewModel = hiltViewModel(),
+    onCloseMyProfile: () -> Unit,
 ) {
+    val profile = viewModel.profile.collectAsState().value
+
     MyProfileScreen(
-        onCloseMyProfile = onCloseMyProfile
+        onCloseMyProfile = onCloseMyProfile,
+        profile = profile
     )
 }
 
 @Composable
 fun MyProfileScreen(
-    onCloseMyProfile: () -> Unit
+    onCloseMyProfile: () -> Unit,
+    profile: Profile,
 ) {
     Box(
         modifier = Modifier
@@ -56,41 +63,33 @@ fun MyProfileScreen(
                 )
         ) {
             Text(
-                text = "{user_code}",
+                text = profile.code,
                 style = FunchTheme.typography.b,
                 color = Gray400,
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
-                text = "{user_name}",
+                text = profile.name,
                 style = FunchTheme.typography.t2,
                 color = Color.White,
             )
             Spacer(modifier = Modifier.height(20.dp))
-            Column {
-                UsersDistinct()
-            }
+            UsersDistinct(profile = profile)
         }
     }
 }
-
-@Composable
-private fun UsersDistinct() {
-
-}
-
-
 
 @Preview(
     showBackground = true,
     widthDp = 360,
     heightDp = 640,
-    )
+)
 @Composable
 private fun Preview1() {
     FunchTheme {
         MyProfileScreen(
-            onCloseMyProfile = {}
+            onCloseMyProfile = {},
+            profile = Profile.default()
         )
     }
 }
