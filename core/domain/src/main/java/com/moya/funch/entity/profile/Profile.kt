@@ -4,6 +4,7 @@ import com.moya.funch.entity.Blood
 import com.moya.funch.entity.Club
 import com.moya.funch.entity.Job
 import com.moya.funch.entity.Mbti
+import com.moya.funch.entity.SubwayStation
 
 data class Profile(
     val id: String = "",
@@ -13,5 +14,5 @@ data class Profile(
     val clubs: List<Club> = emptyList(),
     val mbti: Mbti = Mbti.IDLE,
     val blood: Blood = Blood.IDLE,
-    val subwayNames: List<String> = emptyList(),
+    val subways: List<SubwayStation> = emptyList(),
 )

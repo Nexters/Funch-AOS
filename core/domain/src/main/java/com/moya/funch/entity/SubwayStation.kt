@@ -16,7 +16,6 @@ enum class SubwayLine {
     EIGHT,
     NINE,
     AIRPORT,
-    BUNDANG,
     EVERLINE,
     GYEONGCHUN,
     GYEONGUI,
