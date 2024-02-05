@@ -6,6 +6,12 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.dp
 
+object FunchRadiusDefaults {
+    val Small = 12.dp
+    val Medium = 16.dp
+    val Large = 20.dp
+}
+
 object FunchShapeDefaults {
     val ExtraSmall = RoundedCornerShape(10.dp)
     val Small = RoundedCornerShape(12.dp)

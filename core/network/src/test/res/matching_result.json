@@ -4,10 +4,10 @@
   "data": {
     "profile": {
       "name": "aaa",
-      "jobGroup": "안드로이드",
-      "clubs": [],
+      "jobGroup": "개발자",
+      "clubs": ["DEPROMEET"],
       "mbti": "ENFJ",
-      "constellation": "전갈자리",
+      "bloodType": "AB",
       "subwayNames": []
     },
     "similarity": 40,
