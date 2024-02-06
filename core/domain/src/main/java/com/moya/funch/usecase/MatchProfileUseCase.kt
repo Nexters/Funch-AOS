@@ -4,7 +4,7 @@ import com.moya.funch.entity.match.Matching
 import com.moya.funch.repository.MatchingRepository
 import javax.inject.Inject
 
-class DefaultMatchProfileUseCase
+class MatchProfileUseCaseImpl
     @Inject
     constructor(
         private val matchingRepository: MatchingRepository,
