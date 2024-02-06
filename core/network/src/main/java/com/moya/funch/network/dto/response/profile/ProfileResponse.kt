@@ -16,5 +16,5 @@ data class ProfileResponse(
     @SerialName("bloodType")
     val bloodType: String = "",
     @SerialName("subwayNames")
-    val subwayNames: List<String> = listOf(),
+    val subwayNames: List<String> = listOf()
 )

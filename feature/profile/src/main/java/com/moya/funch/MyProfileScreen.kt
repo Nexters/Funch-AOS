@@ -13,7 +13,7 @@ fun MyProfileScreen(onCloseMyProfile: () -> Unit) {
         Text(
             text = "내 프로필 화면",
             fontSize = 12.sp,
-            color = Color.White,
+            color = Color.White
         )
         Button(onClick = onCloseMyProfile) {
             Text(text = "홈으로 가기")

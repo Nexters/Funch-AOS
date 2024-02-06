@@ -49,41 +49,40 @@ fun Modifier.neonSign(
     offsetY: Dp = 0.dp,
     offsetX: Dp = 0.dp,
     spread: PaddingValues = PaddingValues(top = (-2).dp, start = 0.dp, end = 0.dp, bottom = 2.dp),
-    modifier: Modifier = Modifier,
-): Modifier =
-    this.then(
-        modifier.drawBehind {
-            this.drawIntoCanvas { canvas ->
-                val spreadLeft = spread.calculateLeftPadding(LayoutDirection.Ltr).toPx()
-                val spreadRight = spread.calculateRightPadding(LayoutDirection.Ltr).toPx()
-                val spreadTop = spread.calculateTopPadding().toPx()
-                val spreadBottom = spread.calculateBottomPadding().toPx()
+    modifier: Modifier = Modifier
+): Modifier = this.then(
+    modifier.drawBehind {
+        this.drawIntoCanvas { canvas ->
+            val spreadLeft = spread.calculateLeftPadding(LayoutDirection.Ltr).toPx()
+            val spreadRight = spread.calculateRightPadding(LayoutDirection.Ltr).toPx()
+            val spreadTop = spread.calculateTopPadding().toPx()
+            val spreadBottom = spread.calculateBottomPadding().toPx()
 
-                val left = (0f + offsetX.toPx()) - spreadLeft
-                val top = (0f + offsetY.toPx()) - spreadTop
-                val right = (size.width + offsetX.toPx()) + spreadRight
-                val bottom = (size.height + offsetY.toPx()) + spreadBottom
-                val paint =
-                    Paint().apply {
-                        val nativePaint = asFrameworkPaint()
-                        if (blurRadius != 0.dp) {
-                            nativePaint.maskFilter = (BlurMaskFilter(blurRadius.toPx(), BlurMaskFilter.Blur.NORMAL))
-                        }
-                        nativePaint.color = color.toArgb()
+            val left = (0f + offsetX.toPx()) - spreadLeft
+            val top = (0f + offsetY.toPx()) - spreadTop
+            val right = (size.width + offsetX.toPx()) + spreadRight
+            val bottom = (size.height + offsetY.toPx()) + spreadBottom
+            val paint =
+                Paint().apply {
+                    val nativePaint = asFrameworkPaint()
+                    if (blurRadius != 0.dp) {
+                        nativePaint.maskFilter = (BlurMaskFilter(blurRadius.toPx(), BlurMaskFilter.Blur.NORMAL))
                     }
+                    nativePaint.color = color.toArgb()
+                }
 
-                canvas.drawRoundRect(
-                    left = left,
-                    top = top,
-                    right = right,
-                    bottom = bottom,
-                    radiusX = borderRadius.toPx(),
-                    radiusY = borderRadius.toPx(),
-                    paint,
-                )
-            }
-        },
-    )
+            canvas.drawRoundRect(
+                left = left,
+                top = top,
+                right = right,
+                bottom = bottom,
+                radiusX = borderRadius.toPx(),
+                radiusY = borderRadius.toPx(),
+                paint
+            )
+        }
+    }
+)
 
 @Preview(showBackground = true)
 @Composable
@@ -93,30 +92,30 @@ private fun ShadowPreview() {
         Column(
             Modifier
                 .size(width = 360.dp, height = 114.dp)
-                .background(Color.Black),
+                .background(Color.Black)
         ) {
             Box(
                 modifier =
-                    Modifier
-                        .padding(16.dp)
-                        .padding(horizontal = 4.dp)
-                        .neonSign(
-                            color = Lemon500,
-                            blurRadius = 20.dp,
-                            borderRadius = 16.dp,
-                        )
-                        .size(320.dp, 64.dp)
-                        .clip(RoundedCornerShape(size = 16.dp))
-                        .background(
-                            brush,
-                        ),
-                contentAlignment = Alignment.Center,
+                Modifier
+                    .padding(16.dp)
+                    .padding(horizontal = 4.dp)
+                    .neonSign(
+                        color = Lemon500,
+                        blurRadius = 20.dp,
+                        borderRadius = 16.dp
+                    )
+                    .size(320.dp, 64.dp)
+                    .clip(RoundedCornerShape(size = 16.dp))
+                    .background(
+                        brush
+                    ),
+                contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = "Button",
                     style = FunchTheme.typography.sbt1,
                     color = Gray900,
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Center
                 )
             }
         }

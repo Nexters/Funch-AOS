@@ -31,11 +31,7 @@ object FunchTheme {
 }
 
 @Composable
-fun ProvideFunchProperty(
-    colors: FunchColorSchema,
-    typography: FunchTypography,
-    content: @Composable () -> Unit,
-) {
+fun ProvideFunchProperty(colors: FunchColorSchema, typography: FunchTypography, content: @Composable () -> Unit) {
     val provideColors = remember { colors.copy() }
     provideColors.update(colors)
     val provideTypography = remember { typography.copy() }
@@ -45,7 +41,7 @@ fun ProvideFunchProperty(
         LocalFunchColors provides provideColors,
         LocalFunchTypography provides provideTypography,
         LocalFunchShapes provides provideShape,
-        content = content,
+        content = content
     )
 }
 
@@ -59,7 +55,7 @@ fun FunchTheme(content: @Composable () -> Unit) {
 
     CompositionLocalProvider(
         LocalGradientColors provides gradientColors,
-        LocalBackgroundTheme provides backgroundTheme,
+        LocalBackgroundTheme provides backgroundTheme
     ) {
         ProvideFunchProperty(colors, typography) {
             MaterialTheme(content = content)
@@ -74,22 +70,22 @@ private fun NiaThemePreview() {
     FunchTheme {
         val color = LocalBackgroundTheme.current.color
         Surface(
-            color = color,
+            color = color
         ) {
             Column {
                 Text(
                     text = "Hello, Funch!",
                     color = FunchTheme.colors.white,
-                    style = FunchTheme.typography.t1,
+                    style = FunchTheme.typography.t1
                 )
                 Text(
                     text = "Hello, Funch!",
                     color = FunchTheme.colors.white,
-                    style = FunchTheme.typography.sbt1,
+                    style = FunchTheme.typography.sbt1
                 )
                 Button(
                     onClick = { /*TODO*/ },
-                    shape = FunchTheme.shapes.small,
+                    shape = FunchTheme.shapes.small
                 ) {
                     Text(text = "Button")
                 }

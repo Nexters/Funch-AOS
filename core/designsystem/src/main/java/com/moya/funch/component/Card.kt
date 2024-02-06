@@ -28,21 +28,21 @@ private fun FunchNeonSignCard(
     modifier: Modifier = Modifier,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
-    content: @Composable ColumnScope.() -> Unit,
+    content: @Composable ColumnScope.() -> Unit
 ) {
     val brush =
         Brush.verticalGradient(
             0.1f to Lemon500,
-            0.8f to Gray700,
+            0.8f to Gray700
         )
     Column(
         modifier =
-            modifier
-                .background(Gray800, shape = FunchTheme.shapes.large)
-                .border(1.dp, brush, FunchTheme.shapes.large)
-                .clip(FunchTheme.shapes.large),
+        modifier
+            .background(Gray800, shape = FunchTheme.shapes.large)
+            .border(1.dp, brush, FunchTheme.shapes.large)
+            .clip(FunchTheme.shapes.large),
         verticalArrangement = verticalArrangement,
-        horizontalAlignment = horizontalAlignment,
+        horizontalAlignment = horizontalAlignment
     ) {
         content()
     }
@@ -53,20 +53,20 @@ private fun FunchNeonSignCard(
     showBackground = true,
     widthDp = 360,
     heightDp = 640,
-    name = "FunchNeonSignCard",
+    name = "FunchNeonSignCard"
 )
 private fun Preview() {
     FunchTheme {
         Column(
             modifier =
-                Modifier
-                    .background(Gray900)
-                    .padding(60.dp),
+            Modifier
+                .background(Gray900)
+                .padding(60.dp)
         ) {
             FunchNeonSignCard(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
+                verticalArrangement = Arrangement.Center
             ) {
                 Text(text = "우리가 누구?", color = Color.White)
                 Text(text = "다이나믹 듀오~~", color = Color.White)

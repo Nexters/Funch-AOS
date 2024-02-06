@@ -5,5 +5,5 @@ enum class Blood {
     B,
     AB,
     O,
-    IDLE,
+    IDLE
 }

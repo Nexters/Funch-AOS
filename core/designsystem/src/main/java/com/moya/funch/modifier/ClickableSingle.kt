@@ -23,28 +23,27 @@ fun Modifier.clickableSingle(
     onClickLabel: String? = null,
     role: Role? = null,
     interactionSource: MutableInteractionSource? = null,
-    onClick: () -> Unit,
-): Modifier =
-    composed(
-        inspectorInfo =
-            debugInspectorInfo {
-                name = "clickable"
-                properties["enabled"] = enabled
-                properties["onClickLabel"] = onClickLabel
-                properties["role"] = role
-                properties["onClick"] = onClick
-            },
-    ) {
-        val manager: SingleEventHandler = remember { DefaultSingleEventHandler() }
-        Modifier.clickable(
-            enabled = enabled,
-            onClickLabel = onClickLabel,
-            onClick = { manager.handle { onClick() } },
-            role = role,
-            indication = LocalIndication.current,
-            interactionSource = interactionSource ?: remember { MutableInteractionSource() },
-        )
+    onClick: () -> Unit
+): Modifier = composed(
+    inspectorInfo =
+    debugInspectorInfo {
+        name = "clickable"
+        properties["enabled"] = enabled
+        properties["onClickLabel"] = onClickLabel
+        properties["role"] = role
+        properties["onClick"] = onClick
     }
+) {
+    val manager: SingleEventHandler = remember { DefaultSingleEventHandler() }
+    Modifier.clickable(
+        enabled = enabled,
+        onClickLabel = onClickLabel,
+        onClick = { manager.handle { onClick() } },
+        role = role,
+        indication = LocalIndication.current,
+        interactionSource = interactionSource ?: remember { MutableInteractionSource() }
+    )
+}
 
 fun interface SingleEventHandler {
     fun handle(event: () -> Unit)

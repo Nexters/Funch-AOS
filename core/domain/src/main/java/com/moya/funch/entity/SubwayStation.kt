@@ -2,7 +2,7 @@ package com.moya.funch.entity
 
 data class SubwayStation(
     val name: String = "",
-    val lines: List<SubwayLine> = emptyList(),
+    val lines: List<SubwayLine> = emptyList()
 )
 
 enum class SubwayLine {
@@ -20,5 +20,5 @@ enum class SubwayLine {
     GYEONGCHUN,
     GYEONGUI,
     SINBUNDANG,
-    SUIN,
+    SUIN
 }

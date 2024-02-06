@@ -59,7 +59,7 @@ fun FunchDefaultTextField(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     isFocus: Boolean = interactionSource.collectIsFocusedAsState().value,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
     BasicTextField(
         modifier = modifier,
@@ -67,13 +67,13 @@ fun FunchDefaultTextField(
         onValueChange = onValueChange,
         singleLine = true,
         textStyle =
-            TextStyle(
-                color = White,
-                fontSize = FunchTheme.typography.b.fontSize,
-                lineHeight = FunchTheme.typography.b.lineHeight,
-                fontFamily = FunchTheme.typography.b.fontFamily,
-                fontWeight = FunchTheme.typography.b.fontWeight,
-            ),
+        TextStyle(
+            color = White,
+            fontSize = FunchTheme.typography.b.fontSize,
+            lineHeight = FunchTheme.typography.b.lineHeight,
+            fontFamily = FunchTheme.typography.b.fontFamily,
+            fontWeight = FunchTheme.typography.b.fontWeight
+        ),
         cursorBrush = SolidColor(Color(0xFF0074FF)),
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
@@ -81,41 +81,41 @@ fun FunchDefaultTextField(
         decorationBox = { innerTextField ->
             Box(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .height(56.dp)
-                        .background(Gray800, RoundedCornerShape(16.dp))
-                        .then(
-                            if (isFocus) {
-                                Modifier.border(
-                                    width = 1.dp,
-                                    color = Color.White,
-                                    shape = RoundedCornerShape(16.dp),
-                                )
-                            } else if (isError) {
-                                Modifier.border(
-                                    width = 1.dp,
-                                    color = Coral500,
-                                    shape = RoundedCornerShape(16.dp),
-                                )
-                            } else {
-                                Modifier
-                            },
-                        )
-                        .padding(horizontal = 16.dp),
-                contentAlignment = Alignment.CenterStart,
+                Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .background(Gray800, RoundedCornerShape(16.dp))
+                    .then(
+                        if (isFocus) {
+                            Modifier.border(
+                                width = 1.dp,
+                                color = Color.White,
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                        } else if (isError) {
+                            Modifier.border(
+                                width = 1.dp,
+                                color = Coral500,
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                        } else {
+                            Modifier
+                        }
+                    )
+                    .padding(horizontal = 16.dp),
+                contentAlignment = Alignment.CenterStart
             ) {
                 if (value.isEmpty()) {
                     Text(
                         text = hint,
                         color = Gray400,
                         fontSize = 14.sp,
-                        style = FunchTheme.typography.b,
+                        style = FunchTheme.typography.b
                     )
                 }
                 innerTextField()
             }
-        },
+        }
     )
 }
 
@@ -130,7 +130,7 @@ fun FunchMaxLengthTextField(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     isFocus: Boolean = interactionSource.collectIsFocusedAsState().value,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
     BasicTextField(
         modifier = modifier,
@@ -138,13 +138,13 @@ fun FunchMaxLengthTextField(
         onValueChange = onValueChange,
         singleLine = true,
         textStyle =
-            TextStyle(
-                color = White,
-                fontSize = FunchTheme.typography.b.fontSize,
-                lineHeight = FunchTheme.typography.b.lineHeight,
-                fontFamily = FunchTheme.typography.b.fontFamily,
-                fontWeight = FunchTheme.typography.b.fontWeight,
-            ),
+        TextStyle(
+            color = White,
+            fontSize = FunchTheme.typography.b.fontSize,
+            lineHeight = FunchTheme.typography.b.lineHeight,
+            fontFamily = FunchTheme.typography.b.fontFamily,
+            fontWeight = FunchTheme.typography.b.fontWeight
+        ),
         cursorBrush = SolidColor(Color(0xFF0074FF)),
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
@@ -152,30 +152,30 @@ fun FunchMaxLengthTextField(
         decorationBox = { innerTextField ->
             Row(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .height(56.dp)
-                        .background(Gray800, RoundedCornerShape(16.dp))
-                        .then(
-                            if (isFocus) {
-                                Modifier.border(
-                                    width = 1.dp,
-                                    color = Color.White,
-                                    shape = RoundedCornerShape(16.dp),
-                                )
-                            } else if (isError) {
-                                Modifier.border(
-                                    width = 1.dp,
-                                    color = Coral500,
-                                    shape = RoundedCornerShape(16.dp),
-                                )
-                            } else {
-                                Modifier
-                            },
-                        )
-                        .padding(horizontal = 16.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .background(Gray800, RoundedCornerShape(16.dp))
+                    .then(
+                        if (isFocus) {
+                            Modifier.border(
+                                width = 1.dp,
+                                color = Color.White,
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                        } else if (isError) {
+                            Modifier.border(
+                                width = 1.dp,
+                                color = Coral500,
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                        } else {
+                            Modifier
+                        }
+                    )
+                    .padding(horizontal = 16.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Box {
                     if (value.isEmpty()) {
@@ -183,7 +183,7 @@ fun FunchMaxLengthTextField(
                             text = hint,
                             color = Gray400,
                             fontSize = 14.sp,
-                            style = FunchTheme.typography.b,
+                            style = FunchTheme.typography.b
                         )
                     }
                     innerTextField()
@@ -191,21 +191,21 @@ fun FunchMaxLengthTextField(
 
                 Text(
                     text =
-                        annotatedStringMaxLengthType(
-                            isError = isError,
-                            value = value,
-                            maxLength = maxLength,
-                        ),
+                    annotatedStringMaxLengthType(
+                        isError = isError,
+                        value = value,
+                        maxLength = maxLength
+                    ),
                     style =
-                        TextStyle(
-                            fontSize = 14.sp,
-                            lineHeight = FunchTheme.typography.b.lineHeight,
-                            fontFamily = FunchTheme.typography.b.fontFamily,
-                            fontWeight = FunchTheme.typography.b.fontWeight,
-                        ),
+                    TextStyle(
+                        fontSize = 14.sp,
+                        lineHeight = FunchTheme.typography.b.lineHeight,
+                        fontFamily = FunchTheme.typography.b.fontFamily,
+                        fontWeight = FunchTheme.typography.b.fontWeight
+                    )
                 )
             }
-        },
+        }
     )
 }
 
@@ -220,7 +220,7 @@ fun FunchIconTextField(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     isFocus: Boolean = interactionSource.collectIsFocusedAsState().value,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
     BasicTextField(
         modifier = modifier,
@@ -228,13 +228,13 @@ fun FunchIconTextField(
         onValueChange = onValueChange,
         singleLine = true,
         textStyle =
-            TextStyle(
-                color = White,
-                fontSize = FunchTheme.typography.b.fontSize,
-                lineHeight = FunchTheme.typography.b.lineHeight,
-                fontFamily = FunchTheme.typography.b.fontFamily,
-                fontWeight = FunchTheme.typography.b.fontWeight,
-            ),
+        TextStyle(
+            color = White,
+            fontSize = FunchTheme.typography.b.fontSize,
+            lineHeight = FunchTheme.typography.b.lineHeight,
+            fontFamily = FunchTheme.typography.b.fontFamily,
+            fontWeight = FunchTheme.typography.b.fontWeight
+        ),
         cursorBrush = SolidColor(Color(0xFF0074FF)),
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
@@ -242,34 +242,34 @@ fun FunchIconTextField(
         decorationBox = { innerTextField ->
             Row(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .height(56.dp)
-                        .background(Gray800, RoundedCornerShape(16.dp))
-                        .then(
-                            if (isFocus) {
-                                Modifier.border(
-                                    width = 1.dp,
-                                    color = Color.White,
-                                    shape = RoundedCornerShape(16.dp),
-                                )
-                            } else if (isError) {
-                                Modifier.border(
-                                    width = 1.dp,
-                                    color = Coral500,
-                                    shape = RoundedCornerShape(16.dp),
-                                )
-                            } else {
-                                Modifier
-                            },
-                        )
-                        .padding(horizontal = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
+                Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .background(Gray800, RoundedCornerShape(16.dp))
+                    .then(
+                        if (isFocus) {
+                            Modifier.border(
+                                width = 1.dp,
+                                color = Color.White,
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                        } else if (isError) {
+                            Modifier.border(
+                                width = 1.dp,
+                                color = Coral500,
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                        } else {
+                            Modifier
+                        }
+                    )
+                    .padding(horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     painter = painterResource(id = iconType.resId),
                     contentDescription = iconType.description,
-                    tint = iconType.tint,
+                    tint = iconType.tint
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Box {
@@ -278,13 +278,13 @@ fun FunchIconTextField(
                             text = hint,
                             color = Gray400,
                             fontSize = 14.sp,
-                            style = FunchTheme.typography.b,
+                            style = FunchTheme.typography.b
                         )
                     }
                     innerTextField()
                 }
             }
-        },
+        }
     )
 }
 
@@ -298,7 +298,7 @@ fun FunchButtonTextField(
     iconButton: @Composable () -> Unit,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
     BasicTextField(
         modifier = modifier,
@@ -306,13 +306,13 @@ fun FunchButtonTextField(
         onValueChange = onValueChange,
         singleLine = true,
         textStyle =
-            TextStyle(
-                color = White,
-                fontSize = FunchTheme.typography.b.fontSize,
-                lineHeight = FunchTheme.typography.b.lineHeight,
-                fontFamily = FunchTheme.typography.b.fontFamily,
-                fontWeight = FunchTheme.typography.b.fontWeight,
-            ),
+        TextStyle(
+            color = White,
+            fontSize = FunchTheme.typography.b.fontSize,
+            lineHeight = FunchTheme.typography.b.lineHeight,
+            fontFamily = FunchTheme.typography.b.fontFamily,
+            fontWeight = FunchTheme.typography.b.fontWeight
+        ),
         cursorBrush = SolidColor(Color(0xFF0074FF)),
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
@@ -320,13 +320,13 @@ fun FunchButtonTextField(
         decorationBox = { innerTextField ->
             Row(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .height(56.dp)
-                        .background(backgroundColor, RoundedCornerShape(16.dp))
-                        .padding(start = 16.dp, end = 8.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .background(backgroundColor, RoundedCornerShape(16.dp))
+                    .padding(start = 16.dp, end = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Box(modifier = Modifier.weight(1f)) {
                     if (value.isEmpty()) {
@@ -334,7 +334,7 @@ fun FunchButtonTextField(
                             text = hint,
                             color = Gray400,
                             fontSize = 14.sp,
-                            style = FunchTheme.typography.b,
+                            style = FunchTheme.typography.b
                         )
                     }
                     innerTextField()
@@ -342,15 +342,11 @@ fun FunchButtonTextField(
                 Spacer(modifier = Modifier.width(8.dp))
                 iconButton()
             }
-        },
+        }
     )
 }
 
-private fun annotatedStringMaxLengthType(
-    isError: Boolean,
-    value: String,
-    maxLength: Int,
-) = buildAnnotatedString {
+private fun annotatedStringMaxLengthType(isError: Boolean, value: String, maxLength: Int) = buildAnnotatedString {
     if (!isError) {
         if (value.isEmpty()) {
             withStyle(style = SpanStyle(color = Gray400)) {
@@ -392,15 +388,15 @@ private fun Preview1() {
                 value = text,
                 onValueChange = { innerText -> text = innerText },
                 hint = "최대 ${maxLength}글자",
-                isError = isError.value,
+                isError = isError.value
             )
             FunchErrorCaption(
                 modifier = Modifier.padding(top = 4.dp, start = 4.dp),
                 isError = isError.value,
-                errorText = "errorText",
+                errorText = "errorText"
             )
             Button(
-                onClick = { isError.value = text.length > maxLength },
+                onClick = { isError.value = text.length > maxLength }
             ) {
                 Text(text = "전송")
             }
@@ -439,12 +435,12 @@ private fun Preview2() {
                 hint = "최대 ${maxLength}글자",
                 isError = isError.value,
                 interactionSource = interactionSource,
-                isFocus = isFocused,
+                isFocus = isFocused
             )
             FunchErrorCaption(
                 modifier = Modifier.padding(top = 4.dp, start = 4.dp),
                 isError = isError.value,
-                errorText = if (isError.value) "최대 ${maxLength}글자까지 입력할 수 있어요" else "",
+                errorText = if (isError.value) "최대 ${maxLength}글자까지 입력할 수 있어요" else ""
             )
         }
     }
@@ -463,17 +459,17 @@ private fun Preview3() {
                 onValueChange = { innerText -> text = innerText },
                 hint = "가까운 지하철역 검색",
                 iconType =
-                    FunchIcon(
-                        resId = FunchIconAsset.Search.search_24,
-                        description = "",
-                        tint = Gray500,
-                    ),
-                isError = isError.value,
+                FunchIcon(
+                    resId = FunchIconAsset.Search.search_24,
+                    description = "",
+                    tint = Gray500
+                ),
+                isError = isError.value
             )
             FunchErrorCaption(
                 modifier = Modifier.padding(top = 4.dp, start = 4.dp),
                 isError = isError.value,
-                errorText = "존재하지 않는 지하철역이에요",
+                errorText = "존재하지 않는 지하철역이에요"
             )
         }
     }
@@ -499,17 +495,17 @@ private fun Preview4() {
                         onClick = { /*TODO*/ },
                         roundedCornerShape = RoundedCornerShape(12.dp),
                         funchIcon =
-                            FunchIcon(
-                                resId = FunchIconAsset.Search.search_24,
-                                description = "",
-                                tint = Yellow500,
-                            ),
+                        FunchIcon(
+                            resId = FunchIconAsset.Search.search_24,
+                            description = "",
+                            tint = Yellow500
+                        )
                     )
-                },
+                }
             )
             FunchErrorCaption(
                 isError = isError.value,
-                errorText = "존재하지 않는 지하철역이에요",
+                errorText = "존재하지 않는 지하철역이에요"
             )
         }
     }
