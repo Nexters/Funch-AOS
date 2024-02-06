@@ -22,24 +22,25 @@ fun FunchNonTitleTopBar(
     leadingIcon: (@Composable () -> Unit)? = {},
     trailingIcon: (@Composable () -> Unit) = {},
 ) {
-    val arrangement = if (leadingIcon != null) {
-        Arrangement.SpaceBetween
-    } else {
-        Arrangement.End
-    }
+    val arrangement =
+        if (leadingIcon != null) {
+            Arrangement.SpaceBetween
+        } else {
+            Arrangement.End
+        }
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Gray900),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(Gray900),
         horizontalArrangement = arrangement,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         if (leadingIcon != null) leadingIcon()
         Spacer(modifier = Modifier)
         trailingIcon()
     }
 }
-
 
 @Composable
 @Preview(showBackground = true, name = "FunchNonTitleTopBar - Leading and Trailing Icon")
@@ -50,16 +51,17 @@ private fun Preview() {
                 FunchIconButton(
                     modifier = Modifier.size(40.dp),
                     onClick = { },
-                    funchIcon = FunchIcon(
-                        resId = FunchIconAsset.Search.search_24,
-                        description = "Search",
-                        tint = Gray400
-                    ),
+                    funchIcon =
+                        FunchIcon(
+                            resId = FunchIconAsset.Search.search_24,
+                            description = "Search",
+                            tint = Gray400,
+                        ),
                 )
             },
             trailingIcon = {
                 FunchFeedbackButton(onClick = {})
-            }
+            },
         )
     }
 }
@@ -73,13 +75,14 @@ private fun Preview2() {
                 FunchIconButton(
                     modifier = Modifier.size(40.dp),
                     onClick = { },
-                    funchIcon = FunchIcon(
-                        resId = FunchIconAsset.Search.search_24,
-                        description = "Search",
-                        tint = Gray400
-                    ),
+                    funchIcon =
+                        FunchIcon(
+                            resId = FunchIconAsset.Search.search_24,
+                            description = "Search",
+                            tint = Gray400,
+                        ),
                 )
-            }
+            },
         )
     }
 }
@@ -91,9 +94,7 @@ private fun Preview3() {
         FunchNonTitleTopBar(
             trailingIcon = {
                 FunchFeedbackButton(onClick = {})
-            }
+            },
         )
     }
 }
-
-

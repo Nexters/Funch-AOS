@@ -45,7 +45,7 @@ fun FunchErrorCaption(
     }
 }
 
-/*============================== Preview =================================*/
+// ============================== Preview =================================
 
 @Preview("Error Caption", showBackground = true, backgroundColor = 0xFF2C2C2C)
 @Composable
@@ -54,8 +54,9 @@ private fun Preview1() {
 
     FunchTheme {
         FunchErrorCaption(
-            modifier = Modifier
-                .padding(top = 4.dp, start = 4.dp),
+            modifier =
+                Modifier
+                    .padding(top = 4.dp, start = 4.dp),
             isError = isError.value,
             errorText = "errorText",
         )

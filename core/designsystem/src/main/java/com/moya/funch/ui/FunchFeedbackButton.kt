@@ -28,7 +28,7 @@ internal fun FunchFeedbackButton(
         buttonType = FunchButtonType.XSmall,
         onClick = onClick,
         text = stringResource(id = R.string.send_feed_back),
-        contentHorizontalPadding = 12.dp
+        contentHorizontalPadding = 12.dp,
     )
 }
 
@@ -39,7 +39,8 @@ private fun Preview1() {
         Column(
             Modifier
                 .background(Gray900)
-                .padding(12.dp), horizontalAlignment = Alignment.CenterHorizontally
+                .padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             FunchFeedbackButton(
                 onClick = { },

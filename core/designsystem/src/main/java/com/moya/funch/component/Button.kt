@@ -51,7 +51,7 @@ enum class FunchButtonType(val shape: Shape, val contentVerticalPadding: Dp, val
     Large(RoundedCornerShape(16.dp), 21.dp, funchTypography.sbt1),
     Medium(RoundedCornerShape(16.dp), 16.dp, funchTypography.sbt2),
     Small(RoundedCornerShape(12.dp), 12.dp, funchTypography.b),
-    XSmall(RoundedCornerShape(12.dp), 8.dp, funchTypography.b);
+    XSmall(RoundedCornerShape(12.dp), 8.dp, funchTypography.b),
 }
 
 @Immutable
@@ -76,7 +76,7 @@ fun FunchMainButton(
         onClick = onClick,
         enabled = enabled,
         shape = buttonType.shape,
-        contentPadding = PaddingValues(contentHorizontalPadding, buttonType.contentVerticalPadding)
+        contentPadding = PaddingValues(contentHorizontalPadding, buttonType.contentVerticalPadding),
     ) {
         Text(text = text, color = Gray900, style = buttonType.textStyle)
         icon()
@@ -95,21 +95,30 @@ fun FunchMainButton(
     val brush = Brush.horizontalGradient(listOf(Lemon500, Yellow500))
     val disabledColor = Lemon900
     Box(
-        modifier = modifier
-            .then(
-                if (enabled) Modifier.neonSign(
-                    color = Lemon500.copy(alpha = 0.7f), borderRadius = 16.dp,
-                    blurRadius = 5.dp,
-                    spread = PaddingValues(top = (-4).dp, start = 0.dp, end = 0.dp, bottom = 4.dp),
-                ) else Modifier
-            )
-            .clip(shape = shape)
-            .then(
-                if (enabled) Modifier.background(brush = brush)
-                else Modifier.background(color = disabledColor)
-            )
-            .clickableSingle(enabled = enabled, onClick = onClick)
-            .padding(contentPadding),
+        modifier =
+            modifier
+                .then(
+                    if (enabled) {
+                        Modifier.neonSign(
+                            color = Lemon500.copy(alpha = 0.7f),
+                            borderRadius = 16.dp,
+                            blurRadius = 5.dp,
+                            spread = PaddingValues(top = (-4).dp, start = 0.dp, end = 0.dp, bottom = 4.dp),
+                        )
+                    } else {
+                        Modifier
+                    },
+                )
+                .clip(shape = shape)
+                .then(
+                    if (enabled) {
+                        Modifier.background(brush = brush)
+                    } else {
+                        Modifier.background(color = disabledColor)
+                    },
+                )
+                .clickableSingle(enabled = enabled, onClick = onClick)
+                .padding(contentPadding),
         contentAlignment = Alignment.Center,
     ) {
         Row {
@@ -128,17 +137,18 @@ fun FunchSubButton(
     contentHorizontalPadding: Dp = 0.dp,
     icon: @Composable () -> Unit = {},
 ) {
-    val color = if (enabled) {
-        FunchTheme.colors.white
-    } else {
-        Gray400
-    }
+    val color =
+        if (enabled) {
+            FunchTheme.colors.white
+        } else {
+            Gray400
+        }
     FunchSubButton(
         modifier = modifier,
         onClick = onClick,
         enabled = enabled,
         shape = buttonType.shape,
-        contentPadding = PaddingValues(contentHorizontalPadding, buttonType.contentVerticalPadding)
+        contentPadding = PaddingValues(contentHorizontalPadding, buttonType.contentVerticalPadding),
     ) {
         Text(text = text, color = color, style = buttonType.textStyle)
         icon()
@@ -155,11 +165,12 @@ fun FunchSubButton(
     content: @Composable RowScope.() -> Unit,
 ) {
     Box(
-        modifier = modifier
-            .clip(shape = shape)
-            .background(Gray800)
-            .clickableSingle(enabled = enabled, onClick = onClick)
-            .padding(contentPadding),
+        modifier =
+            modifier
+                .clip(shape = shape)
+                .background(Gray800)
+                .clickableSingle(enabled = enabled, onClick = onClick)
+                .padding(contentPadding),
         contentAlignment = Alignment.Center,
     ) {
         Row {
@@ -180,18 +191,19 @@ fun FunchIconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     Box(
-        modifier = modifier
-            .background(
-                color = backgroundColor,
-                shape = roundedCornerShape,
-            )
-            .clip(roundedCornerShape)
-            .clickable(
-                enabled = enabled,
-                onClick = onClick,
-                indication = indication,
-                interactionSource = interactionSource,
-            ),
+        modifier =
+            modifier
+                .background(
+                    color = backgroundColor,
+                    shape = roundedCornerShape,
+                )
+                .clip(roundedCornerShape)
+                .clickable(
+                    enabled = enabled,
+                    onClick = onClick,
+                    indication = indication,
+                    interactionSource = interactionSource,
+                ),
         contentAlignment = Alignment.Center,
     ) {
         Icon(
@@ -202,7 +214,7 @@ fun FunchIconButton(
     }
 }
 
-/*============================== Preview =================================*/
+// ============================== Preview =================================
 
 @Preview(name = "main button size", showBackground = true, widthDp = 360)
 @Composable
@@ -213,41 +225,41 @@ private fun Preview1() {
                 .background(Gray900)
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             FunchMainButton(
                 modifier = Modifier.fillMaxWidth(),
                 buttonType = FunchButtonType.Full,
                 onClick = { /*TODO*/ },
-                text = "Button"
+                text = "Button",
             )
             Spacer(modifier = Modifier.padding(16.dp))
             FunchMainButton(
                 buttonType = FunchButtonType.Large,
                 onClick = { /*TODO*/ },
                 contentHorizontalPadding = 120.dp,
-                text = "Button"
+                text = "Button",
             )
             Spacer(modifier = Modifier.padding(16.dp))
             FunchMainButton(
                 buttonType = FunchButtonType.Medium,
                 onClick = { /*TODO*/ },
                 contentHorizontalPadding = 60.dp,
-                text = "Button"
+                text = "Button",
             )
             Spacer(modifier = Modifier.padding(16.dp))
             FunchMainButton(
                 buttonType = FunchButtonType.Small,
                 onClick = { /*TODO*/ },
                 contentHorizontalPadding = 16.dp,
-                text = "Button"
+                text = "Button",
             )
             Spacer(modifier = Modifier.padding(16.dp))
             FunchMainButton(
                 buttonType = FunchButtonType.XSmall,
                 onClick = { /*TODO*/ },
                 text = "Button",
-                contentHorizontalPadding = 12.dp
+                contentHorizontalPadding = 12.dp,
             )
         }
     }
@@ -262,41 +274,41 @@ private fun Preview2() {
                 .background(Gray900)
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             FunchSubButton(
                 modifier = Modifier.fillMaxWidth(),
                 buttonType = FunchButtonType.Full,
                 onClick = { /*TODO*/ },
-                text = "Button"
+                text = "Button",
             )
             Spacer(modifier = Modifier.padding(16.dp))
             FunchSubButton(
                 buttonType = FunchButtonType.Large,
                 onClick = { /*TODO*/ },
                 contentHorizontalPadding = 120.dp,
-                text = "Button"
+                text = "Button",
             )
             Spacer(modifier = Modifier.padding(16.dp))
             FunchSubButton(
                 buttonType = FunchButtonType.Medium,
                 onClick = { /*TODO*/ },
                 contentHorizontalPadding = 60.dp,
-                text = "Button"
+                text = "Button",
             )
             Spacer(modifier = Modifier.padding(16.dp))
             FunchSubButton(
                 buttonType = FunchButtonType.Small,
                 onClick = { /*TODO*/ },
                 contentHorizontalPadding = 16.dp,
-                text = "Button"
+                text = "Button",
             )
             Spacer(modifier = Modifier.padding(16.dp))
             FunchSubButton(
                 buttonType = FunchButtonType.XSmall,
                 onClick = { /*TODO*/ },
                 text = "Button",
-                contentHorizontalPadding = 12.dp
+                contentHorizontalPadding = 12.dp,
             )
         }
     }
@@ -322,9 +334,11 @@ private fun Preview3() {
             }
             Spacer(modifier = Modifier.padding(16.dp))
 
-            FunchMainButton(enabled = false,
+            FunchMainButton(
+                enabled = false,
                 contentPadding = PaddingValues(vertical = 16.dp, horizontal = 24.dp),
-                onClick = { }) {
+                onClick = { },
+            ) {
                 Text(
                     text = "Button",
                     style = FunchTheme.typography.sbt1,
@@ -350,7 +364,7 @@ private fun Preview4() {
                 buttonType = FunchButtonType.Medium,
                 onClick = { /*TODO*/ },
                 contentHorizontalPadding = 60.dp,
-                text = "Button"
+                text = "Button",
             )
 
             Spacer(modifier = Modifier.padding(16.dp))
@@ -359,7 +373,7 @@ private fun Preview4() {
                 buttonType = FunchButtonType.Medium,
                 onClick = { /*TODO*/ },
                 contentHorizontalPadding = 60.dp,
-                text = "Button"
+                text = "Button",
             )
         }
     }
@@ -373,11 +387,12 @@ private fun Preview5() {
         roundedCornerShape = RoundedCornerShape(12.dp),
         backgroundColor = Gray500,
         onClick = { /*TODO*/ },
-        funchIcon = FunchIcon(
-            resId = FunchIconAsset.Search.search_24,
-            description = "",
-            tint = Yellow500,
-        ),
+        funchIcon =
+            FunchIcon(
+                resId = FunchIconAsset.Search.search_24,
+                description = "",
+                tint = Yellow500,
+            ),
     )
 }
 
@@ -386,11 +401,12 @@ private fun Preview5() {
 private fun Preview6() {
     FunchIconButton(
         onClick = { /*TODO*/ },
-        funchIcon = FunchIcon(
-            resId = FunchIconAsset.Search.search_24,
-            description = "",
-            tint = Gray400,
-        ),
+        funchIcon =
+            FunchIcon(
+                resId = FunchIconAsset.Search.search_24,
+                description = "",
+                tint = Gray400,
+            ),
     )
 }
 
@@ -399,11 +415,12 @@ private fun Preview6() {
 private fun Preview7() {
     FunchIconButton(
         onClick = { /*TODO*/ },
-        funchIcon = FunchIcon(
-            resId = FunchIconAsset.Search.search_16,
-            description = "",
-            tint = Gray400,
-        ),
+        funchIcon =
+            FunchIcon(
+                resId = FunchIconAsset.Search.search_16,
+                description = "",
+                tint = Gray400,
+            ),
         indication = null,
     )
 }

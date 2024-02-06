@@ -34,11 +34,12 @@ class FunchColorSchema(
     var white by mutableStateOf(white)
         private set
 
-    fun copy(): FunchColorSchema = FunchColorSchema(
-        background = background,
-        error = error,
-        white = white,
-    )
+    fun copy(): FunchColorSchema =
+        FunchColorSchema(
+            background = background,
+            error = error,
+            white = white,
+        )
 
     fun update(other: FunchColorSchema) {
         background = other.background
@@ -51,8 +52,7 @@ fun funchDarkColorSchema(
     background: Color = Gray900,
     white: Color = White,
     error: Color = Coral500,
-
-    ): FunchColorSchema {
+): FunchColorSchema {
     return FunchColorSchema(
         white = white,
         background = background,

@@ -21,9 +21,12 @@ fun FunchTopBar(
     enabledTrailingIcon: Boolean = true,
     onClickLeadingIcon: () -> Unit = {},
     onClickTrailingIcon: () -> Unit = {},
-    leadingIcon: FunchIcon? = FunchIcon(
-        resId = FunchIconAsset.Search.search_24, description = "Search", tint = Gray400
-    ),
+    leadingIcon: FunchIcon? =
+        FunchIcon(
+            resId = FunchIconAsset.Search.search_24,
+            description = "Search",
+            tint = Gray400,
+        ),
     trailingIcon: (@Composable () -> Unit)? = { FunchFeedbackButton(enabledTrailingIcon, onClickTrailingIcon) },
 ) {
     FunchNonTitleTopBar(leadingIcon = {
@@ -48,9 +51,8 @@ private fun Preview() {
     FunchTheme {
         Column(
             modifier = Modifier.background(Gray400),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        )
-        {
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
             FunchTopBar()
             FunchTopBar(leadingIcon = null)
             FunchTopBar(trailingIcon = null)
@@ -64,9 +66,8 @@ private fun Preview2() {
     FunchTheme {
         Column(
             modifier = Modifier.background(Gray400),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        )
-        {
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
             FunchTopBar(enabledLeadingIcon = false)
             FunchTopBar(enabledTrailingIcon = false)
             FunchTopBar(enabledLeadingIcon = false, enabledTrailingIcon = false)

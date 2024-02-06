@@ -30,15 +30,17 @@ private fun FunchNeonSignCard(
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    val brush = Brush.verticalGradient(
-        0.1f to Lemon500,
-        0.8f to Gray700,
-    )
+    val brush =
+        Brush.verticalGradient(
+            0.1f to Lemon500,
+            0.8f to Gray700,
+        )
     Column(
-        modifier = modifier
-            .background(Gray800, shape = FunchTheme.shapes.large)
-            .border(1.dp, brush, FunchTheme.shapes.large)
-            .clip(FunchTheme.shapes.large),
+        modifier =
+            modifier
+                .background(Gray800, shape = FunchTheme.shapes.large)
+                .border(1.dp, brush, FunchTheme.shapes.large)
+                .clip(FunchTheme.shapes.large),
         verticalArrangement = verticalArrangement,
         horizontalAlignment = horizontalAlignment,
     ) {
@@ -48,14 +50,18 @@ private fun FunchNeonSignCard(
 
 @Composable
 @Preview(
-    showBackground = true, widthDp = 360, heightDp = 640, name = "FunchNeonSignCard"
+    showBackground = true,
+    widthDp = 360,
+    heightDp = 640,
+    name = "FunchNeonSignCard",
 )
 private fun Preview() {
     FunchTheme {
         Column(
-            modifier = Modifier
-                .background(Gray900)
-                .padding(60.dp)
+            modifier =
+                Modifier
+                    .background(Gray900)
+                    .padding(60.dp),
         ) {
             FunchNeonSignCard(
                 modifier = Modifier.fillMaxSize(),

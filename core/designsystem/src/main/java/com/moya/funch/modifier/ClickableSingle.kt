@@ -24,21 +24,27 @@ fun Modifier.clickableSingle(
     role: Role? = null,
     interactionSource: MutableInteractionSource? = null,
     onClick: () -> Unit,
-): Modifier = composed(inspectorInfo = debugInspectorInfo {
-    name = "clickable"
-    properties["enabled"] = enabled
-    properties["onClickLabel"] = onClickLabel
-    properties["role"] = role
-    properties["onClick"] = onClick
-}) {
-    val manager: SingleEventHandler = remember { DefaultSingleEventHandler() }
-    Modifier.clickable(enabled = enabled,
-        onClickLabel = onClickLabel,
-        onClick = { manager.handle { onClick() } },
-        role = role,
-        indication = LocalIndication.current,
-        interactionSource = interactionSource ?: remember { MutableInteractionSource() })
-}
+): Modifier =
+    composed(
+        inspectorInfo =
+            debugInspectorInfo {
+                name = "clickable"
+                properties["enabled"] = enabled
+                properties["onClickLabel"] = onClickLabel
+                properties["role"] = role
+                properties["onClick"] = onClick
+            },
+    ) {
+        val manager: SingleEventHandler = remember { DefaultSingleEventHandler() }
+        Modifier.clickable(
+            enabled = enabled,
+            onClickLabel = onClickLabel,
+            onClick = { manager.handle { onClick() } },
+            role = role,
+            indication = LocalIndication.current,
+            interactionSource = interactionSource ?: remember { MutableInteractionSource() },
+        )
+    }
 
 fun interface SingleEventHandler {
     fun handle(event: () -> Unit)
@@ -48,6 +54,7 @@ internal class DefaultSingleEventHandler : SingleEventHandler {
     private val currentTime: TimeMark get() = TimeSource.Monotonic.markNow()
     private val throttleDuration: Duration = 300.milliseconds
     private lateinit var lastEventTime: TimeMark
+
     override fun handle(event: () -> Unit) {
         if (::lastEventTime.isInitialized.not() || (lastEventTime + throttleDuration).hasPassedNow()) {
             event()

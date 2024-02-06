@@ -14,23 +14,24 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.moya.funch.designsystem.R
 
-private val spoqaHanSansNeo = FontFamily(
-    Font(
-        R.font.spoqa_han_sans_neo_bold,
-        FontWeight.Bold,
-        FontStyle.Normal
-    ),
-    Font(
-        R.font.spoqa_han_sans_neo_medium,
-        FontWeight.Medium,
-        FontStyle.Normal
-    ),
-    Font(
-        R.font.spoqa_han_sans_neo_regular,
-        FontWeight.Normal,
-        FontStyle.Normal
-    ),
-)
+private val spoqaHanSansNeo =
+    FontFamily(
+        Font(
+            R.font.spoqa_han_sans_neo_bold,
+            FontWeight.Bold,
+            FontStyle.Normal,
+        ),
+        Font(
+            R.font.spoqa_han_sans_neo_medium,
+            FontWeight.Medium,
+            FontStyle.Normal,
+        ),
+        Font(
+            R.font.spoqa_han_sans_neo_regular,
+            FontWeight.Normal,
+            FontStyle.Normal,
+        ),
+    )
 
 @Stable
 class FunchTypography internal constructor(
@@ -61,14 +62,15 @@ class FunchTypography internal constructor(
         sbt2: TextStyle = this.sbt2,
         b: TextStyle = this.b,
         caption: TextStyle = this.caption,
-    ): FunchTypography = FunchTypography(
-        t1 = t1,
-        t2 = t2,
-        sbt1 = sbt1,
-        sbt2 = sbt2,
-        b = b,
-        caption = caption,
-    )
+    ): FunchTypography =
+        FunchTypography(
+            t1 = t1,
+            t2 = t2,
+            sbt1 = sbt1,
+            sbt2 = sbt2,
+            b = b,
+            caption = caption,
+        )
 
     fun update(other: FunchTypography) {
         t1 = other.t1
@@ -82,72 +84,84 @@ class FunchTypography internal constructor(
 
 internal fun funchTypography(): FunchTypography {
     return FunchTypography(
-        t1 = TextStyle(
-            fontFamily = spoqaHanSansNeo,
-            fontWeight = FontWeight.Bold,
-            fontSize = 22.sp,
-            letterSpacing = (-0.02).em,
-            lineHeight = 28.6.sp,
-            lineHeightStyle = LineHeightStyle(
-                alignment = LineHeightStyle.Alignment.Proportional,
-                trim = LineHeightStyle.Trim.None
-            )
-        ),
-        t2 = TextStyle(
-            fontFamily = spoqaHanSansNeo,
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
-            letterSpacing = (-0.02).em,
-            lineHeight = 26.sp,
-            lineHeightStyle = LineHeightStyle(
-                alignment = LineHeightStyle.Alignment.Proportional,
-                trim = LineHeightStyle.Trim.None
-            )
-        ),
-        sbt1 = TextStyle(
-            fontFamily = spoqaHanSansNeo,
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp,
-            letterSpacing = (-0.02).em,
-            lineHeight = 23.4.sp,
-            lineHeightStyle = LineHeightStyle(
-                alignment = LineHeightStyle.Alignment.Proportional,
-                trim = LineHeightStyle.Trim.None
-            )
-        ),
-        sbt2 = TextStyle(
-            fontFamily = spoqaHanSansNeo,
-            fontWeight = FontWeight.Bold,
-            fontSize = 16.sp,
-            letterSpacing = (-0.02).sp,
-            lineHeight = 20.8.sp,
-            lineHeightStyle = LineHeightStyle(
-                alignment = LineHeightStyle.Alignment.Proportional,
-                trim = LineHeightStyle.Trim.None
-            )
-        ),
-        b = TextStyle(
-            fontFamily = spoqaHanSansNeo,
-            fontWeight = FontWeight.Normal,
-            fontSize = 14.sp,
-            letterSpacing = (-0.03).em,
-            lineHeight = 21.sp,
-            lineHeightStyle = LineHeightStyle(
-                alignment = LineHeightStyle.Alignment.Proportional,
-                trim = LineHeightStyle.Trim.None
-            )
-        ),
-        caption = TextStyle(
-            fontFamily = spoqaHanSansNeo,
-            fontWeight = FontWeight.Normal,
-            fontSize = 12.sp,
-            letterSpacing = (-0.03).em,
-            lineHeight = 18.sp,
-            lineHeightStyle = LineHeightStyle(
-                alignment = LineHeightStyle.Alignment.Proportional,
-                trim = LineHeightStyle.Trim.None
-            )
-        )
+        t1 =
+            TextStyle(
+                fontFamily = spoqaHanSansNeo,
+                fontWeight = FontWeight.Bold,
+                fontSize = 22.sp,
+                letterSpacing = (-0.02).em,
+                lineHeight = 28.6.sp,
+                lineHeightStyle =
+                    LineHeightStyle(
+                        alignment = LineHeightStyle.Alignment.Proportional,
+                        trim = LineHeightStyle.Trim.None,
+                    ),
+            ),
+        t2 =
+            TextStyle(
+                fontFamily = spoqaHanSansNeo,
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                letterSpacing = (-0.02).em,
+                lineHeight = 26.sp,
+                lineHeightStyle =
+                    LineHeightStyle(
+                        alignment = LineHeightStyle.Alignment.Proportional,
+                        trim = LineHeightStyle.Trim.None,
+                    ),
+            ),
+        sbt1 =
+            TextStyle(
+                fontFamily = spoqaHanSansNeo,
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
+                letterSpacing = (-0.02).em,
+                lineHeight = 23.4.sp,
+                lineHeightStyle =
+                    LineHeightStyle(
+                        alignment = LineHeightStyle.Alignment.Proportional,
+                        trim = LineHeightStyle.Trim.None,
+                    ),
+            ),
+        sbt2 =
+            TextStyle(
+                fontFamily = spoqaHanSansNeo,
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp,
+                letterSpacing = (-0.02).sp,
+                lineHeight = 20.8.sp,
+                lineHeightStyle =
+                    LineHeightStyle(
+                        alignment = LineHeightStyle.Alignment.Proportional,
+                        trim = LineHeightStyle.Trim.None,
+                    ),
+            ),
+        b =
+            TextStyle(
+                fontFamily = spoqaHanSansNeo,
+                fontWeight = FontWeight.Normal,
+                fontSize = 14.sp,
+                letterSpacing = (-0.03).em,
+                lineHeight = 21.sp,
+                lineHeightStyle =
+                    LineHeightStyle(
+                        alignment = LineHeightStyle.Alignment.Proportional,
+                        trim = LineHeightStyle.Trim.None,
+                    ),
+            ),
+        caption =
+            TextStyle(
+                fontFamily = spoqaHanSansNeo,
+                fontWeight = FontWeight.Normal,
+                fontSize = 12.sp,
+                letterSpacing = (-0.03).em,
+                lineHeight = 18.sp,
+                lineHeightStyle =
+                    LineHeightStyle(
+                        alignment = LineHeightStyle.Alignment.Proportional,
+                        trim = LineHeightStyle.Trim.None,
+                    ),
+            ),
     )
 }
 
