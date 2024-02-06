@@ -7,19 +7,15 @@ import com.moya.funch.HomeRoute
 
 const val HOME_ROUTE = "home"
 
-fun NavController.navigateToHome() =
-    navigate(HOME_ROUTE) {
-        popUpTo(graph.id)
-    }
+fun NavController.navigateToHome() = navigate(HOME_ROUTE) {
+    popUpTo(graph.id)
+}
 
-fun NavGraphBuilder.homeScreen(
-    onNavigateToMyProfile: () -> Unit,
-    onNavigateToMatching: () -> Unit,
-) {
+fun NavGraphBuilder.homeScreen(onNavigateToMyProfile: () -> Unit, onNavigateToMatching: () -> Unit) {
     composable(route = HOME_ROUTE) {
         HomeRoute(
             onNavigateToMatching = onNavigateToMatching,
-            onNavigateToMyProfile = onNavigateToMyProfile,
+            onNavigateToMyProfile = onNavigateToMyProfile
         )
     }
 }

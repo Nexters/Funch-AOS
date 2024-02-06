@@ -21,10 +21,13 @@ fun FunchTopBar(
     enabledTrailingIcon: Boolean = true,
     onClickLeadingIcon: () -> Unit = {},
     onClickTrailingIcon: () -> Unit = {},
-    leadingIcon: FunchIcon? = FunchIcon(
-        resId = FunchIconAsset.Search.search_24, description = "Search", tint = Gray400
-    ),
-    trailingIcon: (@Composable () -> Unit)? = { FunchFeedbackButton(enabledTrailingIcon, onClickTrailingIcon) },
+    leadingIcon: FunchIcon? =
+        FunchIcon(
+            resId = FunchIconAsset.Search.search_24,
+            description = "Search",
+            tint = Gray400
+        ),
+    trailingIcon: (@Composable () -> Unit)? = { FunchFeedbackButton(enabledTrailingIcon, onClickTrailingIcon) }
 ) {
     FunchNonTitleTopBar(leadingIcon = {
         if (leadingIcon != null) {
@@ -32,7 +35,7 @@ fun FunchTopBar(
                 enabled = enabledLeadingIcon,
                 modifier = Modifier.size(40.dp),
                 onClick = onClickLeadingIcon,
-                funchIcon = leadingIcon,
+                funchIcon = leadingIcon
             )
         }
     }, trailingIcon = {
@@ -49,8 +52,7 @@ private fun Preview() {
         Column(
             modifier = Modifier.background(Gray400),
             verticalArrangement = Arrangement.spacedBy(8.dp)
-        )
-        {
+        ) {
             FunchTopBar()
             FunchTopBar(leadingIcon = null)
             FunchTopBar(trailingIcon = null)
@@ -65,8 +67,7 @@ private fun Preview2() {
         Column(
             modifier = Modifier.background(Gray400),
             verticalArrangement = Arrangement.spacedBy(8.dp)
-        )
-        {
+        ) {
             FunchTopBar(enabledLeadingIcon = false)
             FunchTopBar(enabledTrailingIcon = false)
             FunchTopBar(enabledLeadingIcon = false, enabledTrailingIcon = false)

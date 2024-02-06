@@ -4,7 +4,7 @@ enum class Club(val label: String) {
     NEXTERS("넥스터즈"),
     SOPT("SOPT"),
     DEPROMEET("Depromeet"),
-    IDLE("idle"),
+    IDLE("idle")
     ;
 
     companion object {

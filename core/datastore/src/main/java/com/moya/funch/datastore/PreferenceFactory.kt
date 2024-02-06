@@ -11,7 +11,7 @@ import java.security.KeyStore
 import javax.inject.Inject
 
 class PreferenceFactory @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @ApplicationContext private val context: Context
 ) {
     fun create(): SharedPreferences {
         return if (BuildConfig.DEBUG) {
@@ -27,10 +27,7 @@ class PreferenceFactory @Inject constructor(
         }
     }
 
-    private fun createEncryptedSharedPreferences(
-        fileName: String,
-        context: Context,
-    ): SharedPreferences {
+    private fun createEncryptedSharedPreferences(fileName: String, context: Context): SharedPreferences {
         return EncryptedSharedPreferences.create(
             context,
             fileName,
@@ -39,7 +36,6 @@ class PreferenceFactory @Inject constructor(
                 .build(),
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-
         )
     }
 

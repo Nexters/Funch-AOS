@@ -8,7 +8,7 @@ data class Matching(
     val similarity: Int = 0,
     val chemistrys: List<Chemistry> = emptyList(),
     val recommends: List<Recommend> = emptyList(),
-    val subways: List<SubwayStation> = emptyList(),
+    val subways: List<SubwayStation> = emptyList()
 ) {
     init {
         require(similarity in 0..100) {

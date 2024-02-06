@@ -1,5 +1,4 @@
 plugins {
-    alias(libs.plugins.ktlint)
     alias(libs.plugins.funch.android.library)
     alias(libs.plugins.funch.junit5)
 }

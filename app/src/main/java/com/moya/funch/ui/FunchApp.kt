@@ -13,10 +13,10 @@ fun FunchApp() {
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = backgroundColor,
+        color = backgroundColor
     ) {
         FunchNavHost(
-            hasProfile = false,
+            hasProfile = false
         )
     }
 }

@@ -17,5 +17,5 @@ enum class Mbti {
     ISFP,
     ISTJ,
     ISTP,
-    IDLE,
+    IDLE
 }

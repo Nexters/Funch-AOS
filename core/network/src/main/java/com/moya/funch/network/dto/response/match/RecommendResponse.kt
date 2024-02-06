@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RecommendResponse(
     @SerialName("title")
-    val title: String = "",
+    val title: String = ""
 )

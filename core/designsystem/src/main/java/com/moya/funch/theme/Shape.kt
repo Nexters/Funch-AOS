@@ -26,21 +26,21 @@ class FunchShapes(
     val small: CornerBasedShape = FunchShapeDefaults.Small,
     val medium: CornerBasedShape = FunchShapeDefaults.Medium,
     val large: CornerBasedShape = FunchShapeDefaults.Large,
-    val extraLarge: CornerBasedShape = FunchShapeDefaults.ExtraLarge,
+    val extraLarge: CornerBasedShape = FunchShapeDefaults.ExtraLarge
 ) {
     fun copy(
         extraSmall: CornerBasedShape = this.extraSmall,
         small: CornerBasedShape = this.small,
         medium: CornerBasedShape = this.medium,
         large: CornerBasedShape = this.large,
-        extraLarge: CornerBasedShape = this.extraLarge,
+        extraLarge: CornerBasedShape = this.extraLarge
     ): FunchShapes {
         return FunchShapes(
             extraSmall = extraSmall,
             small = small,
             medium = medium,
             large = large,
-            extraLarge = extraLarge,
+            extraLarge = extraLarge
         )
     }
 }
