@@ -17,4 +17,5 @@ indent_size = 2
 [*.{kt,kts}]
 indent_size = 4
 tab_width = 4
+ktlint_code_style = android_studio
 ktlint_function_naming_ignore_when_annotated_with=Composable, Test

@@ -37,9 +37,14 @@ subprojects {
         filter {
             exclude { element -> element.file.path.contains("generated/") }
         }
+        android.set(true)
         coloredOutput.set(true)
         verbose.set(true)
         outputToConsole.set(true)
+        reporters {
+            reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
+            reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
+        }
     }
 }
 
