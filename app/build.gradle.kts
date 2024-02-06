@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.funch.application)
     alias(libs.plugins.funch.compose)
-    alias(libs.plugins.ktlint)
 //    alias(libs.plugins.google.services)
 //    alias(libs.plugins.app.distribution)
 //    alias(libs.plugins.crashlytics)

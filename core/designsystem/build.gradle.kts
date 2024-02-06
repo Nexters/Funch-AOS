@@ -6,4 +6,3 @@ plugins {
 android {
     namespace = "com.moya.funch.designsystem"
 }
-

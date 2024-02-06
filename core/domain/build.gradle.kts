@@ -1,7 +1,6 @@
 plugins {
     `java-library`
     alias(libs.plugins.funch.jvm.library)
-    alias(libs.plugins.ktlint)
 }
 
 tasks.withType<Test> {
