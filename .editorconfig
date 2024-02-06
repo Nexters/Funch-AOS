@@ -15,29 +15,6 @@ tab_width = 2
 indent_size = 2
 
 [*.{kt,kts}]
-
 indent_size = 4
 tab_width = 4
-
-# Options for IntelliJ IDEA settings
-ij_kotlin_code_style_defaults = KOTLIN_OFFICIAL
-
-ij_kotlin_line_comment_at_first_column = false
-ij_kotlin_line_comment_add_space = true
-
-# These options can keep to use single name import
-ij_kotlin_name_count_to_use_star_import = 2147483647
-ij_kotlin_name_count_to_use_star_import_for_members = 2147483647
-
-ij_kotlin_keep_blank_lines_in_declarations = 1
-ij_kotlin_keep_blank_lines_in_code = 1
-ij_kotlin_keep_blank_lines_before_right_brace = 0
-
-# optional but recommended
-ij_kotlin_align_multiline_parameters = false
-ij_continuation_indent_size = 4
-# https://kotlinlang.org/docs/coding-conventions.html#trailing-commas
-ij_kotlin_allow_trailing_comma = true
-ij_kotlin_packages_to_use_import_on_demand = unset
-ij_kotlin_allow_trailing_comma_on_call_site = unset
 ktlint_function_naming_ignore_when_annotated_with=Composable, Test
