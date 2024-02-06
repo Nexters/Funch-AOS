@@ -1,3 +1,5 @@
+import org.jlleitschuh.gradle.ktlint.KtlintExtension
+
 buildscript {
     repositories {
         google()
@@ -27,7 +29,45 @@ plugins {
 //    alias(libs.plugins.app.distribution) apply false
 //    alias(libs.plugins.crashlytics) apply false
 }
-
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
-}
+//
+// subprojects {
+//     apply(plugin = "org.jlleitschuh.gradle.ktlint") // Version should be inherited from parent
+//
+//     configure<KtlintExtension> {
+//         filter {
+//             exclude { element -> element.file.path.contains("generated/") }
+//         }
+//         version.set("0.49.1")
+//         android.set(true)
+//         coloredOutput.set(true)
+//         verbose.set(true)
+//         outputToConsole.set(true)
+//         additionalEditorconfig.set(
+//             mapOf(
+//                 "kotlin" to """
+//             max_line_length=120
+//             insert_final_newline=true
+//             """.trimIndent()
+//             ),
+//             mapOf(
+//                 "charset" to "utf-8",
+//                 "end_of_line" to "lf",
+//                 "indent_style" to "space",
+//                 "indent_size" to 4,
+//                 "max_line_length" to 180,
+//                 "trim_trailing_whitespace" to true,
+//                 "ktlint_standard_filename" to "disabled",
+//                 "ktlint_standard_function_start_of_body_spacing" to "disabled",
+//             )
+//         )
+//
+//         reporters {
+//             reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
+//             reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
+//         }
+//     }
+// }
+//
+// tasks.register("clean", Delete::class) {
+//     delete(rootProject.buildDir)
+// }
