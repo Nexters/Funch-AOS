@@ -8,5 +8,5 @@ data class SubwayResponse(
     @SerialName("lines")
     val lines: List<String> = listOf(),
     @SerialName("name")
-    val name: String = "",
+    val name: String = ""
 )

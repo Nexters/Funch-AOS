@@ -14,5 +14,5 @@ data class Profile(
     val clubs: List<Club> = emptyList(),
     val mbti: Mbti = Mbti.IDLE,
     val blood: Blood = Blood.IDLE,
-    val subways: List<SubwayStation> = emptyList(),
+    val subways: List<SubwayStation> = emptyList()
 )

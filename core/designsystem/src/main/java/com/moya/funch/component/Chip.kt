@@ -53,9 +53,10 @@ import com.moya.funch.theme.Yellow500
 
 private val FunchChipContentMinHeight = 21.dp
 private val FunchMinHeight = 48.dp
-val MATCHED_BORDER_BRUSH = Brush.horizontalGradient(
-    listOf(Lemon500, Yellow500)
-)
+val MATCHED_BORDER_BRUSH =
+    Brush.horizontalGradient(
+        listOf(Lemon500, Yellow500)
+    )
 
 @Composable
 fun FunchChip(
@@ -69,11 +70,12 @@ fun FunchChip(
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     colors: PunchChipColors = PunchChipColors(),
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val indication = if (enabled) LocalIndication.current else null
     Row(
-        modifier = modifier
+        modifier =
+        modifier
             .defaultMinSize(minHeight = FunchMinHeight)
             .then(
                 if (matched) {
@@ -86,7 +88,9 @@ fun FunchChip(
                             spread = PaddingValues((-1).dp)
                         )
                         .border(1.dp, MATCHED_BORDER_BRUSH, shape)
-                } else Modifier
+                } else {
+                    Modifier
+                }
             )
             .background(
                 color = colors.provideContainerColor(enabled, selected),
@@ -97,9 +101,10 @@ fun FunchChip(
                 enabled = enabled,
                 onClick = onSelected,
                 interactionSource = interactionSource,
-                indication = indication,
+                indication = indication
             )
-            .padding(provideChipPadding(leadingIcon != null)), verticalAlignment = Alignment.CenterVertically
+            .padding(provideChipPadding(leadingIcon != null)),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         ChipContent(
             label = label,
@@ -119,10 +124,11 @@ private fun ChipContent(
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     minHeight: Dp = FunchChipContentMinHeight,
-    paddingValues: PaddingValues,
+    paddingValues: PaddingValues
 ) {
     CompositionLocalProvider(
-        LocalContentColor provides labelColor, LocalTextStyle provides labelTextStyle
+        LocalContentColor provides labelColor,
+        LocalTextStyle provides labelTextStyle
     ) {
         Row(
             Modifier
@@ -144,9 +150,7 @@ private fun ChipContent(
     }
 }
 
-private fun provideChipPadding(
-    hasLeadingIcon: Boolean = false,
-): PaddingValues {
+private fun provideChipPadding(hasLeadingIcon: Boolean = false): PaddingValues {
     val start = if (hasLeadingIcon) 8.dp else 16.dp
     val end = 16.dp
     return PaddingValues(start = start, end = end)
@@ -161,7 +165,7 @@ data class PunchChipColors(
     private val labelColor: Color = Gray400,
     private val selectedLabelColor: Color = White,
     private val disabledLabelColor: Color = Gray400,
-    private val disabledSelectedLabelColor: Color = White,
+    private val disabledSelectedLabelColor: Color = White
     // private val
 ) {
     @Stable
@@ -189,7 +193,8 @@ data class PunchChipColors(
  * Preview
  * */
 @Preview(
-    name = "FunchChip - Chip with leading and trailing icon", showBackground = true
+    name = "FunchChip - Chip with leading and trailing icon",
+    showBackground = true
 )
 @Composable
 private fun Preview1() {
@@ -203,7 +208,7 @@ private fun Preview1() {
             onSelected = onSelected,
             leadingIcon = { LeadingIconForPreview() },
             trailingIcon = { TrailingIconForPreview() },
-            label = { Text(text = "안뇽") },
+            label = { Text(text = "안뇽") }
         )
     }
 }
@@ -211,7 +216,7 @@ private fun Preview1() {
 @Composable
 @Preview(
     name = "FunchChip - Chip with leading icon",
-    showBackground = true,
+    showBackground = true
 )
 private fun Preview2() {
     FunchTheme {
@@ -222,14 +227,15 @@ private fun Preview2() {
             enabled = true,
             onSelected = onSelected,
             leadingIcon = { LeadingIconForPreview() },
-            label = { Text(text = "안뇽") },
+            label = { Text(text = "안뇽") }
         )
     }
 }
 
 @Composable
 @Preview(
-    name = "FunchChip - Chip with trailing icon", showBackground = true
+    name = "FunchChip - Chip with trailing icon",
+    showBackground = true
 )
 private fun Preview3() {
     FunchTheme {
@@ -240,13 +246,14 @@ private fun Preview3() {
             enabled = true,
             onSelected = onSelected,
             trailingIcon = { TrailingIconForPreview() },
-            label = { Text(text = "안뇽") },
+            label = { Text(text = "안뇽") }
         )
     }
 }
 
 @Preview(
-    name = "FunchChip - non interactive", showBackground = true
+    name = "FunchChip - non interactive",
+    showBackground = true
 )
 @Composable
 private fun Preview4() {
@@ -258,7 +265,7 @@ private fun Preview4() {
                 selected = false,
                 enabled = false,
                 leadingIcon = { LeadingIconForPreview() },
-                label = { Text(text = "안뇽") },
+                label = { Text(text = "안뇽") }
             )
             Spacer(modifier = Modifier.size(12.dp))
 
@@ -266,14 +273,15 @@ private fun Preview4() {
                 selected = true,
                 enabled = false,
                 leadingIcon = { LeadingIconForPreview() },
-                label = { Text(text = "안뇽") },
+                label = { Text(text = "안뇽") }
             )
         }
     }
 }
 
 @Preview(
-    name = "FunchChip - matched", showBackground = true
+    name = "FunchChip - matched",
+    showBackground = true
 )
 @Composable
 private fun Preview5() {
@@ -288,7 +296,7 @@ private fun Preview5() {
                     matched = true,
                     selected = true,
                     enabled = false,
-                    label = { Text(text = "Text", color = White, style = FunchTheme.typography.b) },
+                    label = { Text(text = "Text", color = White, style = FunchTheme.typography.b) }
                 )
             }
         }
@@ -299,7 +307,8 @@ private fun Preview5() {
 private fun TrailingIconForPreview() {
     Row {
         Box(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .background(White, CircleShape)
                 .border(1.dp, Color.Green, CircleShape)
                 .size(16.dp),
@@ -309,7 +318,8 @@ private fun TrailingIconForPreview() {
         }
         Spacer(modifier = Modifier.size(2.dp))
         Box(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .background(White, CircleShape)
                 .border(1.dp, Color.Blue, CircleShape)
                 .size(16.dp),
@@ -319,7 +329,8 @@ private fun TrailingIconForPreview() {
         }
         Spacer(modifier = Modifier.size(2.dp))
         Box(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .background(White, CircleShape)
                 .border(1.dp, Color.Red, CircleShape)
                 .size(16.dp),
@@ -333,12 +344,12 @@ private fun TrailingIconForPreview() {
 @Composable
 private fun LeadingIconForPreview() {
     Box(
-        modifier = Modifier
+        modifier =
+        Modifier
             .size(32.dp)
             .clip(shape = RoundedCornerShape(10.dp))
             .background(color = Gray900),
         contentAlignment = Alignment.Center
-
     ) {
         Icon(
             modifier = Modifier.size(18.dp),

@@ -18,10 +18,7 @@ import com.moya.funch.theme.FunchTheme
 import com.moya.funch.theme.Gray900
 
 @Composable
-internal fun FunchFeedbackButton(
-    enabled: Boolean = true,
-    onClick: () -> Unit,
-) {
+internal fun FunchFeedbackButton(enabled: Boolean = true, onClick: () -> Unit) {
     FunchSubButton(
         modifier = Modifier.wrapContentSize(),
         enabled = enabled,
@@ -39,15 +36,16 @@ private fun Preview1() {
         Column(
             Modifier
                 .background(Gray900)
-                .padding(12.dp), horizontalAlignment = Alignment.CenterHorizontally
+                .padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             FunchFeedbackButton(
-                onClick = { },
+                onClick = { }
             )
             Spacer(modifier = Modifier.padding(8.dp))
             FunchFeedbackButton(
                 enabled = false,
-                onClick = { /*TODO*/ },
+                onClick = { /*TODO*/ }
             )
         }
     }

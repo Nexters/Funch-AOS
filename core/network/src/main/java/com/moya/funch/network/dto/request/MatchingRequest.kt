@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MatchingRequest(
     @SerialName("requestMemberId") val userId: String,
-    @SerialName("targetMemberCode") val targetCode: String,
+    @SerialName("targetMemberCode") val targetCode: String
 )

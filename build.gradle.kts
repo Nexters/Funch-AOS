@@ -1,3 +1,5 @@
+import org.jlleitschuh.gradle.ktlint.KtlintExtension
+
 buildscript {
     repositories {
         google()
@@ -26,6 +28,24 @@ plugins {
 //    alias(libs.plugins.google.services) apply false
 //    alias(libs.plugins.app.distribution) apply false
 //    alias(libs.plugins.crashlytics) apply false
+}
+
+subprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint") // Version should be inherited from parent
+
+    configure<KtlintExtension> {
+        filter {
+            exclude { element -> element.file.path.contains("generated/") }
+        }
+        android.set(true)
+        coloredOutput.set(true)
+        verbose.set(true)
+        outputToConsole.set(true)
+        reporters {
+            reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
+            reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
+        }
+    }
 }
 
 tasks.register("clean", Delete::class) {

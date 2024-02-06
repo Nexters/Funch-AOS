@@ -51,14 +51,14 @@ enum class FunchButtonType(val shape: Shape, val contentVerticalPadding: Dp, val
     Large(RoundedCornerShape(16.dp), 21.dp, funchTypography.sbt1),
     Medium(RoundedCornerShape(16.dp), 16.dp, funchTypography.sbt2),
     Small(RoundedCornerShape(12.dp), 12.dp, funchTypography.b),
-    XSmall(RoundedCornerShape(12.dp), 8.dp, funchTypography.b);
+    XSmall(RoundedCornerShape(12.dp), 8.dp, funchTypography.b)
 }
 
 @Immutable
 data class FunchIcon(
     @DrawableRes val resId: Int,
     val description: String,
-    val tint: Color,
+    val tint: Color
 )
 
 @Composable
@@ -69,7 +69,7 @@ fun FunchMainButton(
     enabled: Boolean = true,
     text: String,
     contentHorizontalPadding: Dp = 0.dp,
-    icon: @Composable () -> Unit = {},
+    icon: @Composable () -> Unit = {}
 ) {
     FunchMainButton(
         modifier = modifier,
@@ -90,27 +90,36 @@ fun FunchMainButton(
     enabled: Boolean = true,
     shape: Shape = RoundedCornerShape(size = 16.dp),
     contentPadding: PaddingValues = PaddingValues(0.dp),
-    content: @Composable RowScope.() -> Unit,
+    content: @Composable RowScope.() -> Unit
 ) {
     val brush = Brush.horizontalGradient(listOf(Lemon500, Yellow500))
     val disabledColor = Lemon900
     Box(
-        modifier = modifier
+        modifier =
+        modifier
             .then(
-                if (enabled) Modifier.neonSign(
-                    color = Lemon500.copy(alpha = 0.7f), borderRadius = 16.dp,
-                    blurRadius = 5.dp,
-                    spread = PaddingValues(top = (-4).dp, start = 0.dp, end = 0.dp, bottom = 4.dp),
-                ) else Modifier
+                if (enabled) {
+                    Modifier.neonSign(
+                        color = Lemon500.copy(alpha = 0.7f),
+                        borderRadius = 16.dp,
+                        blurRadius = 5.dp,
+                        spread = PaddingValues(top = (-4).dp, start = 0.dp, end = 0.dp, bottom = 4.dp)
+                    )
+                } else {
+                    Modifier
+                }
             )
             .clip(shape = shape)
             .then(
-                if (enabled) Modifier.background(brush = brush)
-                else Modifier.background(color = disabledColor)
+                if (enabled) {
+                    Modifier.background(brush = brush)
+                } else {
+                    Modifier.background(color = disabledColor)
+                }
             )
             .clickableSingle(enabled = enabled, onClick = onClick)
             .padding(contentPadding),
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.Center
     ) {
         Row {
             content()
@@ -126,13 +135,14 @@ fun FunchSubButton(
     enabled: Boolean = true,
     text: String,
     contentHorizontalPadding: Dp = 0.dp,
-    icon: @Composable () -> Unit = {},
+    icon: @Composable () -> Unit = {}
 ) {
-    val color = if (enabled) {
-        FunchTheme.colors.white
-    } else {
-        Gray400
-    }
+    val color =
+        if (enabled) {
+            FunchTheme.colors.white
+        } else {
+            Gray400
+        }
     FunchSubButton(
         modifier = modifier,
         onClick = onClick,
@@ -152,15 +162,16 @@ fun FunchSubButton(
     enabled: Boolean = true,
     shape: Shape = RoundedCornerShape(size = 16.dp),
     contentPadding: PaddingValues = PaddingValues(0.dp),
-    content: @Composable RowScope.() -> Unit,
+    content: @Composable RowScope.() -> Unit
 ) {
     Box(
-        modifier = modifier
+        modifier =
+        modifier
             .clip(shape = shape)
             .background(Gray800)
             .clickableSingle(enabled = enabled, onClick = onClick)
             .padding(contentPadding),
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.Center
     ) {
         Row {
             content()
@@ -177,32 +188,33 @@ fun FunchIconButton(
     backgroundColor: Color = Color.Transparent,
     roundedCornerShape: RoundedCornerShape = RoundedCornerShape(0.dp),
     indication: Indication? = LocalIndication.current,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     Box(
-        modifier = modifier
+        modifier =
+        modifier
             .background(
                 color = backgroundColor,
-                shape = roundedCornerShape,
+                shape = roundedCornerShape
             )
             .clip(roundedCornerShape)
             .clickable(
                 enabled = enabled,
                 onClick = onClick,
                 indication = indication,
-                interactionSource = interactionSource,
+                interactionSource = interactionSource
             ),
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.Center
     ) {
         Icon(
             painter = painterResource(id = funchIcon.resId),
             contentDescription = funchIcon.description,
-            tint = funchIcon.tint,
+            tint = funchIcon.tint
         )
     }
 }
 
-/*============================== Preview =================================*/
+// ============================== Preview =================================
 
 @Preview(name = "main button size", showBackground = true, widthDp = 360)
 @Composable
@@ -310,26 +322,28 @@ private fun Preview3() {
             Modifier
                 .background(Color.Black)
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 20.dp),
+                .padding(horizontal = 20.dp, vertical = 20.dp)
         ) {
             FunchMainButton(contentPadding = PaddingValues(vertical = 16.dp, horizontal = 24.dp), onClick = { }) {
                 Text(
                     text = "Button",
                     style = FunchTheme.typography.sbt1,
                     color = Gray900,
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Center
                 )
             }
             Spacer(modifier = Modifier.padding(16.dp))
 
-            FunchMainButton(enabled = false,
+            FunchMainButton(
+                enabled = false,
                 contentPadding = PaddingValues(vertical = 16.dp, horizontal = 24.dp),
-                onClick = { }) {
+                onClick = { }
+            ) {
                 Text(
                     text = "Button",
                     style = FunchTheme.typography.sbt1,
                     color = Gray900,
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Center
                 )
             }
         }
@@ -344,7 +358,7 @@ private fun Preview4() {
             Modifier
                 .background(Gray900)
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 20.dp),
+                .padding(horizontal = 20.dp, vertical = 20.dp)
         ) {
             FunchSubButton(
                 buttonType = FunchButtonType.Medium,
@@ -373,11 +387,12 @@ private fun Preview5() {
         roundedCornerShape = RoundedCornerShape(12.dp),
         backgroundColor = Gray500,
         onClick = { /*TODO*/ },
-        funchIcon = FunchIcon(
+        funchIcon =
+        FunchIcon(
             resId = FunchIconAsset.Search.search_24,
             description = "",
-            tint = Yellow500,
-        ),
+            tint = Yellow500
+        )
     )
 }
 
@@ -386,11 +401,12 @@ private fun Preview5() {
 private fun Preview6() {
     FunchIconButton(
         onClick = { /*TODO*/ },
-        funchIcon = FunchIcon(
+        funchIcon =
+        FunchIcon(
             resId = FunchIconAsset.Search.search_24,
             description = "",
-            tint = Gray400,
-        ),
+            tint = Gray400
+        )
     )
 }
 
@@ -399,11 +415,12 @@ private fun Preview6() {
 private fun Preview7() {
     FunchIconButton(
         onClick = { /*TODO*/ },
-        funchIcon = FunchIcon(
+        funchIcon =
+        FunchIcon(
             resId = FunchIconAsset.Search.search_16,
             description = "",
-            tint = Gray400,
+            tint = Gray400
         ),
-        indication = null,
+        indication = null
     )
 }

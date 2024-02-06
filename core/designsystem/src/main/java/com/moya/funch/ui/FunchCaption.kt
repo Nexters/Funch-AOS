@@ -23,29 +23,29 @@ fun FunchErrorCaption(
     modifier: Modifier = Modifier,
     isError: Boolean = false,
     errorText: String,
-    description: String = "",
+    description: String = ""
 ) {
     if (isError) {
         Row(
             modifier = modifier,
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 painter = painterResource(id = FunchIconAsset.Etc.information_24),
                 contentDescription = description,
-                tint = Coral500,
+                tint = Coral500
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = errorText,
                 color = Coral500,
-                style = FunchTheme.typography.caption,
+                style = FunchTheme.typography.caption
             )
         }
     }
 }
 
-/*============================== Preview =================================*/
+// ============================== Preview =================================
 
 @Preview("Error Caption", showBackground = true, backgroundColor = 0xFF2C2C2C)
 @Composable
@@ -54,10 +54,11 @@ private fun Preview1() {
 
     FunchTheme {
         FunchErrorCaption(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .padding(top = 4.dp, start = 4.dp),
             isError = isError.value,
-            errorText = "errorText",
+            errorText = "errorText"
         )
     }
 }

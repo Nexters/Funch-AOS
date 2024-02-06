@@ -13,7 +13,7 @@ fun CreateProfileScreen(onNavigateToHome: () -> Unit) {
         Text(
             text = "프로필 생성 화면",
             fontSize = 12.sp,
-            color = Color.White,
+            color = Color.White
         )
         Button(onClick = onNavigateToHome) {
             Text(text = "프로필 생성")

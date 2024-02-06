@@ -6,21 +6,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun FunchNavHost(
-    hasProfile: Boolean,
-    navController: NavHostController = rememberNavController(),
-) {
+fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = rememberNavController()) {
     NavHost(
         navController = navController,
-        startDestination = determineStartDestination(hasProfile),
+        startDestination = determineStartDestination(hasProfile)
     ) {
         profileGraph(
             onNavigateToHome = navController::navigateToHome,
-            onCloseMyProfile = navController::closeMyProfile,
+            onCloseMyProfile = navController::closeMyProfile
         )
         homeScreen(
             onNavigateToMatching = { /* @Gun Hyung TODO : 매칭 라우터 연결 */ },
-            onNavigateToMyProfile = navController::navigateToMyProfile,
+            onNavigateToMyProfile = navController::navigateToMyProfile
         )
     }
 }

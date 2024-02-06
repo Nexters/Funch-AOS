@@ -3,7 +3,7 @@ package com.moya.funch.entity
 enum class Job(val krName: String) {
     DEVELOPER("개발자"),
     DESIGNER("디자이너"),
-    IDLE("idle"),
+    IDLE("idle")
     ;
 
     companion object {
