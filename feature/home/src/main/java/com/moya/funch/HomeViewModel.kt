@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 data class HomeModel(
     val myCode: String,
     val viewCount: Int,
-    val matchingCode: String
+    val matchingCode: String = ""
 ) {
     companion object {
         fun empty() = HomeModel(
@@ -34,29 +34,24 @@ constructor(
         initHome()
     }
 
+    fun setMatchingCode(code: String) {
+        Timber.e("setMatchingCode: $code")
+        _homeModel.value = _homeModel.value.copy(
+            matchingCode = code.uppercase()
     private fun initHome() { // @Gun Hyung TODO : 도메인 완성시 init 함수 제작
         // setMyCode("u23c")
         // setViewCount(12)
     }
 
     private fun setMyCode(code: String) { // @Gun Hyung TODO : 도메인에서 .uppercase() 처리
-        _homeModel.value =
-            _homeModel.value.copy(
-                myCode = code.uppercase()
-            )
+        _homeModel.value = _homeModel.value.copy(
+            myCode = code.uppercase()
+        )
     }
 
     private fun setViewCount(count: Int) {
-        _homeModel.value =
-            _homeModel.value.copy(
-                viewCount = count
-            )
-    }
-
-    fun setMatchingCode(code: String) {
-        _homeModel.value =
-            _homeModel.value.copy(
-                matchingCode = code.uppercase()
-            )
+        _homeModel.value = _homeModel.value.copy(
+            viewCount = count
+        )
     }
 }
