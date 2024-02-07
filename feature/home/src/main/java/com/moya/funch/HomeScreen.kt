@@ -53,6 +53,7 @@ import com.moya.funch.theme.Lemon500
 import com.moya.funch.theme.LocalBackgroundTheme
 import com.moya.funch.theme.White
 import com.moya.funch.theme.Yellow500
+import com.moya.funch.ui.SingleEventArea
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -174,18 +175,20 @@ private fun MatchingCard(value: String, onValueChange: (String) -> Unit, matchPr
             onValueChange = onValueChange,
             hint = stringResource(id = R.string.matching_card_hint),
             iconButton = {
-                FunchIconButton(
-                    modifier = Modifier.size(40.dp),
-                    roundedCornerShape = RoundedCornerShape(12.dp),
-                    backgroundColor = Gray500,
-                    onClick = onNavigateToMatching,
-                    funchIcon =
-                    FunchIcon(
-                        resId = FunchIconAsset.Search.search_24,
-                        description = "",
-                        tint = Yellow500
+                SingleEventArea { cutter ->
+                    FunchIconButton(
+                        modifier = Modifier.size(40.dp),
+                        roundedCornerShape = RoundedCornerShape(12.dp),
+                        backgroundColor = Gray500,
+                        onClick = { cutter.handle(matchProfile) },
+                        funchIcon =
+                        FunchIcon(
+                            resId = FunchIconAsset.Search.search_24,
+                            description = "",
+                            tint = Yellow500
+                        )
                     )
-                )
+                }
             }
         )
     }
