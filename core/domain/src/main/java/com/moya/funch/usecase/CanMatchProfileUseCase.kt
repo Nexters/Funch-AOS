@@ -6,10 +6,10 @@ import javax.inject.Inject
 class CanMatchProfileUseCaseImpl @Inject constructor(
     private val matchingRepository: MatchingRepository
 ) : CanMatchProfileUseCase {
-    override suspend operator fun invoke(userId: String, targetCode: String): Boolean =
-        runCatching { matchingRepository.matchProfile(userId, targetCode) }.isSuccess
+    override suspend operator fun invoke(targetCode: String): Boolean =
+        runCatching { matchingRepository.matchProfile(targetCode) }.isSuccess
 }
 
 fun interface CanMatchProfileUseCase {
-    suspend operator fun invoke(userId: String, targetCode: String): Boolean
+    suspend operator fun invoke(targetCode: String): Boolean
 }
