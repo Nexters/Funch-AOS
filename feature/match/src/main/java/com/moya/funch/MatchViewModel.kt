@@ -14,13 +14,13 @@ import com.moya.funch.entity.match.Matching
 import com.moya.funch.entity.match.Recommend
 import com.moya.funch.entity.profile.Profile
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
 
 @HiltViewModel
 class MatchViewModel @Inject constructor(
