@@ -18,3 +18,5 @@ internal val Gray600 = Color(0xFF363636)
 internal val Gray500 = Color(0xFF404040)
 internal val Gray400 = Color(0xFF6D6D6D)
 internal val Gray300 = Color(0xFF9B9B9B)
+
+internal val Gradient_Lemon500 = listOf(Lemon500, Yellow500)
