@@ -14,6 +14,8 @@ object FunchIconAsset {
         val arrow_right_android_24 = R.drawable.ic_arrow_right_android_24
         val arrow_left_small_24 = R.drawable.ic_arrow_left_small_24
         val arrow_right_small_24 = R.drawable.ic_arrow_right_small_24
+        val arrow_up_24 = R.drawable.ic_arrow_up_24
+        val arrow_down_24 = R.drawable.ic_arrow_down_24
         val arrow_up_limit_24 = R.drawable.ic_arrow_up_limit_24
         val left_right_24 = R.drawable.ic_left_right_24
         val diagonal_24 = R.drawable.ic_diagonal_24
