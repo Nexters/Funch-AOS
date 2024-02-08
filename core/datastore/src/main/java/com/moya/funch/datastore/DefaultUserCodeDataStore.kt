@@ -13,9 +13,8 @@ import javax.inject.Singleton
 @Singleton
 class DefaultUserCodeDataStore @Inject constructor(
     private val preferences: SharedPreferences,
-    @ApplicationContext private val context: Context,
+    @ApplicationContext private val context: Context
 ) : UserCodeDataStore {
-
     override var deviceId: String
         get() {
             initDeviceId()

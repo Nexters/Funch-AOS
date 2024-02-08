@@ -8,7 +8,5 @@ import retrofit2.http.POST
 
 interface MatchingService {
     @POST("api/v1/matching")
-    suspend fun matchProfile(
-        @Body body: MatchingRequest,
-    ): BaseResponse<MatchingResponse>
+    suspend fun matchProfile(@Body body: MatchingRequest): BaseResponse<MatchingResponse>
 }

@@ -8,5 +8,5 @@ data class ChemistryResponse(
     @SerialName("title")
     val title: String = "",
     @SerialName("description")
-    val description: String = "",
+    val description: String = ""
 )

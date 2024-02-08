@@ -6,7 +6,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.moya.funch.CreateProfileScreen
 import com.moya.funch.MyProfileRoute
-import com.moya.funch.MyProfileScreen
 
 const val PROFILE_GRAPH_ROUTE = "profile_graph"
 
@@ -14,22 +13,19 @@ fun NavController.navigateToMyProfile() = navigate(ProfileScreens.MyProfile.rout
 
 fun NavController.closeMyProfile() = popBackStack() // 텍스트 필드의 값을 남기기 위해 사용
 
-fun NavGraphBuilder.profileGraph(
-    onNavigateToHome: () -> Unit,
-    onCloseMyProfile: () -> Unit,
-) {
+fun NavGraphBuilder.profileGraph(onNavigateToHome: () -> Unit, onCloseMyProfile: () -> Unit) {
     navigation(
         route = PROFILE_GRAPH_ROUTE,
-        startDestination = ProfileScreens.Create.route,
+        startDestination = ProfileScreens.Create.route
     ) {
         composable(route = ProfileScreens.Create.route) {
             CreateProfileScreen(
-                onNavigateToHome = onNavigateToHome,
+                onNavigateToHome = onNavigateToHome
             )
         }
         composable(route = ProfileScreens.MyProfile.route) {
             MyProfileRoute(
-                onCloseMyProfile = onCloseMyProfile,
+                onCloseMyProfile = onCloseMyProfile
             )
         }
     }

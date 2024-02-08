@@ -19,14 +19,14 @@ android {
             buildConfigField(
                 "String",
                 "FUNCH_DEBUG_BASE_URL",
-                properties.getProperty("FUNCH_DEBUG_BASE_URL"),
+                properties.getProperty("FUNCH_DEBUG_BASE_URL")
             )
         }
         getByName("debug") {
             buildConfigField(
                 "String",
                 "FUNCH_DEBUG_BASE_URL",
-                properties.getProperty("FUNCH_DEBUG_BASE_URL"),
+                properties.getProperty("FUNCH_DEBUG_BASE_URL")
             )
         }
     }
