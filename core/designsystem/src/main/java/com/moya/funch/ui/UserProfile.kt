@@ -23,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.moya.funch.component.FunchChip
 import com.moya.funch.designsystem.R
+import com.moya.funch.icon.FunchIconAsset
 import com.moya.funch.theme.FunchTheme
 import com.moya.funch.theme.Gray400
 import com.moya.funch.theme.Gray900
@@ -161,39 +162,39 @@ fun UsersDistinct(
 @Composable
 private fun profileLeadingIcon(value: String): Painter =
     when (value) {
-        "개발" -> painterResource(id = R.drawable.ic_developer_18)
-        "디자인" -> painterResource(id = R.drawable.ic_designer_18)
-        "넥스터즈" -> painterResource(id = R.drawable.ic_nexters_24)
-        "Depromeet" -> painterResource(id = R.drawable.ic_depromeet_24)
-        "SOPT" -> painterResource(id = R.drawable.ic_sopt_24)
+        "개발" -> painterResource(id = FunchIconAsset.Job.developer_24)
+        "디자인" -> painterResource(id = FunchIconAsset.Job.designer_24)
+        "넥스터즈" -> painterResource(id = FunchIconAsset.Club.nexters_24)
+        "SOPT" -> painterResource(id = FunchIconAsset.Club.sopt_24)
+        "Depromeet" -> painterResource(id = FunchIconAsset.Club.depromeet_24)
         else -> throw IllegalArgumentException("Unknown job: $value")
     }
 
 @Composable
 private fun subwayLineIcon(line: String): Painter =
     when (line) {
-        "1" -> painterResource(id = R.drawable.ic_subway_line_one_16)
-        "2" -> painterResource(id = R.drawable.ic_subway_line_two_16)
-        "3" -> painterResource(id = R.drawable.ic_subway_line_three_16)
-        "4" -> painterResource(id = R.drawable.ic_subway_line_four_16)
-        "5" -> painterResource(id = R.drawable.ic_subway_line_five_16)
-        "6" -> painterResource(id = R.drawable.ic_subway_line_six_16)
-        "7" -> painterResource(id = R.drawable.ic_subway_line_seven_16)
-        "8" -> painterResource(id = R.drawable.ic_subway_line_eight_16)
-        "9" -> painterResource(id = R.drawable.ic_subway_line_nine_16)
-        "경의중앙" -> painterResource(id = R.drawable.ic_subway_line_gyeongui_jungang_16)
-        "신분당" -> painterResource(id = R.drawable.ic_subway_line_shinbundang_16)
-        "수인분당" -> painterResource(id = R.drawable.ic_subway_line_suinbundang_16)
-        "공항철도" -> painterResource(id = R.drawable.ic_subway_line_airport_16)
-        "인천1" -> painterResource(id = R.drawable.ic_subway_line_incheon_one_16)
-        "의정부" -> painterResource(id = R.drawable.ic_subway_line_uijeongbu_16)
-        "우이신설" -> painterResource(id = R.drawable.ic_subway_line_ui_sinseol_16)
-        "김포골드" -> painterResource(id = R.drawable.ic_subway_line_gimpo_goldline_16)
-        "인천2" -> painterResource(id = R.drawable.ic_subway_line_incheon_two_16)
-        "용인에버" -> painterResource(id = R.drawable.ic_subway_line_youngin_ever_16)
-        "신림" -> painterResource(id = R.drawable.ic_subway_line_sillim_16)
-        "경춘" -> painterResource(id = R.drawable.ic_subway_line_gyeongchun_16)
-        "경강" -> painterResource(id = R.drawable.ic_subway_line_geonggang_16)
-        "서해선" -> painterResource(id = R.drawable.ic_subway_line_seohae_16)
+        "1" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_one)
+        "2" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_two)
+        "3" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_three)
+        "4" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_four)
+        "5" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_five)
+        "6" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_six)
+        "7" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_seven)
+        "8" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_eight)
+        "9" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_nine)
+        "경의중앙" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_gyeongui_jungang)
+        "신분당" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_shinbundang)
+        "수인분당" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_suinbundang)
+        "공항" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_airport)
+        "인천1" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_incheon_one)
+        "의정부" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_uijeongbu)
+        "우이신설" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_ui_sinseol)
+        "김포골드라인" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_gimpo_goldline)
+        "인천2" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_incheon_two)
+        "용인에버라인" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_youngin_ever)
+        "신림" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_sillim)
+        "경춘" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_gyeongchun)
+        "경강" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_geonggang)
+        "서해" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_seohae)
         else -> throw IllegalArgumentException("Unknown subway line: $line")
     }
