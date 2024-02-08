@@ -59,7 +59,7 @@ fun FunchDropDownButton(
     onClick: () -> Unit,
     isDropDownMenuExpanded: Boolean,
     indication: Indication? = LocalIndication.current,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     Row(
         modifier = modifier
@@ -70,32 +70,34 @@ fun FunchDropDownButton(
                 shape = FunchTheme.shapes.medium
             )
             .then(
-                if (isDropDownMenuExpanded)
+                if (isDropDownMenuExpanded) {
                     Modifier.border(
                         width = 1.dp,
                         color = White,
                         shape = FunchTheme.shapes.medium
                     )
-                else Modifier
+                } else {
+                    Modifier
+                }
             )
             .clickable(
                 onClick = onClick,
                 indication = indication,
-                interactionSource = interactionSource,
+                interactionSource = interactionSource
             )
             .padding(
                 top = 8.dp,
                 bottom = 8.dp,
                 start = 16.dp,
-                end = 8.dp,
+                end = 8.dp
             ),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
             text = placeHolder,
             style = FunchTheme.typography.b,
-            color = White,
+            color = White
         )
         Icon(
             modifier = Modifier.padding(8.dp),
@@ -107,7 +109,7 @@ fun FunchDropDownButton(
                 }
             ),
             contentDescription = "",
-            tint = White,
+            tint = White
         )
     }
 }
@@ -118,7 +120,7 @@ fun FunchDropDownMenu(
     items: List<String>,
     buttonBounds: Rect,
     onItemSelected: (String) -> Unit,
-    scrollState: ScrollState = rememberScrollState(),
+    scrollState: ScrollState = rememberScrollState()
 ) {
     Popup(
         alignment = Alignment.TopStart,
@@ -150,7 +152,7 @@ fun FunchDropDownMenu(
                             end = 4.dp
                         )
                     )
-                ),
+                )
         ) {
             items.forEachIndexed { index, option ->
                 val interactionSource = remember { MutableInteractionSource() }
@@ -159,7 +161,7 @@ fun FunchDropDownMenu(
                     option = option,
                     onItemSelected = { onItemSelected(option) },
                     isPressed = isPressed,
-                    interactionSource = interactionSource,
+                    interactionSource = interactionSource
                 )
                 if (index < items.lastIndex) {
                     Divider(
@@ -177,7 +179,7 @@ fun FunchDropDownItem(
     option: String,
     onItemSelected: (String) -> Unit,
     isPressed: Boolean,
-    interactionSource: MutableInteractionSource,
+    interactionSource: MutableInteractionSource
 ) {
     Row(
         modifier = Modifier
@@ -186,7 +188,7 @@ fun FunchDropDownItem(
             .clickable(
                 onClick = { onItemSelected(option) },
                 interactionSource = interactionSource,
-                indication = null,
+                indication = null
             )
             .padding(
                 start = 16.dp,
@@ -198,7 +200,7 @@ fun FunchDropDownItem(
         Text(
             text = option,
             color = White,
-            style = FunchTheme.typography.b,
+            style = FunchTheme.typography.b
         )
     }
 }
@@ -206,7 +208,7 @@ fun FunchDropDownItem(
 @Preview(
     showBackground = true,
     widthDp = 360,
-    heightDp = 640,
+    heightDp = 640
 )
 @Composable
 private fun Preview1() {
@@ -215,7 +217,7 @@ private fun Preview1() {
 
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = backgroundColor,
+            color = backgroundColor
         ) {
             Column(
                 modifier = Modifier
@@ -240,7 +242,7 @@ private fun Preview1() {
                         indication = null,
                         modifier = Modifier.onGloballyPositioned { coordinates ->
                             buttonBounds.value = coordinates.boundsInWindow()
-                        },
+                        }
                     )
                     if (isDropDownMenuExpanded) {
                         FunchDropDownMenu(
@@ -249,7 +251,7 @@ private fun Preview1() {
                             onItemSelected = { text ->
                                 placeHolder = text
                                 isDropDownMenuExpanded = false
-                            },
+                            }
                         )
                     }
                 }

@@ -33,7 +33,7 @@ data class ScrollBarConfig(
     val indicatorColor: Color = Color.LightGray,
     val alpha: Float? = null,
     val alphaAnimationSpec: AnimationSpec<Float>? = null,
-    val padding: PaddingValues = PaddingValues(all = 0.dp),
+    val padding: PaddingValues = PaddingValues(all = 0.dp)
 )
 
 fun Modifier.scrollbar(
@@ -46,7 +46,7 @@ fun Modifier.scrollbar(
         delayMillis = if (state.isScrollInProgress) 0 else 1500,
         durationMillis = if (state.isScrollInProgress) 150 else 500
     ),
-    padding: PaddingValues = PaddingValues(all = 0.dp),
+    padding: PaddingValues = PaddingValues(all = 0.dp)
 ): Modifier = composed {
     val scrollbarAlpha by animateFloatAsState(
         targetValue = alpha,
@@ -87,7 +87,11 @@ fun Modifier.scrollbar(
                     y = indicatorThicknessPx / 2
                 ),
                 topLeft = Offset(
-                    x = if (layoutDirection == LayoutDirection.Ltr) viewPortCrossAxisLength - indicatorThicknessPx - endPadding else startPadding,
+                    x = if (layoutDirection == LayoutDirection.Ltr) {
+                        viewPortCrossAxisLength - indicatorThicknessPx - endPadding
+                    } else {
+                        startPadding
+                    },
                     y = scrollOffsetViewPort
                 ),
                 size = scrollbarSizeWithoutInsets,
@@ -102,7 +106,7 @@ fun Modifier.verticalScrollWithScrollbar(
     enabled: Boolean = true,
     flingBehavior: FlingBehavior? = null,
     reverseScrolling: Boolean = false,
-    scrollbarConfig: ScrollBarConfig = ScrollBarConfig(),
+    scrollbarConfig: ScrollBarConfig = ScrollBarConfig()
 ) = this
     .scrollbar(
         state = state,
