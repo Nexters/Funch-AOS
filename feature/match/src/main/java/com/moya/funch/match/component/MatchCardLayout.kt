@@ -16,17 +16,14 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.moya.funch.theme.FunchTheme
 import com.moya.funch.match.theme.Gray700
 import com.moya.funch.match.theme.Gray800
 import com.moya.funch.match.theme.Gray900
 import com.moya.funch.match.theme.Lemon500
+import com.moya.funch.theme.FunchTheme
 
 @Composable
-internal fun MatchCardLayout(
-    modifier: Modifier = Modifier,
-    content: @Composable ColumnScope.() -> Unit
-) {
+internal fun MatchCardLayout(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -37,7 +34,6 @@ internal fun MatchCardLayout(
         content()
     }
 }
-
 
 @Composable
 @Preview(
@@ -55,7 +51,7 @@ private fun Preview() {
                 .padding(60.dp)
         ) {
             MatchCardLayout(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize()
             ) {
                 Text(text = "우리가 누구?", color = Color.White)
                 Text(text = "다이나믹 듀오~~", color = Color.White)
@@ -63,7 +59,6 @@ private fun Preview() {
         }
     }
 }
-
 
 @Composable
 @Preview(

@@ -68,7 +68,7 @@ private fun Int.formatNumber(): String {
 }
 
 @Composable
-private fun SimilarityCardContent(similarity: Int, chemistrys: List<Chemistry>) {
+internal fun SimilarityCardContent(similarity: Int, chemistrys: List<Chemistry>) {
     Spacer(modifier = Modifier.height(8.dp))
     SimilarityText(similarity = similarity)
     Spacer(modifier = Modifier.height(16.dp))

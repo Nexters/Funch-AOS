@@ -35,7 +35,9 @@ internal fun MatchRoute(onClose: () -> Unit, code: String, matchViewModel: Match
     }
 
     MatchScreen(
-        onClose = onClose, memberCode = matchCode, matchUiState = uiState
+        onClose = onClose,
+        memberCode = matchCode,
+        matchUiState = uiState
     )
 }
 
@@ -82,6 +84,8 @@ internal fun LoadingContent() {
 @Composable
 private fun MatchScreenPreview() {
     MatchScreen(
-        onClose = {}, memberCode = "1234", matchUiState = MatchUiState.Loading
+        onClose = {},
+        memberCode = "1234",
+        matchUiState = MatchUiState.Loading
     )
 }
