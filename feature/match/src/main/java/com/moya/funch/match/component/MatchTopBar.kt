@@ -14,13 +14,11 @@ internal fun MatchTopBar(onClose: () -> Unit) {
     // @murjune TODO Change leadingIcon tint funchTheme.xxx
     FunchTopBar(
         modifier = Modifier.padding(start = 12.dp, end = 20.dp),
-        enabledTrailingIcon = false,
         leadingIcon = FunchIcon(
             resId = FunchIconAsset.Etc.close_24,
             description = "close",
             tint = Gray400
         ),
-        trailingIcon = null,
         onClickLeadingIcon = onClose
     )
 }
