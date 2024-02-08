@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,7 +19,11 @@ import com.moya.funch.theme.Gray900
 import com.moya.funch.ui.FunchFeedbackButton
 
 @Composable
-fun FunchNonTitleTopBar(leadingIcon: (@Composable () -> Unit)? = {}, trailingIcon: (@Composable () -> Unit) = {}) {
+fun FunchNonTitleTopBar(
+    modifier: Modifier = Modifier,
+    leadingIcon: (@Composable () -> Unit)? = {},
+    trailingIcon: (@Composable () -> Unit) = {}
+) {
     val arrangement =
         if (leadingIcon != null) {
             Arrangement.SpaceBetween
@@ -26,10 +31,10 @@ fun FunchNonTitleTopBar(leadingIcon: (@Composable () -> Unit)? = {}, trailingIco
             Arrangement.End
         }
     Row(
-        modifier =
-        Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .background(Gray900),
+            .background(Gray900)
+            .padding(top = 6.dp, bottom = 2.dp),
         horizontalArrangement = arrangement,
         verticalAlignment = Alignment.CenterVertically
     ) {
