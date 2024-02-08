@@ -1,9 +1,11 @@
 package com.moya.funch.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
 
 @Composable
 fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = rememberNavController()) {
@@ -11,16 +13,25 @@ fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = remembe
         navController = navController,
         startDestination = determineStartDestination(hasProfile)
     ) {
-        profileGraph(
-            onNavigateToHome = navController::navigateToHome,
-            onCloseMyProfile = navController::closeMyProfile
-        )
-        homeScreen(
-            onNavigateToMatching = { /* @Gun Hyung TODO : 매칭 라우터 연결 */ },
-            onNavigateToMyProfile = navController::navigateToMyProfile
-        )
+        with(navController) {
+            profileGraph(
+                onNavigateToHome = ::navigateToHome,
+                onCloseMyProfile = ::closeMyProfile
+            )
+            homeScreen(
+                onNavigateToMatching = ::onNavigateToMatching,
+                onNavigateToMyProfile = ::navigateToMyProfile
+            )
+            matchingScreen(onClose = { popBackStack(HOME_ROUTE, false) })
+        }
     }
 }
+
+private val singleTopNavOptions = navOptions {
+    launchSingleTop = true
+}
+
+private fun NavController.onNavigateToMatching(route: String) = navigateToMatching(route, singleTopNavOptions)
 
 private fun determineStartDestination(hasProfile: Boolean): String {
     return if (hasProfile) HOME_ROUTE else PROFILE_GRAPH_ROUTE

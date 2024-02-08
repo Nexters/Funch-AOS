@@ -37,7 +37,7 @@ dependencies {
     // feature
     implementation(projects.feature.profile)
     implementation(projects.feature.home)
-//    implementation(projects.feature.match)
+    implementation(projects.feature.match)
 
 //    implementation(libs.coil.core)
     implementation(libs.startup)
