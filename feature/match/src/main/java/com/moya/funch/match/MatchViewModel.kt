@@ -1,4 +1,4 @@
-package com.moya.funch
+package com.moya.funch.match
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

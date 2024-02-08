@@ -6,6 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.moya.funch.match.navigation.matchingScreen
+import com.moya.funch.match.navigation.navigateToMatching
 
 @Composable
 fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = rememberNavController()) {

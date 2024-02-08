@@ -1,4 +1,4 @@
-package com.moya.funch.navigation
+package com.moya.funch.match.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -6,7 +6,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.moya.funch.MatchRoute
+import com.moya.funch.match.MatchRoute
 
 private const val MATCH_ROUTE = "match/{code}"
 private const val MEMBER_CODE_KEY = "code"
