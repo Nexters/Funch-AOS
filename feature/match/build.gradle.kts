@@ -5,6 +5,10 @@ plugins {
 
 android {
     namespace = "com.moya.funch.match"
+
+    packaging {
+        resources.excludes.add("META-INF/LICENSE*")
+    }
 }
 
 dependencies {
