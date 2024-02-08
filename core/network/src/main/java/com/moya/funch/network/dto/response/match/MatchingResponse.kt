@@ -15,5 +15,5 @@ data class MatchingResponse(
     @SerialName("recommendInfos")
     val recommends: List<RecommendResponse> = listOf(),
     @SerialName("subwayInfos")
-    val subways: List<SubwayResponse> = listOf(),
+    val subways: List<SubwayResponse> = listOf()
 )

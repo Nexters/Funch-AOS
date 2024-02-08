@@ -18,17 +18,16 @@ import com.moya.funch.theme.Gray900
 import com.moya.funch.ui.FunchFeedbackButton
 
 @Composable
-fun FunchNonTitleTopBar(
-    leadingIcon: (@Composable () -> Unit)? = {},
-    trailingIcon: (@Composable () -> Unit) = {},
-) {
-    val arrangement = if (leadingIcon != null) {
-        Arrangement.SpaceBetween
-    } else {
-        Arrangement.End
-    }
+fun FunchNonTitleTopBar(leadingIcon: (@Composable () -> Unit)? = {}, trailingIcon: (@Composable () -> Unit) = {}) {
+    val arrangement =
+        if (leadingIcon != null) {
+            Arrangement.SpaceBetween
+        } else {
+            Arrangement.End
+        }
     Row(
-        modifier = Modifier
+        modifier =
+        Modifier
             .fillMaxWidth()
             .background(Gray900),
         horizontalArrangement = arrangement,
@@ -40,7 +39,6 @@ fun FunchNonTitleTopBar(
     }
 }
 
-
 @Composable
 @Preview(showBackground = true, name = "FunchNonTitleTopBar - Leading and Trailing Icon")
 private fun Preview() {
@@ -50,11 +48,12 @@ private fun Preview() {
                 FunchIconButton(
                     modifier = Modifier.size(40.dp),
                     onClick = { },
-                    funchIcon = FunchIcon(
+                    funchIcon =
+                    FunchIcon(
                         resId = FunchIconAsset.Search.search_24,
                         description = "Search",
                         tint = Gray400
-                    ),
+                    )
                 )
             },
             trailingIcon = {
@@ -73,11 +72,12 @@ private fun Preview2() {
                 FunchIconButton(
                     modifier = Modifier.size(40.dp),
                     onClick = { },
-                    funchIcon = FunchIcon(
+                    funchIcon =
+                    FunchIcon(
                         resId = FunchIconAsset.Search.search_24,
                         description = "Search",
                         tint = Gray400
-                    ),
+                    )
                 )
             }
         )
@@ -95,5 +95,3 @@ private fun Preview3() {
         )
     }
 }
-
-

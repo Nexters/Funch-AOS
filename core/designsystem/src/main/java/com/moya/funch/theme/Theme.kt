@@ -11,12 +11,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.tooling.preview.Preview
 
-private val LocalFunchColors = staticCompositionLocalOf<FunchColorSchema> {
-    error("No FunchColors provided")
-}
-private val LocalFunchTypography = staticCompositionLocalOf<FunchTypography> {
-    error("No FunchTypography provided")
-}
+private val LocalFunchColors =
+    staticCompositionLocalOf<FunchColorSchema> {
+        error("No FunchColors provided")
+    }
+private val LocalFunchTypography =
+    staticCompositionLocalOf<FunchTypography> {
+        error("No FunchTypography provided")
+    }
 
 private val DarkGradientColors = GradientColors(top = Gray900, bottom = Gray900)
 
@@ -29,11 +31,7 @@ object FunchTheme {
 }
 
 @Composable
-fun ProvideFunchProperty(
-    colors: FunchColorSchema,
-    typography: FunchTypography,
-    content: @Composable () -> Unit,
-) {
+fun ProvideFunchProperty(colors: FunchColorSchema, typography: FunchTypography, content: @Composable () -> Unit) {
     val provideColors = remember { colors.copy() }
     provideColors.update(colors)
     val provideTypography = remember { typography.copy() }
@@ -48,9 +46,7 @@ fun ProvideFunchProperty(
 }
 
 @Composable
-fun FunchTheme(
-    content: @Composable () -> Unit,
-) {
+fun FunchTheme(content: @Composable () -> Unit) {
     // this version provides only dark theme
     val colors = funchDarkColorSchema()
     val gradientColors = DarkGradientColors
@@ -59,7 +55,7 @@ fun FunchTheme(
 
     CompositionLocalProvider(
         LocalGradientColors provides gradientColors,
-        LocalBackgroundTheme provides backgroundTheme,
+        LocalBackgroundTheme provides backgroundTheme
     ) {
         ProvideFunchProperty(colors, typography) {
             MaterialTheme(content = content)
@@ -78,20 +74,22 @@ private fun NiaThemePreview() {
         ) {
             Column {
                 Text(
-                    text = "Hello, Funch!", color = FunchTheme.colors.white, style = FunchTheme.typography.t1
+                    text = "Hello, Funch!",
+                    color = FunchTheme.colors.white,
+                    style = FunchTheme.typography.t1
                 )
                 Text(
-                    text = "Hello, Funch!", color = FunchTheme.colors.white, style = FunchTheme.typography.sbt1
+                    text = "Hello, Funch!",
+                    color = FunchTheme.colors.white,
+                    style = FunchTheme.typography.sbt1
                 )
                 Button(
                     onClick = { /*TODO*/ },
-                    shape = FunchTheme.shapes.small,
+                    shape = FunchTheme.shapes.small
                 ) {
                     Text(text = "Button")
                 }
             }
-
         }
-
     }
 }

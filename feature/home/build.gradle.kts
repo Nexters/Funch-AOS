@@ -1,5 +1,4 @@
 plugins {
-    alias(libs.plugins.ktlint)
     alias(libs.plugins.funch.feature)
     alias(libs.plugins.funch.compose)
 }
@@ -10,4 +9,5 @@ android {
 
 dependencies {
     implementation(projects.core.designsystem)
+    implementation(projects.core.domain)
 }

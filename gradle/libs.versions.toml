@@ -106,6 +106,7 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coi
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "dagger-hilt-navigation-compose" }
+lifecycle-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle" }
 
 # dagger-hilt
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger-hilt" }
@@ -193,7 +194,7 @@ funch-jvm-library = { id = "com.moya.funch.jvm.library", version = "unspecified"
 [bundles]
 firebase = ["firebase-analytics", "firebase-crashlytics"]
 lifecycle = ["lifecycle", "lifecycle-viewmodel"]
-compose = ["ui", "ui-graphics", "ui-tooling", "ui-tooling-preview", "material3-compose", "coil-compose", "ui-foundation", "activity-compose", "navigation-compose"]
+compose = ["ui", "ui-graphics", "ui-tooling", "ui-tooling-preview", "material3-compose", "coil-compose", "ui-foundation", "activity-compose", "navigation-compose", "lifecycle-compose"]
 retrofit = ["retrofit", "retrofit-kotlin-serialization-converter"]
 junit5 = ["junit5", "junit5-engine", "junit5-params", "junit5-vintage"]
 androidx-android-test = ["androidx-test-core", "androidx-test-espresso", "androidx-test-espresso-intents", "androidx-test-junit", "androidx-test-junit-ktx", "androidx-test-rules", "androidx-test-runner", "androidx-test-truth"]

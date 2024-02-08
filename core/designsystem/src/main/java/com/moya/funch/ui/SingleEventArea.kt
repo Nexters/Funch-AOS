@@ -9,9 +9,7 @@ import com.moya.funch.modifier.SingleEventHandler
  * 여러 번 클릭 이벤트를 막아주는 Wrapper Composable
  * */
 @Composable
-fun <T> SingleEventArea(
-    content: @Composable (SingleEventHandler) -> T,
-) {
+fun <T> SingleEventArea(content: @Composable (SingleEventHandler) -> T) {
     val singleEventHandler = remember { DefaultSingleEventHandler() }
 
     content(singleEventHandler)

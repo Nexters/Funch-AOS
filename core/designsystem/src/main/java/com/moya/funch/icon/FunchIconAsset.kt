@@ -3,7 +3,6 @@ package com.moya.funch.icon
 import com.moya.funch.designsystem.R
 
 object FunchIconAsset {
-
     object Search {
         val search_24 = R.drawable.ic_search_24
         val search_16 = R.drawable.ic_search_16

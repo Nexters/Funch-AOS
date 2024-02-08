@@ -25,7 +25,7 @@ internal val Gray300 = Color(0xFF9B9B9B)
 class FunchColorSchema(
     background: Color,
     error: Color,
-    white: Color,
+    white: Color
 ) {
     var background by mutableStateOf(background)
         private set
@@ -37,7 +37,7 @@ class FunchColorSchema(
     fun copy(): FunchColorSchema = FunchColorSchema(
         background = background,
         error = error,
-        white = white,
+        white = white
     )
 
     fun update(other: FunchColorSchema) {
@@ -47,15 +47,10 @@ class FunchColorSchema(
     }
 }
 
-fun funchDarkColorSchema(
-    background: Color = Gray900,
-    white: Color = White,
-    error: Color = Coral500,
-
-    ): FunchColorSchema {
+fun funchDarkColorSchema(background: Color = Gray900, white: Color = White, error: Color = Coral500): FunchColorSchema {
     return FunchColorSchema(
         white = white,
         background = background,
-        error = error,
+        error = error
     )
 }
