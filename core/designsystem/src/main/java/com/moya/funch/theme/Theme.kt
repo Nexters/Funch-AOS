@@ -1,5 +1,6 @@
 package com.moya.funch.theme
 
+import android.app.Activity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -7,9 +8,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
 
 private val LocalFunchColors =
     staticCompositionLocalOf<FunchColorSchema> {
@@ -24,6 +29,18 @@ private val DarkGradientColors = GradientColors(top = Gray900, bottom = Gray900)
 
 private val DarkAndroidBackgroundTheme = BackgroundTheme(color = Gray900)
 
+@Composable
+private fun statusBar(isDarkMode: Boolean = true) {
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as Activity).window
+            window.statusBarColor = Gray900.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = isDarkMode
+        }
+    }
+}
+
 object FunchTheme {
     val colors: FunchColorSchema @Composable get() = LocalFunchColors.current
     val typography: FunchTypography @Composable get() = LocalFunchTypography.current
@@ -36,6 +53,9 @@ fun ProvideFunchProperty(colors: FunchColorSchema, typography: FunchTypography, 
     provideColors.update(colors)
     val provideTypography = remember { typography.copy() }
     provideTypography.update(typography)
+
+    statusBar()
+
     val provideShape = remember { FunchShapes() }
     CompositionLocalProvider(
         LocalFunchColors provides provideColors,
