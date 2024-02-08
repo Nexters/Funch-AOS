@@ -31,6 +31,7 @@ fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = remembe
 
 private val singleTopNavOptions = navOptions {
     launchSingleTop = true
+    popUpTo(HOME_ROUTE)
 }
 
 private fun NavController.onNavigateToMatching(route: String) = navigateToMatching(route, singleTopNavOptions)
