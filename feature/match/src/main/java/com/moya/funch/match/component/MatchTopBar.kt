@@ -20,6 +20,7 @@ internal fun MatchTopBar(onClose: () -> Unit) {
             description = "close",
             tint = Gray400
         ),
+        trailingIcon = null,
         onClickLeadingIcon = onClose
     )
 }

@@ -31,7 +31,7 @@ fun MatchPageIndicator(current: Int, pageCount: Int) {
             .background(Gray500, FunchTheme.shapes.large)
             .padding(vertical = 2.dp, horizontal = 8.dp)
     ) {
-        Text(annotatedString, color = Gray400)
+        Text(annotatedString, color = Gray400, style = FunchTheme.typography.caption)
     }
 }
 

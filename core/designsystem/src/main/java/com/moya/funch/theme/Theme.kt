@@ -14,7 +14,6 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.view.WindowCompat
 
 private val LocalFunchColors =
     staticCompositionLocalOf<FunchColorSchema> {
@@ -30,13 +29,12 @@ private val DarkGradientColors = GradientColors(top = Gray900, bottom = Gray900)
 private val DarkAndroidBackgroundTheme = BackgroundTheme(color = Gray900)
 
 @Composable
-private fun statusBar(isDarkMode: Boolean = true) {
+private fun statusBar() {
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = Gray900.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = isDarkMode
         }
     }
 }
