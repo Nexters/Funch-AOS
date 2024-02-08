@@ -51,7 +51,7 @@ fun interface SingleEventHandler {
 
 internal class DefaultSingleEventHandler : SingleEventHandler {
     private val currentTime: TimeMark get() = TimeSource.Monotonic.markNow()
-    private val throttleDuration: Duration = 300.milliseconds
+    private val throttleDuration: Duration = 900.milliseconds
     private lateinit var lastEventTime: TimeMark
 
     override fun handle(event: () -> Unit) {
