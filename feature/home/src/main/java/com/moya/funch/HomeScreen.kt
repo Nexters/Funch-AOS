@@ -1,5 +1,6 @@
 package com.moya.funch
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -16,16 +17,18 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -33,6 +36,7 @@ import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.moya.funch.component.FunchButtonTextField
 import com.moya.funch.component.FunchIcon
 import com.moya.funch.component.FunchIconButton
@@ -49,27 +53,44 @@ import com.moya.funch.theme.Lemon500
 import com.moya.funch.theme.LocalBackgroundTheme
 import com.moya.funch.theme.White
 import com.moya.funch.theme.Yellow500
+import com.moya.funch.ui.SingleEventArea
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
-private val brush =
-    Brush.horizontalGradient(
-        0.5f to Lemon500,
-        0.5f to Color(0xFFFFD440)
-    )
+private val brush = Brush.horizontalGradient(
+    0.5f to Lemon500,
+    0.5f to Color(0xFFFFD440)
+)
 
 @Composable
 internal fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
     onNavigateToMyProfile: () -> Unit,
-    onNavigateToMatching: () -> Unit
+    onNavigateToMatching: (String) -> Unit
 ) {
-    val homeModel = viewModel.homeModel.collectAsState().value
+    val homeModel by viewModel.homeModel.collectAsStateWithLifecycle()
+    val matched by viewModel.matched.collectAsStateWithLifecycle(false)
+    val context = LocalContext.current
+    val matchDone by rememberUpdatedState(viewModel::matchDone)
+
+    LaunchedEffect(viewModel) {
+        viewModel.homeErrorMessage
+            .onEach {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            }.launchIn(this)
+    }
+
+    if (matched) {
+        matchDone()
+        onNavigateToMatching(homeModel.matchingCode)
+    }
 
     HomeScreen(
         myCode = homeModel.myCode,
         viewCount = homeModel.viewCount,
         matchingCode = homeModel.matchingCode,
-        onMatchingCodeChange = { code -> viewModel.setMatchingCode(code) },
-        onNavigateToMatching = onNavigateToMatching,
+        onMatchingCodeChange = viewModel::setMatchingCode,
+        matchProfile = viewModel::matchProfile,
         onNavigateToMyProfile = onNavigateToMyProfile
     )
 }
@@ -80,7 +101,7 @@ internal fun HomeScreen(
     viewCount: Int,
     matchingCode: String,
     onMatchingCodeChange: (String) -> Unit,
-    onNavigateToMatching: () -> Unit,
+    matchProfile: () -> Unit,
     onNavigateToMyProfile: () -> Unit
 ) {
     Column(
@@ -97,7 +118,7 @@ internal fun HomeScreen(
         MatchingCard(
             value = matchingCode,
             onValueChange = onMatchingCodeChange,
-            onNavigateToMatching = onNavigateToMatching
+            matchProfile = matchProfile
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -118,10 +139,9 @@ internal fun HomeScreen(
 }
 
 @Composable
-private fun MatchingCard(value: String, onValueChange: (String) -> Unit, onNavigateToMatching: () -> Unit) {
+private fun MatchingCard(value: String, onValueChange: (String) -> Unit, matchProfile: () -> Unit) {
     Column(
-        modifier =
-        Modifier
+        modifier = Modifier
             .fillMaxWidth()
             .border(
                 width = 1.dp,
@@ -155,18 +175,20 @@ private fun MatchingCard(value: String, onValueChange: (String) -> Unit, onNavig
             onValueChange = onValueChange,
             hint = stringResource(id = R.string.matching_card_hint),
             iconButton = {
-                FunchIconButton(
-                    modifier = Modifier.size(40.dp),
-                    roundedCornerShape = RoundedCornerShape(12.dp),
-                    backgroundColor = Gray500,
-                    onClick = onNavigateToMatching,
-                    funchIcon =
-                    FunchIcon(
-                        resId = FunchIconAsset.Search.search_24,
-                        description = "",
-                        tint = Yellow500
+                SingleEventArea { cutter ->
+                    FunchIconButton(
+                        modifier = Modifier.size(40.dp),
+                        roundedCornerShape = RoundedCornerShape(12.dp),
+                        backgroundColor = Gray500,
+                        onClick = { cutter.handle(matchProfile) },
+                        funchIcon =
+                        FunchIcon(
+                            resId = FunchIconAsset.Search.search_24,
+                            description = "",
+                            tint = Yellow500
+                        )
                     )
-                )
+                }
             }
         )
     }
@@ -175,8 +197,7 @@ private fun MatchingCard(value: String, onValueChange: (String) -> Unit, onNavig
 @Composable
 private fun CodeCard(modifier: Modifier = Modifier, myCode: String) {
     Row(
-        modifier =
-        modifier
+        modifier = modifier
             .background(
                 color = Gray800,
                 shape = FunchTheme.shapes.medium
@@ -227,8 +248,7 @@ private fun CodeCard(modifier: Modifier = Modifier, myCode: String) {
 @Composable
 private fun MyProfileCard(modifier: Modifier = Modifier, onMyProfileClick: () -> Unit) {
     Column(
-        modifier =
-        modifier
+        modifier = modifier
             .background(
                 color = Gray800,
                 shape = FunchTheme.shapes.medium
@@ -259,8 +279,7 @@ private fun MyProfileCard(modifier: Modifier = Modifier, onMyProfileClick: () ->
 @Composable
 private fun ProfileViewCounterCard(viewCount: Int) {
     Row(
-        modifier =
-        Modifier
+        modifier = Modifier
             .fillMaxWidth()
             .background(
                 color = Gray800,
@@ -318,7 +337,7 @@ private fun Preview1() {
                 viewCount = 23,
                 matchingCode = text,
                 onMatchingCodeChange = { text = it },
-                onNavigateToMatching = {},
+                matchProfile = {},
                 onNavigateToMyProfile = {}
             )
         }
