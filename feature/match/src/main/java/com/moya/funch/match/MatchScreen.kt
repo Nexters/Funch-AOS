@@ -6,10 +6,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -19,7 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.moya.funch.entity.match.Matching
 import com.moya.funch.match.component.MatchHorizontalPager
 import com.moya.funch.match.component.MatchTopBar
 import com.moya.funch.match.theme.Gray900
@@ -55,17 +52,7 @@ private fun MatchScreen(onClose: () -> Unit, memberCode: String, matchUiState: M
         when (matchUiState) {
             is MatchUiState.Loading -> LoadingContent()
             is MatchUiState.Error -> ErrorMatchContent(code = memberCode)
-            is MatchUiState.Success -> MatchContent(matching = matchUiState.matching)
-        }
-    }
-}
-
-@Composable
-internal fun MatchContent(matching: Matching) {
-    val (profile, similarity, chemistrys, recommends, subways) = matching
-    CompositionLocalProvider(LocalContentColor provides Color.White) {
-        Column {
-            MatchHorizontalPager(matching = matching)
+            is MatchUiState.Success -> MatchHorizontalPager(matching = matchUiState.matching)
         }
     }
 }
