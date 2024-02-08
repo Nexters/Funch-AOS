@@ -4,7 +4,7 @@ import com.moya.funch.entity.SubwayStation
 import com.moya.funch.entity.profile.Profile
 
 data class Matching(
-    val profile: Profile,
+    val profile: Profile = Profile(),
     val similarity: Int = 0,
     val chemistrys: List<Chemistry> = emptyList(),
     val recommends: List<Recommend> = emptyList(),

@@ -3,6 +3,7 @@ package com.moya.funch.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,6 +18,7 @@ import com.moya.funch.theme.Gray400
 
 @Composable
 fun FunchTopBar(
+    modifier: Modifier = Modifier,
     enabledLeadingIcon: Boolean = true,
     enabledTrailingIcon: Boolean = true,
     onClickLeadingIcon: () -> Unit = {},
@@ -29,20 +31,24 @@ fun FunchTopBar(
         ),
     trailingIcon: (@Composable () -> Unit)? = { FunchFeedbackButton(enabledTrailingIcon, onClickTrailingIcon) }
 ) {
-    FunchNonTitleTopBar(leadingIcon = {
-        if (leadingIcon != null) {
-            FunchIconButton(
-                enabled = enabledLeadingIcon,
-                modifier = Modifier.size(40.dp),
-                onClick = onClickLeadingIcon,
-                funchIcon = leadingIcon
-            )
+    FunchNonTitleTopBar(
+        modifier,
+        leadingIcon = {
+            if (leadingIcon != null) {
+                FunchIconButton(
+                    enabled = enabledLeadingIcon,
+                    modifier = Modifier.size(40.dp),
+                    onClick = onClickLeadingIcon,
+                    funchIcon = leadingIcon
+                )
+            }
+        },
+        trailingIcon = {
+            if (trailingIcon != null) {
+                trailingIcon()
+            }
         }
-    }, trailingIcon = {
-        if (trailingIcon != null) {
-            trailingIcon()
-        }
-    })
+    )
 }
 
 @Composable
@@ -68,7 +74,7 @@ private fun Preview2() {
             modifier = Modifier.background(Gray400),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            FunchTopBar(enabledLeadingIcon = false)
+            FunchTopBar(Modifier.padding(start = 12.dp, end = 20.dp), enabledLeadingIcon = false)
             FunchTopBar(enabledTrailingIcon = false)
             FunchTopBar(enabledLeadingIcon = false, enabledTrailingIcon = false)
         }
