@@ -47,7 +47,8 @@ fun FunchTopBar(
             if (trailingIcon != null) {
                 trailingIcon()
             }
-        })
+        }
+    )
 }
 
 @Composable
