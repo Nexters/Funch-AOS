@@ -14,6 +14,7 @@ import com.moya.funch.entity.match.Matching
 import com.moya.funch.entity.match.Recommend
 import com.moya.funch.entity.profile.Profile
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
@@ -30,6 +31,7 @@ class MatchViewModel @Inject constructor(
 
     val matchCode: StateFlow<String> = savedStateHandle.getStateFlow(MATCH_CODE, "")
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     val uiState: StateFlow<MatchUiState> = matchCode.mapLatest { code ->
         if (code.isEmpty()) {
             MatchUiState.Loading
