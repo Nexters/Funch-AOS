@@ -14,8 +14,8 @@ import com.moya.funch.entity.match.Matching
 import com.moya.funch.entity.match.Recommend
 import com.moya.funch.entity.profile.Profile
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
