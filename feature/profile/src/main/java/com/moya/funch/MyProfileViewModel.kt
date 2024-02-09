@@ -1,7 +1,7 @@
 package com.moya.funch
 
 import androidx.lifecycle.ViewModel
-import com.moya.funch.ui.Profile
+import com.moya.funch.entity.profile.Profile
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
