@@ -7,8 +7,10 @@ enum class Job(val krName: String) {
     ;
 
     companion object {
-        fun of(krName: String): Job {
-            return requireNotNull(entries.find { it.krName == krName }) { "Job : $krName not found" }
+        fun of(name: String): Job {
+            val job = runCatching { valueOf(name) }
+            if (job.isSuccess) return requireNotNull(job.getOrNull())
+            return requireNotNull(entries.find { it.krName == name }) { "Job : $name not found" }
         }
     }
 }
