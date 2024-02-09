@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.moya.funch.CreateProfileScreen
-import com.moya.funch.MyProfileScreen
+import com.moya.funch.MyProfileRoute
 
 const val PROFILE_GRAPH_ROUTE = "profile_graph"
 
@@ -24,7 +24,7 @@ fun NavGraphBuilder.profileGraph(onNavigateToHome: () -> Unit, onCloseMyProfile:
             )
         }
         composable(route = ProfileScreens.MyProfile.route) {
-            MyProfileScreen(
+            MyProfileRoute(
                 onCloseMyProfile = onCloseMyProfile
             )
         }
