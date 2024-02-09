@@ -1,0 +1,17 @@
+{
+  "status": "201",
+  "message": "CREATED",
+  "data": {
+    "id": "65c5015dae92783f1e1f7fa3",
+    "name": "abc",
+    "bloodType": "A",
+    "jobGroup": "IOS",
+    "clubs": [
+      "SOPT"
+    ],
+    "subwayInfos": [],
+    "mbti": "ENFJ",
+    "memberCode": "2LL2",
+    "viewCount": 0
+  }
+}
