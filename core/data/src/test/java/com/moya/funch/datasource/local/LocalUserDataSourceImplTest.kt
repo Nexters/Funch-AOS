@@ -18,7 +18,7 @@ import org.junit.jupiter.api.extension.RegisterExtension
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @ExtendWith(MockKExtension::class)
-class LocalUserDataSourceImplTest {
+internal class LocalUserDataSourceImplTest {
 
     @RelaxedMockK
     lateinit var userDataStore: UserDataStore
