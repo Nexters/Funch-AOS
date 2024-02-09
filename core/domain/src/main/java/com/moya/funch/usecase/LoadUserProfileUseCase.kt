@@ -16,4 +16,3 @@ fun interface LoadUserProfileUseCase {
 
     suspend operator fun invoke(): Result<Profile>
 }
-

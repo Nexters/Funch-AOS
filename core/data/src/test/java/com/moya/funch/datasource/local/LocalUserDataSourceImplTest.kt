@@ -59,11 +59,13 @@ internal class LocalUserDataSourceImplTest {
         // when
         val actualResult: Result<ProfileModel> = localUserDataSource.fetchUserProfile()
         // then
-        assertAll({ coVerify(exactly = 1) { userDataStore.hasUserId() } },
+        assertAll(
+            { coVerify(exactly = 1) { userDataStore.hasUserId() } },
             { coVerify(exactly = 1) { userDataStore.userCode } },
             { coVerify(exactly = 1) { userDataStore.mbti } },
             { assertThat(actualResult.isSuccess).isTrue() },
-            { assertThat(actualResult.getOrNull()).isEqualTo(expectedProfile) })
+            { assertThat(actualResult.getOrNull()).isEqualTo(expectedProfile) }
+        )
     }
 
     @Test
@@ -73,9 +75,10 @@ internal class LocalUserDataSourceImplTest {
         // when
         val actualResult: Result<ProfileModel> = localUserDataSource.fetchUserProfile()
         // then
-        assertAll({ coVerify(exactly = 1) { userDataStore.hasUserId() } },
-            { assertThat(actualResult.isFailure).isTrue() })
-
+        assertAll(
+            { coVerify(exactly = 1) { userDataStore.hasUserId() } },
+            { assertThat(actualResult.isFailure).isTrue() }
+        )
     }
 
     @Test
@@ -95,10 +98,12 @@ internal class LocalUserDataSourceImplTest {
         // when
         val actualResult: Result<Unit> = localUserDataSource.saveUserProfile(profile)
         // then
-        assertAll({ coVerify(exactly = 1) { userDataStore.clear() } },
+        assertAll(
+            { coVerify(exactly = 1) { userDataStore.clear() } },
             { coVerify(exactly = 1) { userDataStore.userCode = profile.userCode } },
             { coVerify(exactly = 1) { userDataStore.mbti = profile.mbti } },
-            { assertThat(actualResult.isSuccess).isTrue() })
+            { assertThat(actualResult.isSuccess).isTrue() }
+        )
     }
 
     companion object {

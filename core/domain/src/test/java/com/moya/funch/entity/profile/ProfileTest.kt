@@ -9,7 +9,6 @@ class ProfileTest {
 
     @Test
     fun `code는 모두 숫자 혹은 대문자 알파벳이다`() {
-
         assertThrows<IllegalArgumentException>("Code must be all numbers or upper case alphabets") {
             Profile(code = "a123")
         }
@@ -37,7 +36,7 @@ class ProfileTest {
                 assertThrows<IllegalArgumentException>("Code must not be blank") {
                     Profile(code = "123")
                 }
-            },
+            }
         )
     }
 

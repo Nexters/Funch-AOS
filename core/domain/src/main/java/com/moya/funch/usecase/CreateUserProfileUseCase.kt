@@ -7,17 +7,11 @@ import javax.inject.Inject
 class CreateUserProfileUseCaseImpl @Inject constructor(
     private val memberRepository: MemberRepository
 ) : CreateUserProfileUseCase {
-    override suspend operator fun invoke(
-        profile: Profile
-    ): Result<Profile> {
+    override suspend operator fun invoke(profile: Profile): Result<Profile> {
         return memberRepository.createUserProfile(profile)
     }
 }
 
 fun interface CreateUserProfileUseCase {
-    suspend operator fun invoke(
-        profile: Profile
-    ): Result<Profile>
+    suspend operator fun invoke(profile: Profile): Result<Profile>
 }
-
-

@@ -36,11 +36,11 @@ internal class RemoteUserDataSourceImplTest {
 
     @Test
     fun `id가 있으면 id로 profile을 불러온다`() = runTest {
-        //given
+        // given
         coEvery { userDataStore.hasUserId() } returns true
-        //when
+        // when
         remoteUserDataSource.fetchUserProfile()
-        //then
+        // then
         assertAll(
             { coVerify(exactly = 1) { memberService.findMemberById(any()) } },
             { coVerify(exactly = 0) { memberService.findMemberByDeviceNumber(any()) } }
@@ -49,11 +49,11 @@ internal class RemoteUserDataSourceImplTest {
 
     @Test
     fun `id가 없으면 device id로 profile을 불러온다`() = runTest {
-        //given
+        // given
         coEvery { userDataStore.hasUserId() } returns false
-        //when
+        // when
         remoteUserDataSource.fetchUserProfile()
-        //then
+        // then
         assertAll(
             { coVerify(exactly = 0) { memberService.findMemberById(any()) } },
             { coVerify(exactly = 1) { memberService.findMemberByDeviceNumber(any()) } }
@@ -66,4 +66,3 @@ internal class RemoteUserDataSourceImplTest {
         val coroutineExtension = CoroutinesTestExtension()
     }
 }
-

@@ -8,7 +8,6 @@ import com.moya.funch.entity.SubwayLine
 import com.moya.funch.entity.SubwayStation
 import com.moya.funch.entity.profile.Profile
 import com.moya.funch.network.dto.request.MemberRequest
-import com.moya.funch.network.dto.response.match.SubwayResponse
 import com.moya.funch.network.dto.response.member.MemberResponse
 
 data class ProfileModel(

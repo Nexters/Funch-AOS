@@ -43,7 +43,7 @@ internal class MemberRepositoryImplTest {
 
     @Test
     fun `local에 User Profile이 있으면 불러온다`() = runTest {
-        //given
+        // given
         coEvery { localUserDataSource.fetchUserProfile() } returns Result.success(
             ProfileModel(
                 userCode = "NONE",
@@ -57,9 +57,9 @@ internal class MemberRepositoryImplTest {
                 mbti = "INTJ"
             )
         )
-        //when
+        // when
         val result = memberRepository.fetchUserProfile()
-        //then
+        // then
         assertAll(
             { coVerify(exactly = 1) { localUserDataSource.fetchUserProfile() } },
             { coVerify(exactly = 0) { remoteUserDataSource.fetchUserProfile() } },
@@ -70,7 +70,7 @@ internal class MemberRepositoryImplTest {
 
     @Test
     fun `local에 User Profile이 없으면 remote에서 불러온다`() = runTest {
-        //given
+        // given
         coEvery { localUserDataSource.fetchUserProfile() } returns Result.failure(
             Exception("User Profile not found")
         )
@@ -90,9 +90,9 @@ internal class MemberRepositoryImplTest {
         coEvery { localUserDataSource.saveUserProfile(any()) } returns Result.success(
             Unit
         )
-        //when
+        // when
         val result = memberRepository.fetchUserProfile()
-        //then
+        // then
         assertAll(
             { coVerify(exactly = 1) { localUserDataSource.fetchUserProfile() } },
             { coVerify(exactly = 1) { remoteUserDataSource.fetchUserProfile() } },
@@ -103,7 +103,7 @@ internal class MemberRepositoryImplTest {
 
     @Test
     fun `User Profile을 만들고 local에 저장한다`() = runTest {
-        //given
+        // given
         val profile = Profile()
         coEvery { remoteUserDataSource.createUserProfile(any()) } returns Result.success(
             ProfileModel(
@@ -118,9 +118,9 @@ internal class MemberRepositoryImplTest {
                 mbti = "INTJ"
             )
         )
-        //when
+        // when
         val profileResult = memberRepository.createUserProfile(profile)
-        //then
+        // then
         assertAll(
             { coVerify(exactly = 1) { remoteUserDataSource.createUserProfile(any()) } },
             { coVerify(exactly = 1) { localUserDataSource.saveUserProfile(any()) } },

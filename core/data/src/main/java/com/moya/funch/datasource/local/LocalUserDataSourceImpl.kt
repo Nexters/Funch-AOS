@@ -2,8 +2,8 @@ package com.moya.funch.datasource.local
 
 import com.moya.funch.datastore.UserDataStore
 import com.moya.funch.model.ProfileModel
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 class LocalUserDataSourceImpl @Inject constructor(
     private val userDataStore: UserDataStore
