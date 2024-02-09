@@ -6,11 +6,11 @@ import javax.inject.Inject
 class CanMatchProfileUseCaseImpl @Inject constructor(
     private val matchingRepository: MatchingRepository
 ) : CanMatchProfileUseCase {
-    override suspend operator fun invoke(targetCode: String): Boolean =
-        runCatching {
-            validate(targetCode)
-            matchingRepository.matchProfile(targetCode)
-        }.isSuccess
+    override suspend operator fun invoke(targetCode: String): Boolean = runCatching {
+        val code = targetCode.uppercase()
+        validate(code)
+        matchingRepository.matchProfile(code)
+    }.isSuccess
 
     private fun validate(targetCode: String) {
         require(targetCode.isNotBlank())

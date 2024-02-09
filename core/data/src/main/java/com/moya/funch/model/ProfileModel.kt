@@ -42,25 +42,6 @@ data class ProfileModel(
         )
     }
 
-    fun toResponse(): MemberResponse {
-        return MemberResponse(
-            memberCode = userCode,
-            id = userId,
-            name = name,
-            jobGroup = jobGroup,
-            bloodType = bloodType,
-            clubs = clubs.toList(),
-            subwayInfos = listOf(
-                SubwayResponse(
-                    name = subwayName,
-                    lines = subwayLines.toList()
-                )
-            ),
-            mbti = mbti,
-            viewCount = viewCount
-        )
-    }
-
     fun toRequest(deviceNumber: String): MemberRequest {
         return MemberRequest(
             deviceNumber = deviceNumber,
