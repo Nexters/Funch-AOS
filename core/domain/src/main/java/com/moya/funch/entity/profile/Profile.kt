@@ -29,13 +29,15 @@ data class Profile(
                 blood = Blood.A,
                 subways = listOf(
                     SubwayStation(
-                        "동대문역사문화공원", listOf(
+                        "동대문역사문화공원",
+                        listOf(
                             SubwayLine.ONE,
                             SubwayLine.FOUR
                         )
                     ),
                     SubwayStation(
-                        "초지역", listOf(
+                        "초지역",
+                        listOf(
                             SubwayLine.TWO,
                             SubwayLine.THREE
                         )

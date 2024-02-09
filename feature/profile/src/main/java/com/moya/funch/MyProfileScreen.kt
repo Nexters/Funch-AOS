@@ -38,10 +38,7 @@ import com.moya.funch.theme.White
 import com.moya.funch.uimodel.ProfileLabel
 
 @Composable
-internal fun MyProfileRoute(
-    viewModel: MyProfileViewModel = hiltViewModel(),
-    onCloseMyProfile: () -> Unit,
-) {
+internal fun MyProfileRoute(viewModel: MyProfileViewModel = hiltViewModel(), onCloseMyProfile: () -> Unit) {
     val profile = viewModel.profile.collectAsState().value
 
     MyProfileScreen(
@@ -51,17 +48,14 @@ internal fun MyProfileRoute(
 }
 
 @Composable
-internal fun MyProfileScreen(
-    onCloseMyProfile: () -> Unit,
-    profile: Profile,
-) {
+internal fun MyProfileScreen(onCloseMyProfile: () -> Unit, profile: Profile) {
     Box(
         modifier = Modifier
             .padding(
                 top = 8.dp,
                 bottom = 14.dp,
                 start = 20.dp,
-                end = 20.dp,
+                end = 20.dp
             )
     ) {
         Column(
@@ -80,13 +74,13 @@ internal fun MyProfileScreen(
             Text(
                 text = profile.code,
                 style = FunchTheme.typography.b,
-                color = Gray400,
+                color = Gray400
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = profile.name,
                 style = FunchTheme.typography.t2,
-                color = Color.White,
+                color = Color.White
             )
             Spacer(modifier = Modifier.height(20.dp))
             UsersDistinct(profile = profile)
@@ -100,7 +94,7 @@ private fun UsersDistinct(profile: Profile) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         ProfileLabel.entries.forEach { profileLabel ->
             val labelValues = when (profileLabel) {
@@ -114,7 +108,7 @@ private fun UsersDistinct(profile: Profile) {
             if (labelValues.isNotEmpty()) {
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
                 ) {
                     Box(
                         modifier = Modifier
@@ -125,12 +119,12 @@ private fun UsersDistinct(profile: Profile) {
                         Text(
                             text = profileLabel.labelName,
                             color = Gray400,
-                            style = FunchTheme.typography.b,
+                            style = FunchTheme.typography.b
                         )
                     }
                     FlowRow(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         labelValues.forEach { value ->
                             val leadingIcon = when (profileLabel) {
@@ -164,7 +158,7 @@ private fun UsersDistinct(profile: Profile) {
                                             Image(
                                                 modifier = Modifier.size(18.dp),
                                                 painter = icon,
-                                                contentDescription = "",
+                                                contentDescription = ""
                                             )
                                         }
                                     }
@@ -200,16 +194,15 @@ private fun UsersDistinct(profile: Profile) {
 }
 
 @Composable
-private fun profileLeadingIcon(value: String): Painter =
-    when (value) {
-        "개발자" -> painterResource(id = FunchIconAsset.Job.developer_24)
-        "디자인" -> painterResource(id = FunchIconAsset.Job.designer_24)
-        "디자이너" -> painterResource(id = FunchIconAsset.Club.nexters_24)
-        "넥스터즈" -> painterResource(id = FunchIconAsset.Club.nexters_24)
-        "SOPT" -> painterResource(id = FunchIconAsset.Club.sopt_24)
-        "Depromeet" -> painterResource(id = FunchIconAsset.Club.depromeet_24)
-        else -> throw IllegalArgumentException("Unknown job: $value")
-    }
+private fun profileLeadingIcon(value: String): Painter = when (value) {
+    "개발자" -> painterResource(id = FunchIconAsset.Job.developer_24)
+    "디자인" -> painterResource(id = FunchIconAsset.Job.designer_24)
+    "디자이너" -> painterResource(id = FunchIconAsset.Club.nexters_24)
+    "넥스터즈" -> painterResource(id = FunchIconAsset.Club.nexters_24)
+    "SOPT" -> painterResource(id = FunchIconAsset.Club.sopt_24)
+    "Depromeet" -> painterResource(id = FunchIconAsset.Club.depromeet_24)
+    else -> throw IllegalArgumentException("Unknown job: $value")
+}
 
 @Composable
 private fun subwayLineIcon(line: String): Painter = // @Gun Hyung TODO : 신림역부터 도메인 Entity 추가 되는데로 수정
@@ -243,7 +236,7 @@ private fun subwayLineIcon(line: String): Painter = // @Gun Hyung TODO : 신림�
 @Preview(
     showBackground = true,
     widthDp = 360,
-    heightDp = 640,
+    heightDp = 640
 )
 @Composable
 private fun Preview1() {

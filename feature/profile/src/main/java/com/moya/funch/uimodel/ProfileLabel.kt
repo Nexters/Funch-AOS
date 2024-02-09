@@ -6,5 +6,4 @@ enum class ProfileLabel(val labelName: String) {
     MBTI("MBTI"),
     BLOOD_TYPE("혈액형"),
     SUBWAY("지하철")
-    ;
 }
