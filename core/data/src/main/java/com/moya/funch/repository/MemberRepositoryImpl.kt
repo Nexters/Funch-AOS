@@ -15,9 +15,7 @@ class MemberRepositoryImpl @Inject constructor(
     override suspend fun fetchUserProfile(): Result<Profile> {
         val profileResult = localUserDataSource.fetchUserProfile()
         if (profileResult.isSuccess) {
-            return localUserDataSource.fetchUserProfile().map {
-                it.toDomain()
-            }
+            return profileResult.map { it.toDomain() }
         }
         return remoteUserDataSource.fetchUserProfile().onSuccess {
             localUserDataSource.saveUserProfile(it)
