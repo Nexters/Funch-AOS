@@ -1,121 +1,20 @@
 package com.moya.funch.datastore
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
-import android.provider.Settings
-import androidx.core.content.edit
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
-import javax.inject.Singleton
-
-@SuppressLint("HardwareIds")
-@Singleton
-class UserDataStore @Inject constructor(
-    private val preferences: SharedPreferences,
-    @ApplicationContext private val context: Context
-) {
+interface UserDataStore {
     var deviceId: String
-        get() {
-            initDeviceId()
-            return preferences.getString(DEVICE_ID, "").orEmpty()
-        }
-        set(value) {
-            preferences.edit(commit = true) {
-                putString(DEVICE_ID, value)
-            }
-        }
-
     var userCode: String
-        get() = preferences.getString(USER_CODE, "").orEmpty()
-        set(value) {
-            preferences.edit(commit = true) {
-                putString(USER_CODE, value)
-            }
-        }
     var userId: String
-        get() = preferences.getString(USER_ID, "").orEmpty()
-        set(value) {
-            preferences.edit(commit = true) {
-                putString(USER_ID, value)
-            }
-        }
+    var userName: String
     var jobGroup: String
-        get() = preferences.getString(JOB_GROUP, "").orEmpty()
-        set(value) {
-            preferences.edit(commit = true) {
-                putString(USER_ID, value)
-            }
-        }
     var bloodType: String
-        get() = preferences.getString(BLOOD_TYPE, "").orEmpty()
-        set(value) {
-            preferences.edit(commit = true) {
-                putString(BLOOD_TYPE, value)
-            }
-        }
-
     var clubs: Set<String>
-        get() = preferences.getStringSet(CLUBS, setOf()).orEmpty()
-        set(value) {
-            preferences.edit(commit = true) {
-                putStringSet(CLUBS, value)
-            }
-        }
-
     var subwayName: String
-        get() = preferences.getString(SUBWAY_NAME, "").orEmpty()
-        set(value) {
-            preferences.edit(commit = true) {
-                putString(SUBWAY_NAME, value)
-            }
-        }
-    var subwayLine: Set<String>
-        get() = preferences.getStringSet(SUBWAY_LINE, setOf()).orEmpty()
-        set(value) {
-            preferences.edit(commit = true) {
-                putStringSet(SUBWAY_LINE, value)
-            }
-        }
-
+    var subwayLines: Set<String>
     var mbti: String
-        get() = preferences.getString(MBTI, "").orEmpty()
-        set(value) {
-            preferences.edit(commit = true) {
-                putString(MBTI, value)
-            }
-        }
 
-    fun hasUserCode(): Boolean {
-        return preferences.contains(USER_CODE)
-    }
+    fun hasUserCode(): Boolean
 
-    fun hasUserId(): Boolean {
-        return preferences.contains(USER_ID)
-    }
+    fun hasUserId(): Boolean
 
-    fun clear() {
-        preferences.edit(commit = true) {
-            clear()
-        }
-    }
-
-    private fun initDeviceId() {
-        if (preferences.contains(DEVICE_ID).not()) {
-            userId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-        }
-    }
-
-
-    private companion object {
-        const val DEVICE_ID = "DEVICE_ID"
-        const val USER_CODE = "USER_CODE"
-        const val USER_ID = "USER_ID"
-        const val JOB_GROUP = "JOB_GROUP"
-        const val BLOOD_TYPE = "BLOOD_TYPE"
-        const val CLUBS = "CLUBS"
-        const val SUBWAY_NAME = "SUBWAY_NAME"
-        const val SUBWAY_LINE = "SUBWAY_LINE"
-        const val MBTI = "MBTI"
-    }
+    fun clear()
 }
