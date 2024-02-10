@@ -29,6 +29,12 @@ class MemberRepositoryImpl @Inject constructor(
             }.map { it.toDomain() }
     }
 
+    override suspend fun fetchUserViewCount(): Result<Int> {
+        return remoteUserDataSource.fetchUserProfile().map {
+            it.viewCount
+        }
+    }
+
     override suspend fun fetchMemberProfile(id: String): Result<Profile> {
         return remoteMemberDataSource.fetchMemberProfile(id).map {
             it.toDomain()

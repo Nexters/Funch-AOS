@@ -2,6 +2,8 @@ package com.moya.funch.di
 
 import com.moya.funch.datasource.local.LocalUserDataSource
 import com.moya.funch.datasource.local.LocalUserDataSourceImpl
+import com.moya.funch.datasource.remote.RemoteMatchDataSource
+import com.moya.funch.datasource.remote.RemoteMatchDataSourceImpl
 import com.moya.funch.datasource.remote.RemoteMemberDataSource
 import com.moya.funch.datasource.remote.RemoteMemberDataSourceImpl
 import com.moya.funch.datasource.remote.RemoteUserDataSource
@@ -27,4 +29,8 @@ abstract class DataSourcesModule {
     @Binds
     @Singleton
     abstract fun provideMemberDataSource(remoteDataSource: RemoteMemberDataSourceImpl): RemoteMemberDataSource
+
+    @Binds
+    @Singleton
+    abstract fun provideRemoteMatchDataSource(remoteDataSource: RemoteMatchDataSourceImpl): RemoteMatchDataSource
 }
