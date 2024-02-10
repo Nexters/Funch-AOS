@@ -12,4 +12,3 @@ class MatchingRepositoryImpl @Inject constructor(
         return remoteMatchDataSource.matchProfile(targetCode).map { it.toDomain() }
     }
 }
-

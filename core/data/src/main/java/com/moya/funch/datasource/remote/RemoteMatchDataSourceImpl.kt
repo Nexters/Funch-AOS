@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class RemoteMatchDataSourceImpl @Inject constructor(
     private val matchingService: MatchingService,
-    private val dataStore: UserDataStore,
+    private val dataStore: UserDataStore
 ) : RemoteMatchDataSource {
 
     override suspend fun matchProfile(targetCode: String): Result<MatchingResponse> {

@@ -16,27 +16,31 @@ import com.moya.funch.network.dto.response.match.ProfileResponse
 import com.moya.funch.network.dto.response.match.RecommendResponse
 import com.moya.funch.network.dto.response.match.SubwayResponse
 
-
 fun MatchingResponse.toDomain(): Matching {
-    return Matching(profile = profile.toDomain(),
+    return Matching(
+        profile = profile.toDomain(),
         similarity = similarity,
         chemistrys = chemistryInfos.map { it.toDomain() },
         recommends = recommends.map { it.toDomain() },
-        subways = subways.map { it.toDomain() })
+        subways = subways.map { it.toDomain() }
+    )
 }
 
 private fun ProfileResponse.toDomain(): Profile {
-    return Profile(name = name,
+    return Profile(
+        name = name,
         job = Job.of(jobGroup),
         clubs = clubs.map { Club.of(it) },
         mbti = Mbti.valueOf(mbti),
         blood = Blood.valueOf(bloodType),
-        subways = subwayInfos.map { SubwayStation(name = it) })
+        subways = subwayInfos.map { SubwayStation(name = it) }
+    )
 }
 
 private fun ChemistryResponse.toDomain(): Chemistry {
     return Chemistry(
-        title = title, description = description
+        title = title,
+        description = description
     )
 }
 
