@@ -34,4 +34,11 @@ class MemberRepositoryImpl @Inject constructor(
             it.viewCount
         }
     }
+
+    override suspend fun fetchMemberProfile(id: String): Result<Profile> {
+        return remoteMemberDataSource.fetchMemberProfile(id).map {
+            it.toDomain()
+        }
+    }
+
 }

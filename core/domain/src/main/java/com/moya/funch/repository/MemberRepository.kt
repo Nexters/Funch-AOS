@@ -8,4 +8,6 @@ interface MemberRepository {
     suspend fun createUserProfile(profile: Profile): Result<Profile>
 
     suspend fun fetchUserViewCount(): Result<Int>
+
+    suspend fun fetchMemberProfile(id: String): Result<Profile>
 }
