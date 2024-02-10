@@ -9,6 +9,6 @@ class MatchingRepositoryImpl @Inject constructor(
     private val remoteMatchDataSource: RemoteMatchDataSource
 ) : MatchingRepository {
     override suspend fun matchProfile(targetCode: String): Result<Matching> {
-        return remoteMatchDataSource.matchProfile(targetCode).map { it.toDomain() }
+        return remoteMatchDataSource.matchProfile(targetCode).mapCatching { it.toDomain() }
     }
 }

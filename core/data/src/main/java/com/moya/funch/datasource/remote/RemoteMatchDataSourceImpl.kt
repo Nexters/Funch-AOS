@@ -19,6 +19,6 @@ class RemoteMatchDataSourceImpl @Inject constructor(
                     dataStore.userId
                 )
             )
-        }.map { it.data }
+        }.mapCatching { it.data }
     }
 }
