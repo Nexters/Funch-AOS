@@ -6,13 +6,13 @@ import com.moya.funch.usecase.CanMatchProfileUseCase
 import com.moya.funch.usecase.LoadUserProfileUseCase
 import com.moya.funch.usecase.LoadViewCountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 data class HomeModel(
     val myCode: String,
@@ -59,6 +59,10 @@ internal class HomeViewModel @Inject constructor(
                 _matched.value = true
             }.onFailure {
                 Timber.e("matchProfile(): ${it.stackTraceToString()}")
+                // TODO @murjune : Matching Page로 일단 갈 수 있도록 해둠!
+                _homeModel.value = _homeModel.value.copy(matchingCode = "TEMP")
+                _matched.value = true
+                // TODO 여기까지 삭제
                 _homeErrorMessage.emit("매칭할 수 없는 코드입니다.")
             }
         }
