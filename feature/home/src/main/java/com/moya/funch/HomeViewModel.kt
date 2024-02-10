@@ -60,7 +60,7 @@ internal class HomeViewModel @Inject constructor(
 //                _homeErrorMessage.emit("매칭할 수 없는 코드입니다.")
 //            }
             if (homeModel.value.matchingCode.isBlank()) {
-                _homeErrorMessage.emit("매칭할 수 없는 코드입니다.")
+                _homeErrorMessage.emit("존재하지 않는 사용자입니다")
             } else {
                 delay(1000L)
                 _matched.emit(true)
