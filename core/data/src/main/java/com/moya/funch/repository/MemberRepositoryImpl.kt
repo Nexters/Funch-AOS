@@ -30,7 +30,7 @@ class MemberRepositoryImpl @Inject constructor(
     }
 
     override suspend fun fetchUserViewCount(): Result<Int> {
-        return remoteMemberDataSource.fetchMemberProfile().map {
+        return remoteUserDataSource.fetchUserProfile().map {
             it.viewCount
         }
     }
