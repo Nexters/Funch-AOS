@@ -53,6 +53,7 @@ import com.moya.funch.theme.Lemon500
 import com.moya.funch.theme.LocalBackgroundTheme
 import com.moya.funch.theme.White
 import com.moya.funch.theme.Yellow500
+import com.moya.funch.ui.FunchTopBar
 import com.moya.funch.ui.SingleEventArea
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -107,12 +108,12 @@ internal fun HomeScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(
-                top = 8.dp,
                 start = 20.dp,
                 end = 20.dp
             ),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
+        HomeTopBar(onClickFeedBack = {})
         MatchingCard(
             value = matchingCode,
             onValueChange = onMatchingCodeChange,
@@ -134,6 +135,15 @@ internal fun HomeScreen(
             viewCount = viewCount
         )
     }
+}
+
+@Composable
+private fun HomeTopBar(onClickFeedBack: () -> Unit) {
+    FunchTopBar(
+        modifier = Modifier.padding(bottom = 8.dp),
+        leadingIcon = null,
+        onClickTrailingIcon = onClickFeedBack
+    )
 }
 
 @Composable
