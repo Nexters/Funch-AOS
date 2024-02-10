@@ -108,7 +108,7 @@ class UserDataStoreImpl @Inject constructor(
 
     private fun initDeviceId() {
         if (preferences.contains(DEVICE_ID).not()) {
-            userId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+            deviceId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         }
     }
 
