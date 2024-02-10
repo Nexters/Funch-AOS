@@ -48,7 +48,6 @@ internal class HomeViewModel @Inject constructor(
     }
 
     fun setMatchingCode(code: String) {
-        Timber.e("setMatchingCode: $code")
         _homeModel.value = _homeModel.value.copy(
             matchingCode = code.uppercase()
         )
@@ -59,6 +58,7 @@ internal class HomeViewModel @Inject constructor(
             canMatchProfileUse(homeModel.value.matchingCode).onSuccess {
                 _matched.value = true
             }.onFailure {
+                Timber.e("matchProfile(): ${it.stackTraceToString()}")
                 _homeErrorMessage.emit("매칭할 수 없는 코드입니다.")
             }
         }
@@ -78,7 +78,7 @@ internal class HomeViewModel @Inject constructor(
             loadUserProfileUseCase().onSuccess {
                 setMyCode(it.code)
             }.onFailure {
-                Timber.e("fetchUserProfile(): $it")
+                Timber.e("fetchUserProfile(): ${it.stackTraceToString()}")
                 setMyCode("NONE")
             }
         }
@@ -89,7 +89,7 @@ internal class HomeViewModel @Inject constructor(
             loadViewCountUseCase().onSuccess {
                 setViewCount(it)
             }.onFailure {
-                Timber.e("fetchViewCount(): $it")
+                Timber.e("fetchViewCount(): ${it.stackTraceToString()}")
                 setViewCount(0)
             }
         }
