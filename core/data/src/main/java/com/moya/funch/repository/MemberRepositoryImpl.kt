@@ -29,9 +29,9 @@ class MemberRepositoryImpl @Inject constructor(
             }.map { it.toDomain() }
     }
 
-    override suspend fun fetchMemberProfile(id: String): Result<Profile> {
-        return remoteMemberDataSource.fetchMemberProfile(id).map {
-            it.toDomain()
+    override suspend fun fetchUserViewCount(): Result<Int> {
+        return remoteMemberDataSource.fetchMemberProfile().map {
+            it.viewCount
         }
     }
 }
