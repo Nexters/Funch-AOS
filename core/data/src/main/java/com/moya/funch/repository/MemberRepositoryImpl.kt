@@ -15,28 +15,29 @@ class MemberRepositoryImpl @Inject constructor(
     override suspend fun fetchUserProfile(): Result<Profile> {
         val profileResult = localUserDataSource.fetchUserProfile()
         if (profileResult.isSuccess) {
-            return profileResult.map { it.toDomain() }
+            return profileResult.mapCatching { it.toDomain() }
         }
+
         return remoteUserDataSource.fetchUserProfile().onSuccess {
             localUserDataSource.saveUserProfile(it)
-        }.map { it.toDomain() }
+        }.mapCatching { it.toDomain() }
     }
 
     override suspend fun createUserProfile(profile: Profile): Result<Profile> {
         return remoteUserDataSource.createUserProfile(profile.toModel())
             .onSuccess {
                 localUserDataSource.saveUserProfile(it)
-            }.map { it.toDomain() }
+            }.mapCatching { it.toDomain() }
     }
 
     override suspend fun fetchUserViewCount(): Result<Int> {
-        return remoteUserDataSource.fetchUserProfile().map {
+        return remoteUserDataSource.fetchUserProfile().mapCatching {
             it.viewCount
         }
     }
 
     override suspend fun fetchMemberProfile(id: String): Result<Profile> {
-        return remoteMemberDataSource.fetchMemberProfile(id).map {
+        return remoteMemberDataSource.fetchMemberProfile(id).mapCatching {
             it.toDomain()
         }
     }

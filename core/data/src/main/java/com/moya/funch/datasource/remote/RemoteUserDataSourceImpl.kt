@@ -19,18 +19,18 @@ class RemoteUserDataSourceImpl @Inject constructor(
 
     private suspend fun fetchUserProfileById(): Result<ProfileModel> {
         return runCatching { memberService.findMemberById(userDataStore.userId).data }
-            .map { it.toModel() }
+            .mapCatching { it.toModel() }
     }
 
     private suspend fun fetchUserProfileByDeviceNumber(): Result<ProfileModel> {
         return runCatching { memberService.findMemberByDeviceNumber(userDataStore.deviceId).data }
-            .map { it.toModel() }
+            .mapCatching { it.toModel() }
     }
 
     override suspend fun createUserProfile(userModel: ProfileModel): Result<ProfileModel> {
         return runCatching {
             val request = userModel.toRequest(userDataStore.deviceId)
             memberService.createMember(request).data
-        }.map { it.toModel() }
+        }.mapCatching { it.toModel() }
     }
 }

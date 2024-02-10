@@ -11,6 +11,6 @@ class RemoteMemberDataSourceImpl @Inject constructor(
     override suspend fun fetchMemberProfile(id: String): Result<ProfileModel> {
         return runCatching {
             memberService.findMemberById(id)
-        }.map { it.data.toModel() }
+        }.mapCatching { it.data.toModel() }
     }
 }
