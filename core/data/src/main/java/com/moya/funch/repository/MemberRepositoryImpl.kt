@@ -40,5 +40,4 @@ class MemberRepositoryImpl @Inject constructor(
             it.toDomain()
         }
     }
-
 }
