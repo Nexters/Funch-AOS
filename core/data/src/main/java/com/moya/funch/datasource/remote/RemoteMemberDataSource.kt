@@ -4,5 +4,5 @@ import com.moya.funch.model.ProfileModel
 
 fun interface RemoteMemberDataSource {
 
-    suspend fun fetchMemberProfile(id: String): Result<ProfileModel>
+    suspend fun fetchMemberProfile(): Result<ProfileModel>
 }
