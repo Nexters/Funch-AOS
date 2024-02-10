@@ -1,4 +1,4 @@
-package com.moya.funch.network.dto.response.profile
+package com.moya.funch.network.dto.response.match
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -15,6 +15,6 @@ data class ProfileResponse(
     val mbti: String = "",
     @SerialName("bloodType")
     val bloodType: String = "",
-    @SerialName("subwayNames")
-    val subwayNames: List<String> = listOf()
+    @SerialName("subwayInfos")
+    val subwayInfos: List<String> = listOf()
 )

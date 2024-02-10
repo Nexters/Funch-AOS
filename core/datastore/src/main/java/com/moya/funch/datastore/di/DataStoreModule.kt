@@ -1,9 +1,9 @@
 package com.moya.funch.datastore.di
 
 import android.content.SharedPreferences
-import com.moya.funch.datastore.DefaultUserCodeDataStore
 import com.moya.funch.datastore.PreferenceFactory
-import com.moya.funch.datastore.UserCodeDataStore
+import com.moya.funch.datastore.UserDataStore
+import com.moya.funch.datastore.UserDataStoreImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -22,6 +22,7 @@ object DataStoreModule {
     @InstallIn(SingletonComponent::class)
     abstract class Binder {
         @Binds
-        abstract fun bindAppPreferences(dataStore: DefaultUserCodeDataStore): UserCodeDataStore
+        @Singleton
+        abstract fun bindUserDataStore(userDataStore: UserDataStoreImpl): UserDataStore
     }
 }
