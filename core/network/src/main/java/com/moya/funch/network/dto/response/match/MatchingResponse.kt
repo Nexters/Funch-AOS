@@ -1,6 +1,5 @@
 package com.moya.funch.network.dto.response.match
 
-import com.moya.funch.network.dto.response.profile.ProfileResponse
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
