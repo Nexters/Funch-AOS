@@ -25,6 +25,9 @@ object FunchIconAsset {
         val information_24 = R.drawable.ic_information_24
         val minus_24 = R.drawable.ic_minus_24
         val close_24 = R.drawable.ic_close_24
+        val profile_80 = R.drawable.ic_profile_80
+        val view_count_80 = R.drawable.ic_view_count_80
+        val code_80 = R.drawable.ic_code_80
     }
 
     object Job {
@@ -62,5 +65,28 @@ object FunchIconAsset {
         val subway_line_gyeongchun = R.drawable.ic_subway_line_gyeongchun_16
         val subway_line_geonggang = R.drawable.ic_subway_line_geonggang_16
         val subway_line_seohae = R.drawable.ic_subway_line_seohae_16
+    }
+
+    object Blood {
+        val great_32 = R.drawable.ic_blood_great_32
+        val good_32 = R.drawable.ic_blood_good_32
+        val soso_32 = R.drawable.ic_blood_soso_32
+        val bad_32 = R.drawable.ic_blood_bad_32
+    }
+
+    object MBTI {
+        val one = R.drawable.ic_mbti1_32
+        val two = R.drawable.ic_mbti2_32
+        val three = R.drawable.ic_mbti3_32
+        val four = R.drawable.ic_mbti4_32
+        val five = R.drawable.ic_mbti5_32
+    }
+
+    object MatchPercentage {
+        val twenty = R.drawable.ic_match_percentage20_120
+        val forty = R.drawable.ic_match_percentage40_120
+        val sixty = R.drawable.ic_match_percentage60_120
+        val eighty = R.drawable.ic_match_percentage80_120
+        val hundred = R.drawable.ic_match_percentage100_120
     }
 }

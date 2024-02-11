@@ -22,19 +22,21 @@ fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = remembe
             )
             homeScreen(
                 onNavigateToMatching = ::onNavigateToMatching,
-                onNavigateToMyProfile = ::navigateToMyProfile
+                onNavigateToMyProfile = ::onNavigateToMyProfile
             )
             matchingScreen(onClose = { popBackStack(HOME_ROUTE, false) })
         }
     }
 }
 
+private fun NavController.onNavigateToMyProfile() = navigateToMyProfile(singleTopNavOptions)
+
+private fun NavController.onNavigateToMatching(route: String) = navigateToMatching(route, singleTopNavOptions)
+
 private val singleTopNavOptions = navOptions {
     launchSingleTop = true
     popUpTo(HOME_ROUTE)
 }
-
-private fun NavController.onNavigateToMatching(route: String) = navigateToMatching(route, singleTopNavOptions)
 
 private fun determineStartDestination(hasProfile: Boolean): String {
     return if (hasProfile) HOME_ROUTE else PROFILE_GRAPH_ROUTE
