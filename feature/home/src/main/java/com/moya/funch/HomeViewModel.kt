@@ -59,10 +59,9 @@ internal class HomeViewModel @Inject constructor(
                 _matched.value = true
             }.onFailure {
                 Timber.e("matchProfile(): ${it.stackTraceToString()}")
-                // TODO @murjune : Matching Page로 일단 갈 수 있도록 해둠!
-                _homeModel.value = _homeModel.value.copy(matchingCode = "TEMP")
-                _matched.value = true
-                // TODO 여기까지 삭제
+                // TODO @murjune : Matching Page로 일단 갈 수 있도록
+//                _homeModel.value = _homeModel.value.copy(matchingCode = "TEMP")
+//                _matched.value = true
                 _homeErrorMessage.emit("매칭할 수 없는 코드입니다.")
             }
         }
