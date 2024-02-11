@@ -18,7 +18,7 @@ import com.moya.funch.theme.FunchTheme
 import com.moya.funch.theme.Gray900
 
 @Composable
-internal fun FunchFeedbackButton(enabled: Boolean = true, onClick: () -> Unit) {
+fun FunchFeedbackButton(enabled: Boolean = true, onClick: () -> Unit) {
     FunchSubButton(
         modifier = Modifier.wrapContentSize(),
         enabled = enabled,
