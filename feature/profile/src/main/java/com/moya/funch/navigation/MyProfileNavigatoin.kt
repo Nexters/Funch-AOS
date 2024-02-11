@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.moya.funch.CreateProfileRoute
 import com.moya.funch.CreateProfileScreen
 import com.moya.funch.MyProfileRoute
 
@@ -19,7 +20,7 @@ fun NavGraphBuilder.profileGraph(onNavigateToHome: () -> Unit, onCloseMyProfile:
         startDestination = ProfileScreens.Create.route
     ) {
         composable(route = ProfileScreens.Create.route) {
-            CreateProfileScreen(
+            CreateProfileRoute(
                 onNavigateToHome = onNavigateToHome
             )
         }
