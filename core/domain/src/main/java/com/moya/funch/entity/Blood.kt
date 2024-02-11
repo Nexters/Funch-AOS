@@ -6,4 +6,11 @@ enum class Blood(val type: String) {
     AB("AB형"),
     O("O형"),
     IDLE("idle")
+    ;
+
+    companion object {
+        fun formType(type: String): Blood {
+            return entries.find { it.type == type } ?: IDLE
+        }
+    }
 }
