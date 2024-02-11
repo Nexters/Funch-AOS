@@ -38,7 +38,7 @@ dependencies {
     implementation(projects.feature.profile)
     implementation(projects.feature.home)
     implementation(projects.feature.match)
-
+    implementation(projects.feature.onboarding)
 //    implementation(libs.coil.core)
     implementation(libs.startup)
 //    implementation(libs.security)
