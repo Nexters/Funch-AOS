@@ -1,8 +1,10 @@
 package com.moya.funch
 
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +29,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -53,6 +56,7 @@ import com.moya.funch.theme.Lemon500
 import com.moya.funch.theme.LocalBackgroundTheme
 import com.moya.funch.theme.White
 import com.moya.funch.theme.Yellow500
+import com.moya.funch.ui.FunchTopBar
 import com.moya.funch.ui.SingleEventArea
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -74,10 +78,9 @@ internal fun HomeRoute(
     val matchDone by rememberUpdatedState(viewModel::matchDone)
 
     LaunchedEffect(viewModel) {
-        viewModel.homeErrorMessage
-            .onEach {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-            }.launchIn(this)
+        viewModel.homeErrorMessage.onEach {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        }.launchIn(this)
     }
 
     if (matched) {
@@ -104,17 +107,22 @@ internal fun HomeScreen(
     matchProfile: () -> Unit,
     onNavigateToMyProfile: () -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
     Column(
-        modifier =
-        Modifier
+        modifier = Modifier
             .fillMaxSize()
+            .pointerInput(Unit) {
+                detectTapGestures(onTap = {
+                    focusManager.clearFocus()
+                })
+            }
             .padding(
-                top = 8.dp,
                 start = 20.dp,
                 end = 20.dp
             ),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
+        HomeTopBar(onClickFeedBack = {})
         MatchingCard(
             value = matchingCode,
             onValueChange = onMatchingCodeChange,
@@ -136,6 +144,15 @@ internal fun HomeScreen(
             viewCount = viewCount
         )
     }
+}
+
+@Composable
+private fun HomeTopBar(onClickFeedBack: () -> Unit) {
+    FunchTopBar(
+        modifier = Modifier.padding(bottom = 8.dp),
+        leadingIcon = null,
+        onClickTrailingIcon = onClickFeedBack
+    )
 }
 
 @Composable
@@ -181,8 +198,7 @@ private fun MatchingCard(value: String, onValueChange: (String) -> Unit, matchPr
                         roundedCornerShape = RoundedCornerShape(12.dp),
                         backgroundColor = Gray500,
                         onClick = { cutter.handle(matchProfile) },
-                        funchIcon =
-                        FunchIcon(
+                        funchIcon = FunchIcon(
                             resId = FunchIconAsset.Search.search_24,
                             description = "",
                             tint = Yellow500
@@ -209,11 +225,10 @@ private fun CodeCard(modifier: Modifier = Modifier, myCode: String) {
             ),
         horizontalArrangement = Arrangement.spacedBy(space = 12.dp)
     ) {
-        Icon(
-            modifier = Modifier.padding(8.dp),
-            painter = painterResource(id = FunchIconAsset.Search.search_24),
-            contentDescription = "",
-            tint = Gray400
+        Image(
+            modifier = Modifier.size(40.dp),
+            painter = painterResource(id = FunchIconAsset.Etc.code_80),
+            contentDescription = "code"
         )
         Column(
             verticalArrangement = Arrangement.spacedBy(space = 2.dp)
@@ -225,8 +240,7 @@ private fun CodeCard(modifier: Modifier = Modifier, myCode: String) {
             )
             Text(
                 text = stringResource(id = R.string.my_code, myCode),
-                style =
-                TextStyle(
+                style = TextStyle(
                     brush = brush,
                     fontStyle = FunchTheme.typography.sbt2.fontStyle,
                     fontFamily = FunchTheme.typography.sbt2.fontFamily,
@@ -234,8 +248,7 @@ private fun CodeCard(modifier: Modifier = Modifier, myCode: String) {
                     fontSize = FunchTheme.typography.sbt2.fontSize,
                     letterSpacing = FunchTheme.typography.sbt2.letterSpacing,
                     lineHeight = FunchTheme.typography.sbt2.lineHeight,
-                    lineHeightStyle =
-                    LineHeightStyle(
+                    lineHeightStyle = LineHeightStyle(
                         alignment = LineHeightStyle.Alignment.Proportional,
                         trim = LineHeightStyle.Trim.None
                     )
@@ -262,11 +275,10 @@ private fun MyProfileCard(modifier: Modifier = Modifier, onMyProfileClick: () ->
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(space = 8.dp)
     ) {
-        Icon(
-            modifier = Modifier.padding(8.dp),
-            painter = painterResource(id = FunchIconAsset.Search.search_24),
-            contentDescription = "",
-            tint = Gray400
+        Image(
+            modifier = Modifier.size(40.dp),
+            painter = painterResource(id = FunchIconAsset.Etc.profile_80),
+            contentDescription = ""
         )
         Text(
             text = stringResource(id = R.string.my_profile_card_caption),
@@ -292,11 +304,10 @@ private fun ProfileViewCounterCard(viewCount: Int) {
             ),
         horizontalArrangement = Arrangement.spacedBy(space = 12.dp)
     ) {
-        Icon(
-            modifier = Modifier.padding(8.dp),
-            painter = painterResource(id = FunchIconAsset.Search.search_24),
-            contentDescription = "",
-            tint = Gray400
+        Image(
+            modifier = Modifier.size(40.dp),
+            painter = painterResource(id = FunchIconAsset.Etc.view_count_80),
+            contentDescription = ""
         )
         Column(
             verticalArrangement = Arrangement.spacedBy(space = 2.dp)

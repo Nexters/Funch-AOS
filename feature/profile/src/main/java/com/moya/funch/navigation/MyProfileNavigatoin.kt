@@ -2,6 +2,7 @@ package com.moya.funch.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.moya.funch.CreateProfileScreen
@@ -9,7 +10,8 @@ import com.moya.funch.MyProfileRoute
 
 const val PROFILE_GRAPH_ROUTE = "profile_graph"
 
-fun NavController.navigateToMyProfile() = navigate(ProfileScreens.MyProfile.route)
+fun NavController.navigateToMyProfile(navOptions: NavOptions? = null) =
+    navigate(ProfileScreens.MyProfile.route, navOptions)
 
 fun NavController.closeMyProfile() = popBackStack() // 텍스트 필드의 값을 남기기 위해 사용
 

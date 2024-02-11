@@ -33,7 +33,8 @@ android {
 dependencies {
     // core
     implementation(projects.core.designsystem)
-    implementation(projects.core.network) // @murjune TODO : 삭제
+    implementation(projects.core.domain)
+    implementation(projects.core.data)
     // feature
     implementation(projects.feature.profile)
     implementation(projects.feature.home)
