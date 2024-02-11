@@ -62,14 +62,13 @@ internal fun OnBoardingScreen(onNavigateToCreateProfile: () -> Unit) {
             buttonType = FunchButtonType.Medium,
             onClick = onNavigateToCreateProfile,
             text = stringResource(id = R.string.profile_create_btn_text),
-            contentHorizontalPadding = 24.dp,
+            contentHorizontalPadding = 24.dp
         )
     }
 }
 
 @Composable
-private fun OnBoardingLottie(
-) {
+private fun OnBoardingLottie() {
     val composition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(
             R.raw.temp_lottie
