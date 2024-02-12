@@ -93,12 +93,16 @@ private fun SimilarityText(similarity: Int) {
         append(text)
         val start = text.indexOf("$similarity")
         addStyle(
-            style = SpanStyle(brush = Brush.horizontalGradient(Gradient_Lemon500)), start = start, end = start + 3
+            style = SpanStyle(brush = Brush.horizontalGradient(Gradient_Lemon500)),
+            start = start,
+            end = start + 3
         )
     }
 
     Text(
-        text = annotatedString, style = FunchTheme.typography.t2, color = White
+        text = annotatedString,
+        style = FunchTheme.typography.t2,
+        color = White
     )
 }
 
@@ -116,7 +120,8 @@ private fun ChemistryList(chemistrys: List<Chemistry>) {
 private fun ChemistryItem(chemistry: Chemistry) {
     val (title, description) = chemistry
     Row(
-        Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top
+        Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.Top
     ) {
         Image(modifier = Modifier.size(24.dp), painter = title.toPainter(), contentDescription = "Chemistry Icon")
         Spacer(modifier = Modifier.width(12.dp))
@@ -181,7 +186,9 @@ private fun String.toPainter(): Painter {
     showSystemUi = true
 )
 @Preview(
-    name = "Phone - 891dpi", device = "spec:width = 411dp, height = 891dp, dpi = 420", showSystemUi = true
+    name = "Phone - 891dpi",
+    device = "spec:width = 411dp, height = 891dp, dpi = 420",
+    showSystemUi = true
 )
 private fun Preview() {
     FunchTheme {
@@ -192,13 +199,19 @@ private fun Preview() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             SimilarityCardContent(
-                similarity = 100, chemistrys = listOf(
+                similarity = 100,
+                chemistrys = listOf(
                     Chemistry(
-                        title = "찾았다, 내 소울메이트!", description = "ENTJ인 {userName}님은 비전을 향해 적극적으로 이끄는 리더 타입!"
-                    ), Chemistry(
-                        title = "서로 다른 점을 찾는 재미", description = "B형인 {userName}님은 호기심과 창의력을 갖췄지만 변덕스러워요"
-                    ), Chemistry(
-                        title = "n호선에서 만나요", description = "{userName}님도 n호선에 살고 있어요"
+                        title = "찾았다, 내 소울메이트!",
+                        description = "ENTJ인 {userName}님은 비전을 향해 적극적으로 이끄는 리더 타입!"
+                    ),
+                    Chemistry(
+                        title = "서로 다른 점을 찾는 재미",
+                        description = "B형인 {userName}님은 호기심과 창의력을 갖췄지만 변덕스러워요"
+                    ),
+                    Chemistry(
+                        title = "n호선에서 만나요",
+                        description = "{userName}님도 n호선에 살고 있어요"
                     )
                 )
             )

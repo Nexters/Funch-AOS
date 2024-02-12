@@ -15,6 +15,7 @@ import com.moya.funch.entity.match.Recommend
 import com.moya.funch.entity.profile.Profile
 import com.moya.funch.usecase.MatchProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -22,7 +23,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 internal class MatchViewModel @Inject constructor(
