@@ -37,7 +37,6 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -106,9 +105,7 @@ fun CreateProfileScreen(
 ) {
     val scrollState = rememberScrollState()
     val backgroundColor = LocalBackgroundTheme.current.color
-    val context = LocalContext.current
-    val isKeyboardVisible = remember { mutableStateOf(false) }
-
+    var isKeyboardVisible by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -119,23 +116,8 @@ fun CreateProfileScreen(
             )
         },
         bottomBar = {
-            Box(
-                modifier = Modifier
-                    .background(color = backgroundColor)
-                    .padding(
-                        top = 16.dp,
-                        start = 20.dp,
-                        end = 20.dp
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                FunchMainButton(
-                    enabled = false,
-                    modifier = Modifier.fillMaxWidth(),
-                    buttonType = FunchButtonType.Full,
-                    onClick = onNavigateToHome,
-                    text = "이제 매칭할래요!"
-                )
+            if (!isKeyboardVisible) {
+                BottomBar(backgroundColor = backgroundColor, onNavigateToHome = onNavigateToHome)
             }
         },
         containerColor = backgroundColor,
@@ -143,44 +125,47 @@ fun CreateProfileScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(
-                    state = scrollState,
-                )
+                .verticalScroll(state = scrollState)
                 .padding(padding)
-                .padding(horizontal = 20.dp)
         ) {
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "프로필 만들기",
-                color = White,
-                style = FunchTheme.typography.t2
-            )
-            Spacer(modifier = Modifier.height(2.dp))
-            Text(
-                text = "프로필을 만들어 공통점을 찾을 수 있어요",
-                color = Gray300,
-                style = FunchTheme.typography.b
-            )
-            Spacer(modifier = Modifier.height(24.dp))
-            NicknameRow(
-                nickname = profile.name,
-                onNicknameChange = onNicknameChange
-            )
-            Spacer(modifier = Modifier.height(14.dp))
-            Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                JobRow(profile = profile, onSelected = onSelectJob)
-                ClubRow(onSelectClub = onSelectClub)
-                MbtiRow(onSelectMbti = onSelectMbti)
-                BooldTypeRow(onSelectBloodType = onSelectBloodType)
-                SubwayRow(
-                    subwayStation = profile.subways[0].name,
-                    onSubwayStationChange = onSubwayStationChange
+            Column(modifier = Modifier.padding(horizontal = 20.dp)) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "프로필 만들기",
+                    color = White,
+                    style = FunchTheme.typography.t2
                 )
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "프로필을 만들어 공통점을 찾을 수 있어요",
+                    color = Gray300,
+                    style = FunchTheme.typography.b
+                )
+                Spacer(modifier = Modifier.height(24.dp))
+                NicknameRow(
+                    nickname = profile.name,
+                    onNicknameChange = onNicknameChange,
+                    isKeyboardVisible = { isKeyboardVisible = it }
+                )
+                Spacer(modifier = Modifier.height(14.dp))
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    JobRow(profile = profile, onSelected = onSelectJob)
+                    ClubRow(onSelectClub = onSelectClub)
+                    MbtiRow(onSelectMbti = onSelectMbti)
+                    BooldTypeRow(onSelectBloodType = onSelectBloodType)
+                    SubwayRow(
+                        subwayStation = profile.subways[0].name,
+                        onSubwayStationChange = onSubwayStationChange,
+                        isKeyboardVisible = { isKeyboardVisible = it }
+                    )
+                }
+                Spacer(modifier = Modifier.height(39.dp))
             }
-            Text(text = "프로필을 만들면 매칭이 시작돼요", color = Gray300, style = FunchTheme.typography.b)
-            Spacer(modifier = Modifier.height(39.dp))
+            if (isKeyboardVisible) {
+                BottomBar(backgroundColor = backgroundColor, onNavigateToHome = onNavigateToHome)
+            }
         }
     }
 }
@@ -191,6 +176,7 @@ private const val MAX_NICKNAME_LENGTH = 9
 private fun NicknameRow(
     nickname: String,
     onNicknameChange: (String) -> Unit,
+    isKeyboardVisible: (Boolean) -> Unit,
 ) {
     var isNicknameError by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
@@ -201,6 +187,7 @@ private fun NicknameRow(
         if (!isFocused || nickname.length < MAX_NICKNAME_LENGTH) {
             isNicknameError = false
         }
+        isKeyboardVisible(isFocused)
     }
 
     Row {
@@ -440,10 +427,17 @@ private fun BooldTypeRow(
 @Composable
 private fun SubwayRow(
     subwayStation: String,
-    onSubwayStationChange: (String) -> Unit
+    onSubwayStationChange: (String) -> Unit,
+    isKeyboardVisible: (Boolean) -> Unit
 ) {
     val isError by remember { mutableStateOf(false) }
+    val interactionSource = remember { MutableInteractionSource() }
+    val isFocused by interactionSource.collectIsFocusedAsState()
     val focusManager = LocalFocusManager.current
+
+    LaunchedEffect(isFocused) {
+        isKeyboardVisible(isFocused)
+    }
 
     Row {
         FunchLargeLabel(text = ProfileLabel.SUBWAY.labelName)
@@ -458,6 +452,8 @@ private fun SubwayRow(
                 tint = Gray400,
                 description = ""
             ),
+            interactionSource = interactionSource,
+            isFocus = isFocused,
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done
             ),
@@ -466,6 +462,31 @@ private fun SubwayRow(
                     focusManager.clearFocus()
                 }
             )
+        )
+    }
+}
+
+@Composable
+private fun BottomBar(
+    backgroundColor: Color,
+    onNavigateToHome: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .background(color = backgroundColor)
+            .padding(
+                top = 16.dp,
+                start = 20.dp,
+                end = 20.dp
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        FunchMainButton(
+            enabled = false,
+            modifier = Modifier.fillMaxWidth(),
+            buttonType = FunchButtonType.Full,
+            onClick = onNavigateToHome,
+            text = "이제 매칭할래요!"
         )
     }
 }
