@@ -43,7 +43,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.moya.funch.common.searchPainter
+import com.moya.funch.common.clubPainter
+import com.moya.funch.common.jobPainter
 import com.moya.funch.component.FunchButtonType
 import com.moya.funch.component.FunchChip
 import com.moya.funch.component.FunchIcon
@@ -260,7 +261,7 @@ private fun JobRow(
                         ) {
                             Image(
                                 modifier = Modifier.size(18.dp),
-                                painter = searchPainter(job.krName),
+                                painter = jobPainter(job.krName),
                                 contentDescription = ""
                             )
                         }
@@ -312,7 +313,7 @@ private fun ClubRow(
                         ) {
                             Image(
                                 modifier = Modifier.size(18.dp),
-                                painter = searchPainter(club.label),
+                                painter = clubPainter(club.label),
                                 contentDescription = ""
                             )
                         }

@@ -22,15 +22,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.moya.funch.common.searchPainter
+import com.moya.funch.common.jobPainter
+import com.moya.funch.common.subwayLinePainter
 import com.moya.funch.component.FunchChip
 import com.moya.funch.entity.profile.Profile
-import com.moya.funch.icon.FunchIconAsset
 import com.moya.funch.theme.FunchTheme
 import com.moya.funch.theme.Gray400
 import com.moya.funch.theme.Gray800
@@ -130,14 +128,14 @@ private fun UsersDistinct(profile: Profile) {
                         labelValues.forEach { value ->
                             val leadingIcon = when (profileLabel) {
                                 ProfileLabel.JOB, ProfileLabel.CLUB ->
-                                    searchPainter(value)
+                                    jobPainter(value)
 
                                 else -> null
                             }
                             val trailingIcon = when (profileLabel) {
                                 ProfileLabel.SUBWAY ->
                                     profile.subways.find { it.name == value }?.lines?.map {
-                                        searchPainter(it.name)
+                                        subwayLinePainter(it.name)
                                     }
 
                                 else -> null

@@ -6,13 +6,25 @@ import androidx.compose.ui.res.painterResource
 import com.moya.funch.icon.FunchIconAsset
 
 @Composable
-fun searchPainter(value: String): Painter = // @Gun Hyung TODO : 신림역부터 도메인 Entity 추가 되는데로 수정
+fun jobPainter(value: String): Painter =
     when (value) {
         "개발자" -> painterResource(id = FunchIconAsset.Job.developer_24)
         "디자이너" -> painterResource(id = FunchIconAsset.Job.designer_24)
+        else -> throw IllegalArgumentException("Unknown Icon: $value")
+    }
+
+@Composable
+fun clubPainter(value: String): Painter =
+    when (value) {
         "넥스터즈" -> painterResource(id = FunchIconAsset.Club.nexters_24)
         "SOPT" -> painterResource(id = FunchIconAsset.Club.sopt_24)
         "Depromeet" -> painterResource(id = FunchIconAsset.Club.depromeet_24)
+        else -> throw IllegalArgumentException("Unknown Icon: $value")
+    }
+
+@Composable
+fun subwayLinePainter(value: String): Painter = // @Gun Hyung TODO : 신림역부터 도메인 Entity 추가 되는데로 수정
+    when (value) {
         "ONE" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_one)
         "TWO" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_two)
         "THREE" -> painterResource(id = FunchIconAsset.SubwayLine.subway_line_three)
