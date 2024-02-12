@@ -33,7 +33,7 @@ private fun ProfileResponse.toDomain(): Profile {
         clubs = clubs.map { Club.of(it) },
         mbti = Mbti.valueOf(mbti),
         blood = Blood.valueOf(bloodType),
-        subways = subwayInfos.map { SubwayStation(name = it) }
+        subways = subwayNames.map { SubwayStation(name = it) }
     )
 }
 
