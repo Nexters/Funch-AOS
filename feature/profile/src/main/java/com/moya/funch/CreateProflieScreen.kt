@@ -82,6 +82,7 @@ internal fun CreateProfileRoute(
     CreateProfileScreen(
         profile = profile,
         isSelectMbti = viewModel::isSelectMbti,
+        isCreateProfile = viewModel::isCreateProfile,
         onSelectJob = viewModel::setJob,
         onSelectClub = viewModel::setClub,
         onSelectMbti = viewModel::setMbti,
@@ -97,6 +98,7 @@ internal fun CreateProfileRoute(
 fun CreateProfileScreen(
     profile: Profile,
     isSelectMbti: (MbtiItem) -> Boolean,
+    isCreateProfile: (Profile) -> Boolean,
     onSelectJob: (Job) -> Unit,
     onSelectClub: (Club) -> Unit,
     onSelectMbti: (MbtiItem) -> Unit,
@@ -120,7 +122,11 @@ fun CreateProfileScreen(
         },
         bottomBar = {
             if (!isKeyboardVisible) {
-                BottomBar(backgroundColor = backgroundColor, onNavigateToHome = onNavigateToHome)
+                BottomBar(
+                    backgroundColor = backgroundColor,
+                    isCreateProfile = isCreateProfile(profile),
+                    onNavigateToHome = onNavigateToHome
+                )
             }
         },
         containerColor = backgroundColor,
@@ -167,7 +173,11 @@ fun CreateProfileScreen(
                 Spacer(modifier = Modifier.height(39.dp))
             }
             if (isKeyboardVisible) {
-                BottomBar(backgroundColor = backgroundColor, onNavigateToHome = onNavigateToHome)
+                BottomBar(
+                    backgroundColor = backgroundColor,
+                    isCreateProfile = isCreateProfile(profile),
+                    onNavigateToHome = onNavigateToHome
+                )
             }
         }
     }
@@ -429,7 +439,7 @@ private fun BooldTypeRow(
 private fun SubwayRow(
     subwayStation: String,
     onSubwayStationChange: (String) -> Unit,
-    isKeyboardVisible: (Boolean) -> Unit
+    isKeyboardVisible: (Boolean) -> Unit,
 ) {
     val isError by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
@@ -470,6 +480,7 @@ private fun SubwayRow(
 @Composable
 private fun BottomBar(
     backgroundColor: Color,
+    isCreateProfile: Boolean,
     onNavigateToHome: () -> Unit
 ) {
     Box(
@@ -483,7 +494,7 @@ private fun BottomBar(
         contentAlignment = Alignment.Center
     ) {
         FunchMainButton(
-            enabled = false,
+            enabled = isCreateProfile,
             modifier = Modifier.fillMaxWidth(),
             buttonType = FunchButtonType.Full,
             onClick = onNavigateToHome,

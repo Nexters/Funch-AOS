@@ -92,6 +92,15 @@ internal class CreateProfileViewModel @Inject constructor(
         )
     }
 
+    fun isCreateProfile(profile: Profile): Boolean {
+        return profile.job != Job.IDLE &&
+            profile.clubs.isNotEmpty() &&
+            profile.mbti != Mbti.IDLE &&
+            profile.blood != Blood.IDLE &&
+            profile.name.isNotBlank() &&
+            profile.subways[0].name.isNotBlank()
+    }
+
     fun createProfile() {
         viewModelScope.launch {
             /*createUserProfileUseCase(_profile.value).onSuccess {
