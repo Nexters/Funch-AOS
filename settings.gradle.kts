@@ -30,4 +30,5 @@ include(":core:data")
 // feature
 include(":feature:profile")
 include(":feature:home")
- include(":feature:match")
+include(":feature:match")
+include(":feature:onboarding")
