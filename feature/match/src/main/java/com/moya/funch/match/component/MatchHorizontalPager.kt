@@ -68,8 +68,8 @@ private fun Preview() {
                         description = "B형인 {userName}님은 호기심과 창의력을 갖췄지만 변덕스러워요"
                     ),
                     Chemistry(
-                        title = "n호선에서 만나요",
-                        description = "{userName}님도 n호선에 살고 있어요"
+                        title = "2호선에서 만나요",
+                        description = "{userName}님도 2호선에 살고 있어요"
                     )
                 )
             )

@@ -15,10 +15,15 @@ class RemoteMatchDataSourceImpl @Inject constructor(
         return runCatching {
             matchingService.matchProfile(
                 MatchingRequest(
-                    targetCode,
-                    dataStore.userId
+                    userId = DUMMY_ID,
+                    targetCode = targetCode
                 )
             )
+            // @murjune TODO change - dataStore.userId
         }.mapCatching { it.data }
+    }
+
+    companion object {
+        private const val DUMMY_ID = "65c9d597ffc89209ea09ce24"
     }
 }

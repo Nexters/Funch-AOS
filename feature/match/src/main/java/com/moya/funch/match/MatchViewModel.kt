@@ -13,19 +13,20 @@ import com.moya.funch.entity.match.Chemistry
 import com.moya.funch.entity.match.Matching
 import com.moya.funch.entity.match.Recommend
 import com.moya.funch.entity.profile.Profile
+import com.moya.funch.usecase.MatchProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
+import timber.log.Timber
 
 @HiltViewModel
-class MatchViewModel @Inject constructor(
-//    private val matchProfileUseCase : MatchProfileUseCase,
+internal class MatchViewModel @Inject constructor(
+    private val matchProfileUseCase: MatchProfileUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -36,10 +37,14 @@ class MatchViewModel @Inject constructor(
         if (code.isEmpty()) {
             MatchUiState.Loading
         } else {
-            // MatchUiState.Success(matchProfileUseCase("1", it))
-            // TODO : Remove 목 데이터, delay
-            delay(1000L)
-            MatchUiState.Success(MOCK_MATCHING)
+            matchProfileUseCase(matchCode.value)
+                .onFailure {
+                    Timber.e("MatchViewModel - matchProfileUseCase  - ${it.stackTraceToString()}")
+                }
+                .getOrNull()
+                ?.let {
+                    MatchUiState.Success(it)
+                } ?: MatchUiState.Error
         }
     }.catch {
         emit(MatchUiState.Error)
@@ -52,8 +57,6 @@ class MatchViewModel @Inject constructor(
     companion object {
         private const val MATCH_CODE = "matchCode"
 
-        // id: 65c27d3232e6054951260d3d, code: V3H5, device : bbb
-        // id: 65c27d8b32e6054951260d3e, code: 6V2Q, device: ccc
         private val MOCK_MATCHING = Matching(
             profile = Profile().copy(
                 name = "abc",
@@ -79,7 +82,7 @@ class MatchViewModel @Inject constructor(
     }
 }
 
-sealed class MatchUiState {
+internal sealed class MatchUiState {
     data object Loading : MatchUiState()
     data object Error : MatchUiState()
     data class Success(val matching: Matching) : MatchUiState()

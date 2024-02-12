@@ -49,10 +49,9 @@ private fun MatchScreen(onClose: () -> Unit, memberCode: String, matchUiState: M
     ) {
         MatchTopBar(onClose = onClose)
         Spacer(modifier = Modifier.height(8.dp))
-        when (matchUiState) {
-            is MatchUiState.Loading -> LoadingContent()
-            is MatchUiState.Error -> ErrorMatchContent(code = memberCode)
-            is MatchUiState.Success -> MatchHorizontalPager(matching = matchUiState.matching)
+
+        if (matchUiState is MatchUiState.Success) {
+            MatchHorizontalPager(matching = matchUiState.matching)
         }
     }
 }
