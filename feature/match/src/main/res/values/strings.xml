@@ -1,3 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    mbti-->
+    <string name="match_mbti_pride_first">펀치가 아니면 몰랐을 사이</string>
+    <string name="match_mbti_pride_second">서로를 알아가 볼까요?</string>
+    <string name="match_mbti_pride_third">끈끈한 사이로 발전할 수 있어요!</string>
+    <string name="match_mbti_pride_fourth">기막힌 타이밍에 등장한 너!</string>
+    <string name="match_mbti_pride_fifth">찾았다, 내 소울메이트!</string>
+    <!--    blood-->
+    <string name="match_blood_great">쿵짝 쿵짜작~이 잘 맞아요</string>
+    <string name="match_blood_good">우리는 최강의 콤비!</string>
+    <string name="match_blood_soso">안정적인 관계인 우리</string>
+    <string name="match_blood_bad">서로 다른 점을 찾는 재미</string>
 </resources>
