@@ -9,8 +9,10 @@ enum class Blood(val type: String) {
     ;
 
     companion object {
-        fun formType(type: String): Blood {
-            return entries.find { it.type == type } ?: IDLE
+        fun of(bloodType: String): Blood {
+            val blood = runCatching { Blood.valueOf(bloodType) }
+            if (blood.isSuccess) return requireNotNull(blood.getOrNull())
+            return requireNotNull(Blood.entries.find { it.type == bloodType }) { "Club : $bloodType not found" }
         }
     }
 }
