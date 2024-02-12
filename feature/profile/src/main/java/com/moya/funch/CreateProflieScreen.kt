@@ -81,6 +81,7 @@ internal fun CreateProfileRoute(
 
     CreateProfileScreen(
         profile = profile,
+        isSelectMbti = viewModel::isSelectMbti,
         onSelectJob = viewModel::setJob,
         onSelectClub = viewModel::setClub,
         onSelectMbti = viewModel::setMbti,
@@ -95,6 +96,7 @@ internal fun CreateProfileRoute(
 @Composable
 fun CreateProfileScreen(
     profile: Profile,
+    isSelectMbti: (MbtiItem) -> Boolean,
     onSelectJob: (Job) -> Unit,
     onSelectClub: (Club) -> Unit,
     onSelectMbti: (MbtiItem) -> Unit,
@@ -154,7 +156,7 @@ fun CreateProfileScreen(
                 ) {
                     JobRow(profile = profile, onSelected = onSelectJob)
                     ClubRow(onSelectClub = onSelectClub)
-                    MbtiRow(onSelectMbti = onSelectMbti)
+                    MbtiRow(onSelectMbti = onSelectMbti, isSelectMbti = isSelectMbti)
                     BooldTypeRow(onSelectBloodType = onSelectBloodType)
                     SubwayRow(
                         subwayStation = profile.subways[0].name,
@@ -326,7 +328,8 @@ private fun ClubRow(
 
 @Composable
 private fun MbtiRow(
-    onSelectMbti: (MbtiItem) -> Unit
+    onSelectMbti: (MbtiItem) -> Unit,
+    isSelectMbti: (MbtiItem) -> Boolean,
 ) {
     val mbtiList = MbtiItem.entries.chunked(2)
 
@@ -336,9 +339,7 @@ private fun MbtiRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            mbtiList.forEach { pair ->
-                var isSelectedMbti by remember { mutableStateOf(pair[0]) }
-
+            mbtiList.forEachIndexed { i, pair ->
                 Column(
                     modifier = Modifier
                         .background(color = Gray800, shape = FunchTheme.shapes.medium)
@@ -347,10 +348,9 @@ private fun MbtiRow(
                     pair.forEach { mbti ->
                         MbtiButton(
                             mbtiItem = mbti,
-                            isSelected = isSelectedMbti == mbti,
+                            isSelected = isSelectMbti(mbti),
                             onSelected = {
                                 onSelectMbti(it)
-                                isSelectedMbti = it
                             }
                         )
                     }
