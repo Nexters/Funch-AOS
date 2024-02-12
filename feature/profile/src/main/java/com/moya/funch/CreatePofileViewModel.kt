@@ -10,11 +10,11 @@ import com.moya.funch.entity.SubwayStation
 import com.moya.funch.entity.profile.Profile
 import com.moya.funch.uimodel.MbtiItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 data class MbtiState(
     val eOrI: MbtiItem = MbtiItem.E,
@@ -25,13 +25,13 @@ data class MbtiState(
 
 @HiltViewModel
 internal class CreateProfileViewModel @Inject constructor(
-    //private val createUserProfileUseCase: CreateUserProfileUseCase
+    // private val createUserProfileUseCase: CreateUserProfileUseCase
 ) : ViewModel() {
 
     private val _profile = MutableStateFlow(Profile())
     val profile = _profile.asStateFlow()
 
-    private val _mbtiState = MutableStateFlow(MbtiState())
+    private val mbtiState = MutableStateFlow(MbtiState())
 
     fun setNickname(nickname: String) {
         _profile.value = _profile.value.copy(name = nickname)
@@ -54,17 +54,17 @@ internal class CreateProfileViewModel @Inject constructor(
     fun setMbti(item: MbtiItem) {
         viewModelScope.launch {
             when (item) {
-                MbtiItem.E, MbtiItem.I -> _mbtiState.update { uiModel -> uiModel.copy(eOrI = item) }
-                MbtiItem.N, MbtiItem.S -> _mbtiState.update { uiModel -> uiModel.copy(nOrS = item) }
-                MbtiItem.T, MbtiItem.F -> _mbtiState.update { uiModel -> uiModel.copy(tOrF = item) }
-                MbtiItem.J, MbtiItem.P -> _mbtiState.update { uiModel -> uiModel.copy(jOrP = item) }
+                MbtiItem.E, MbtiItem.I -> mbtiState.update { uiModel -> uiModel.copy(eOrI = item) }
+                MbtiItem.N, MbtiItem.S -> mbtiState.update { uiModel -> uiModel.copy(nOrS = item) }
+                MbtiItem.T, MbtiItem.F -> mbtiState.update { uiModel -> uiModel.copy(tOrF = item) }
+                MbtiItem.J, MbtiItem.P -> mbtiState.update { uiModel -> uiModel.copy(jOrP = item) }
             }
             _profile.value = _profile.value.copy(
                 mbti = Mbti.valueOf(
-                    _mbtiState.value.eOrI.name +
-                        _mbtiState.value.nOrS.name +
-                        _mbtiState.value.tOrF.name +
-                        _mbtiState.value.jOrP.name
+                    mbtiState.value.eOrI.name +
+                        mbtiState.value.nOrS.name +
+                        mbtiState.value.tOrF.name +
+                        mbtiState.value.jOrP.name
                 )
             )
         }
@@ -72,14 +72,14 @@ internal class CreateProfileViewModel @Inject constructor(
 
     fun isSelectMbti(mbtiItem: MbtiItem): Boolean {
         return when (mbtiItem) {
-            MbtiItem.E -> _mbtiState.value.eOrI == MbtiItem.E
-            MbtiItem.I -> _mbtiState.value.eOrI == MbtiItem.I
-            MbtiItem.N -> _mbtiState.value.nOrS == MbtiItem.N
-            MbtiItem.S -> _mbtiState.value.nOrS == MbtiItem.S
-            MbtiItem.T -> _mbtiState.value.tOrF == MbtiItem.T
-            MbtiItem.F -> _mbtiState.value.tOrF == MbtiItem.F
-            MbtiItem.J -> _mbtiState.value.jOrP == MbtiItem.J
-            MbtiItem.P -> _mbtiState.value.jOrP == MbtiItem.P
+            MbtiItem.E -> mbtiState.value.eOrI == MbtiItem.E
+            MbtiItem.I -> mbtiState.value.eOrI == MbtiItem.I
+            MbtiItem.N -> mbtiState.value.nOrS == MbtiItem.N
+            MbtiItem.S -> mbtiState.value.nOrS == MbtiItem.S
+            MbtiItem.T -> mbtiState.value.tOrF == MbtiItem.T
+            MbtiItem.F -> mbtiState.value.tOrF == MbtiItem.F
+            MbtiItem.J -> mbtiState.value.jOrP == MbtiItem.J
+            MbtiItem.P -> mbtiState.value.jOrP == MbtiItem.P
         }
     }
 
@@ -110,7 +110,6 @@ internal class CreateProfileViewModel @Inject constructor(
             }*/
         }
     }
-
 }
 
 private fun <T> List<T>.toggleElement(element: T): List<T> {

@@ -73,10 +73,7 @@ import com.moya.funch.uimodel.MbtiItem
 import com.moya.funch.uimodel.ProfileLabel
 
 @Composable
-internal fun CreateProfileRoute(
-    onNavigateToHome: () -> Unit,
-    viewModel: CreateProfileViewModel = hiltViewModel()
-) {
+internal fun CreateProfileRoute(onNavigateToHome: () -> Unit, viewModel: CreateProfileViewModel = hiltViewModel()) {
     val profile by viewModel.profile.collectAsStateWithLifecycle()
 
     CreateProfileScreen(
@@ -106,7 +103,7 @@ fun CreateProfileScreen(
     onNicknameChange: (String) -> Unit,
     onSubwayStationChange: (String) -> Unit,
     onNavigateToHome: () -> Unit,
-    onSendFeedback: () -> Unit,
+    onSendFeedback: () -> Unit
 ) {
     val scrollState = rememberScrollState()
     val backgroundColor = LocalBackgroundTheme.current.color
@@ -129,7 +126,7 @@ fun CreateProfileScreen(
                 )
             }
         },
-        containerColor = backgroundColor,
+        containerColor = backgroundColor
     ) { padding ->
         Column(
             modifier = Modifier
@@ -186,11 +183,7 @@ fun CreateProfileScreen(
 private const val MAX_NICKNAME_LENGTH = 9
 
 @Composable
-private fun NicknameRow(
-    nickname: String,
-    onNicknameChange: (String) -> Unit,
-    isKeyboardVisible: (Boolean) -> Unit,
-) {
+private fun NicknameRow(nickname: String, onNicknameChange: (String) -> Unit, isKeyboardVisible: (Boolean) -> Unit) {
     var isNicknameError by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
@@ -237,10 +230,7 @@ private fun NicknameRow(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun JobRow(
-    profile: Profile,
-    onSelected: (Job) -> Unit
-) {
+private fun JobRow(profile: Profile, onSelected: (Job) -> Unit) {
     Row {
         FunchSmallLabel(text = "직군")
         FlowRow(
@@ -286,9 +276,7 @@ private fun JobRow(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun ClubRow(
-    onSelectClub: (Club) -> Unit
-) {
+private fun ClubRow(onSelectClub: (Club) -> Unit) {
     Row {
         FunchSmallLabel(text = "동아리")
         FlowRow(
@@ -337,10 +325,7 @@ private fun ClubRow(
 }
 
 @Composable
-private fun MbtiRow(
-    onSelectMbti: (MbtiItem) -> Unit,
-    isSelectMbti: (MbtiItem) -> Boolean,
-) {
+private fun MbtiRow(onSelectMbti: (MbtiItem) -> Unit, isSelectMbti: (MbtiItem) -> Boolean) {
     val mbtiList = MbtiItem.entries.chunked(2)
 
     Row {
@@ -371,11 +356,7 @@ private fun MbtiRow(
 }
 
 @Composable
-private fun MbtiButton(
-    mbtiItem: MbtiItem,
-    isSelected: Boolean,
-    onSelected: (MbtiItem) -> Unit
-) {
+private fun MbtiButton(mbtiItem: MbtiItem, isSelected: Boolean, onSelected: (MbtiItem) -> Unit) {
     Box(
         modifier = Modifier
             .size(48.dp)
@@ -389,7 +370,7 @@ private fun MbtiButton(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null
             ),
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.Center
     ) {
         Text(
             text = mbtiItem.name,
@@ -400,9 +381,7 @@ private fun MbtiButton(
 }
 
 @Composable
-private fun BooldTypeRow(
-    onSelectBloodType: (Blood) -> Unit
-) {
+private fun BooldTypeRow(onSelectBloodType: (Blood) -> Unit) {
     val bloodTypes = Blood.entries.filterNot { it == Blood.IDLE }.map { it.type }
     var placeHolder by remember { mutableStateOf(bloodTypes[0]) }
     var isDropDownMenuExpanded by remember { mutableStateOf(false) }
@@ -439,7 +418,7 @@ private fun BooldTypeRow(
 private fun SubwayRow(
     subwayStation: String,
     onSubwayStationChange: (String) -> Unit,
-    isKeyboardVisible: (Boolean) -> Unit,
+    isKeyboardVisible: (Boolean) -> Unit
 ) {
     val isError by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
@@ -478,11 +457,7 @@ private fun SubwayRow(
 }
 
 @Composable
-private fun BottomBar(
-    backgroundColor: Color,
-    isCreateProfile: Boolean,
-    onNavigateToHome: () -> Unit
-) {
+private fun BottomBar(backgroundColor: Color, isCreateProfile: Boolean, onNavigateToHome: () -> Unit) {
     Box(
         modifier = Modifier
             .background(color = backgroundColor)

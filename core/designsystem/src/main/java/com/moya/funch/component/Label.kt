@@ -12,10 +12,7 @@ import com.moya.funch.theme.FunchTheme
 import com.moya.funch.theme.Gray400
 
 @Composable
-fun FunchSmallLabel(
-    modifier: Modifier = Modifier,
-    text: String
-) {
+fun FunchSmallLabel(modifier: Modifier = Modifier, text: String) {
     Box(
         modifier = Modifier
             .width(52.dp)
@@ -31,10 +28,7 @@ fun FunchSmallLabel(
 }
 
 @Composable
-fun FunchLargeLabel(
-    modifier: Modifier = Modifier,
-    text: String
-) {
+fun FunchLargeLabel(modifier: Modifier = Modifier, text: String) {
     Box(
         modifier = modifier
             .width(52.dp)
