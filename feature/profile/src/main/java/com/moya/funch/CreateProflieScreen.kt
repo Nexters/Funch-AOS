@@ -393,7 +393,7 @@ private fun MbtiButton(
 private fun BooldTypeRow(
     onSelectBloodType: (Blood) -> Unit
 ) {
-    val bloodTypes = Blood.entries.map { it.type }
+    val bloodTypes = Blood.entries.filterNot { it == Blood.IDLE }.map { it.type }
     var placeHolder by remember { mutableStateOf(bloodTypes[0]) }
     var isDropDownMenuExpanded by remember { mutableStateOf(false) }
     val buttonBounds = remember { mutableStateOf(Rect.Zero) }
@@ -415,7 +415,7 @@ private fun BooldTypeRow(
                     items = bloodTypes,
                     buttonBounds = buttonBounds.value,
                     onItemSelected = { bloodType ->
-                        onSelectBloodType(Blood.formType(bloodType))
+                        onSelectBloodType(Blood.of(bloodType))
                         placeHolder = bloodType
                         isDropDownMenuExpanded = false
                     }
