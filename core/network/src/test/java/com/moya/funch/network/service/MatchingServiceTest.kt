@@ -63,7 +63,7 @@ internal class MatchingServiceTest {
                         clubs = listOf("DEPROMEET"),
                         mbti = "ENFJ",
                         bloodType = "AB",
-                        subwayInfos = listOf()
+                        subwayNames = listOf()
                     ),
                     similarity = 40,
                     chemistryInfos =
