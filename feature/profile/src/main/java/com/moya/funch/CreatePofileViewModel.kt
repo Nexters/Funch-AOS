@@ -66,7 +66,7 @@ internal class CreateProfileViewModel @Inject constructor(
 
 }
 
-fun <T> List<T>.toggleElement(element: T): List<T> {
+private fun <T> List<T>.toggleElement(element: T): List<T> {
     return if (contains(element)) {
         filterNot { it == element }
     } else {
@@ -74,7 +74,7 @@ fun <T> List<T>.toggleElement(element: T): List<T> {
     }
 }
 
-sealed class CreateProfileState {
+internal sealed class CreateProfileState {
     data object Loading : CreateProfileState()
     data object Success : CreateProfileState()
     data object Error : CreateProfileState()
