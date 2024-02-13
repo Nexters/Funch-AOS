@@ -13,7 +13,7 @@ const val PROFILE_GRAPH_ROUTE = "profile_graph"
 fun NavController.navigateToMyProfile(navOptions: NavOptions? = null) =
     navigate(ProfileScreens.MyProfile.route, navOptions)
 
-fun NavController.closeMyProfile() = popBackStack() // 텍스트 필드의 값을 남기기 위해 사용
+fun NavController.closeMyProfile() = popBackStack()
 
 fun NavGraphBuilder.profileGraph(onNavigateToHome: () -> Unit, onCloseMyProfile: () -> Unit) {
     navigation(

@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.moya.funch.common.clubPainter
 import com.moya.funch.common.jobPainter
 import com.moya.funch.common.subwayLinePainter
 import com.moya.funch.component.FunchChip
@@ -128,9 +129,8 @@ private fun UsersDistinct(profile: Profile) {
                     ) {
                         labelValues.forEach { value ->
                             val leadingIcon = when (profileLabel) {
-                                ProfileLabel.JOB, ProfileLabel.CLUB ->
-                                    jobPainter(value)
-
+                                ProfileLabel.JOB -> jobPainter(value)
+                                ProfileLabel.CLUB -> clubPainter(value)
                                 else -> null
                             }
                             val trailingIcon = when (profileLabel) {
