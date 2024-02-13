@@ -199,7 +199,7 @@ private fun NicknameRow(nickname: String, onNicknameChange: (String) -> Unit, is
     }
 
     Row {
-        FunchLargeLabel(text = "닉네임")
+        FunchLargeLabel(text = ProfileLabel.NICKNAME.labelName)
         Column {
             FunchMaxLengthTextField(
                 value = nickname,
@@ -234,7 +234,7 @@ private fun NicknameRow(nickname: String, onNicknameChange: (String) -> Unit, is
 @Composable
 private fun JobRow(profile: Profile, onSelected: (Job) -> Unit) {
     Row {
-        FunchSmallLabel(text = "직군")
+        FunchSmallLabel(text = ProfileLabel.JOB.labelName)
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -280,7 +280,7 @@ private fun JobRow(profile: Profile, onSelected: (Job) -> Unit) {
 @Composable
 private fun ClubRow(onSelectClub: (Club) -> Unit) {
     Row {
-        FunchSmallLabel(text = "동아리")
+        FunchSmallLabel(text = ProfileLabel.CLUB.labelName)
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(8.dp),
