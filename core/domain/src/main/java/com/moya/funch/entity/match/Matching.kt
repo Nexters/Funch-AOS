@@ -1,6 +1,5 @@
 package com.moya.funch.entity.match
 
-import com.moya.funch.entity.SubwayStation
 import com.moya.funch.entity.profile.Profile
 
 data class Matching(
@@ -8,7 +7,6 @@ data class Matching(
     val similarity: Int = 0,
     val chemistrys: List<Chemistry> = emptyList(),
     val recommends: List<Recommend> = emptyList(),
-    val subways: List<SubwayStation> = emptyList()
 ) {
     init {
         require(similarity in 0..100) {
