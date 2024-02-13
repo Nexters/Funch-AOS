@@ -328,15 +328,13 @@ private fun ClubRow(onSelectClub: (Club) -> Unit) {
 
 @Composable
 private fun MbtiRow(onSelectMbti: (MbtiItem) -> Unit, isSelectMbti: (MbtiItem) -> Boolean) {
-    val mbtiList = MbtiItem.entries.chunked(2)
-
     Row {
         FunchSmallLabel(text = ProfileLabel.MBTI.labelName)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            mbtiList.forEachIndexed { i, pair ->
+            MbtiItem.entries.chunked(2).forEach { pair ->
                 Column(
                     modifier = Modifier
                         .background(color = Gray800, shape = FunchTheme.shapes.medium)
