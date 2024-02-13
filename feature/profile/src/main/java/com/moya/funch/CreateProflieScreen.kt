@@ -78,25 +78,7 @@ import com.moya.funch.uimodel.ProfileUiModel
 
 @Composable
 internal fun CreateProfileRoute(onNavigateToHome: () -> Unit, viewModel: CreateProfileViewModel = hiltViewModel()) {
-    val profile by viewModel.profile.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    var isEnabledButton by remember { mutableStateOf(false) }
-
-    LaunchedEffect(uiState) {
-        when (uiState) {
-            is CreateProfileUiState.Enabled -> {
-                isEnabledButton = true
-            }
-
-            is CreateProfileUiState.Disabled -> {
-                isEnabledButton = false
-            }
-
-            is CreateProfileUiState.Loading -> {
-                // @Gun Hyung TODO : 로딩 UI 디자인시스템에 정의하고 그리기
-            }
-        }
-    }
 
     LaunchedEffect(Unit) {
         viewModel.event.collect { event ->
@@ -104,7 +86,6 @@ internal fun CreateProfileRoute(onNavigateToHome: () -> Unit, viewModel: CreateP
                 is CreateProfileEvent.NavigateToHome -> {
                     onNavigateToHome()
                 }
-
                 is CreateProfileEvent.ShowError -> {
                     // @Gun Hyung TODO : 에러 메시지 호출
                 }
@@ -113,8 +94,8 @@ internal fun CreateProfileRoute(onNavigateToHome: () -> Unit, viewModel: CreateP
     }
 
     CreateProfileScreen(
-        profile = profile,
-        isCreateProfile = isEnabledButton,
+        profile = uiState.profile,
+        isCreateProfile = uiState.profile.isButtonEnabled,
         onSelectJob = viewModel::setJob,
         onSelectClub = viewModel::setClub,
         onSelectMbti = viewModel::setMbti,
@@ -124,6 +105,21 @@ internal fun CreateProfileRoute(onNavigateToHome: () -> Unit, viewModel: CreateP
         onCreateProfile = viewModel::createProfile,
         onSendFeedback = {}
     )
+
+    if (uiState.isLoading) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .clickable(
+                    onClick = { },
+                    indication = null,
+                    interactionSource = remember { MutableInteractionSource() }
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            // @Gun Hyung TODO : 로딩 UI 디자인시스템에 정의하고 그리기
+        }
+    }
 }
 
 @Composable
