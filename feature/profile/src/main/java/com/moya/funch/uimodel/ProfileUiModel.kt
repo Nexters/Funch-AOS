@@ -14,4 +14,10 @@ data class ProfileUiModel(
     val jOrP: MbtiItem = MbtiItem.J,
     val bloodType: Blood = Blood.A,
     val subway: String = ""
-)
+) {
+    val isButtonEnabled: Boolean
+        get() = name.isNotBlank() &&
+            job != Job.IDLE &&
+            clubs.isNotEmpty() &&
+            subway.isNotBlank()
+}
