@@ -95,13 +95,14 @@ private fun UsersDistinct(profile: Profile) {
             .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        ProfileLabel.entries.forEach { profileLabel ->
+        ProfileLabel.entries.filterNot { it == ProfileLabel.NICKNAME }.forEach { profileLabel ->
             val labelValues = when (profileLabel) {
                 ProfileLabel.JOB -> listOf(profile.job.krName)
                 ProfileLabel.CLUB -> profile.clubs.map { it.label }
                 ProfileLabel.MBTI -> listOf(profile.mbti.name)
                 ProfileLabel.BLOOD_TYPE -> listOf(profile.blood.type)
                 ProfileLabel.SUBWAY -> profile.subways.map { it.name }
+                ProfileLabel.NICKNAME -> emptyList()
             }
 
             if (labelValues.isNotEmpty()) {
