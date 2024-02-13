@@ -9,29 +9,57 @@ import com.moya.funch.entity.Mbti
 import com.moya.funch.entity.SubwayStation
 import com.moya.funch.entity.profile.Profile
 import com.moya.funch.uimodel.MbtiItem
+import com.moya.funch.uimodel.ProfileUiModel
+import com.moya.funch.usecase.CreateUserProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-data class MbtiState(
-    val eOrI: MbtiItem = MbtiItem.E,
-    val nOrS: MbtiItem = MbtiItem.N,
-    val tOrF: MbtiItem = MbtiItem.T,
-    val jOrP: MbtiItem = MbtiItem.J
-)
+internal sealed class CreateProfileUiState {
+    data object Loading : CreateProfileUiState()
+    data object Enabled : CreateProfileUiState()
+    data object Disabled : CreateProfileUiState()
+}
 
+internal sealed class CreateProfileEvent {
+    data object NavigateToHome : CreateProfileEvent()
+    data class ShowError(val message: String) : CreateProfileEvent()
+}
+
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 internal class CreateProfileViewModel @Inject constructor(
-    // private val createUserProfileUseCase: CreateUserProfileUseCase
+    private val createUserProfileUseCase: CreateUserProfileUseCase
 ) : ViewModel() {
 
-    private val _profile = MutableStateFlow(Profile())
+    private val _profile = MutableStateFlow(ProfileUiModel())
     val profile = _profile.asStateFlow()
 
-    private val mbtiState = MutableStateFlow(MbtiState())
+    private val _uiState = MutableStateFlow<CreateProfileUiState>(CreateProfileUiState.Disabled)
+    val uiState: StateFlow<CreateProfileUiState> = _profile.mapLatest { uiModel ->
+        if (isCreateProfile(uiModel)) {
+            CreateProfileUiState.Enabled
+        } else {
+            CreateProfileUiState.Disabled
+        }
+    }.stateIn(
+        viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = CreateProfileUiState.Disabled
+    )
+
+    private val _event = MutableSharedFlow<CreateProfileEvent>()
+    val event = _event.asSharedFlow()
 
     fun setNickname(nickname: String) {
         _profile.value = _profile.value.copy(name = nickname)
@@ -48,66 +76,57 @@ internal class CreateProfileViewModel @Inject constructor(
     }
 
     fun setBloodType(blood: Blood) {
-        _profile.value = _profile.value.copy(blood = blood)
+        _profile.value = _profile.value.copy(bloodType = blood)
     }
 
     fun setMbti(item: MbtiItem) {
         viewModelScope.launch {
             when (item) {
-                MbtiItem.E, MbtiItem.I -> mbtiState.update { uiModel -> uiModel.copy(eOrI = item) }
-                MbtiItem.N, MbtiItem.S -> mbtiState.update { uiModel -> uiModel.copy(nOrS = item) }
-                MbtiItem.T, MbtiItem.F -> mbtiState.update { uiModel -> uiModel.copy(tOrF = item) }
-                MbtiItem.J, MbtiItem.P -> mbtiState.update { uiModel -> uiModel.copy(jOrP = item) }
+                MbtiItem.E, MbtiItem.I -> _profile.update { uiModel -> uiModel.copy(eOrI = item) }
+                MbtiItem.N, MbtiItem.S -> _profile.update { uiModel -> uiModel.copy(nOrS = item) }
+                MbtiItem.T, MbtiItem.F -> _profile.update { uiModel -> uiModel.copy(tOrF = item) }
+                MbtiItem.J, MbtiItem.P -> _profile.update { uiModel -> uiModel.copy(jOrP = item) }
             }
-            _profile.value = _profile.value.copy(
-                mbti = Mbti.valueOf(
-                    mbtiState.value.eOrI.name +
-                        mbtiState.value.nOrS.name +
-                        mbtiState.value.tOrF.name +
-                        mbtiState.value.jOrP.name
-                )
-            )
-        }
-    }
-
-    fun isSelectMbti(mbtiItem: MbtiItem): Boolean {
-        return when (mbtiItem) {
-            MbtiItem.E -> mbtiState.value.eOrI == MbtiItem.E
-            MbtiItem.I -> mbtiState.value.eOrI == MbtiItem.I
-            MbtiItem.N -> mbtiState.value.nOrS == MbtiItem.N
-            MbtiItem.S -> mbtiState.value.nOrS == MbtiItem.S
-            MbtiItem.T -> mbtiState.value.tOrF == MbtiItem.T
-            MbtiItem.F -> mbtiState.value.tOrF == MbtiItem.F
-            MbtiItem.J -> mbtiState.value.jOrP == MbtiItem.J
-            MbtiItem.P -> mbtiState.value.jOrP == MbtiItem.P
         }
     }
 
     fun setSubwayName(subway: String) {
-        _profile.value = _profile.value.copy(
-            subways =
-            listOf(
-                SubwayStation(name = subway)
-            )
-        )
+        _profile.value = _profile.value.copy(subway = subway)
     }
 
-    fun isCreateProfile(profile: Profile): Boolean {
-        return profile.job != Job.IDLE &&
+    private fun isCreateProfile(profile: ProfileUiModel): Boolean {
+        return profile.name.isNotBlank() &&
+            profile.job != Job.IDLE &&
             profile.clubs.isNotEmpty() &&
-            profile.mbti != Mbti.IDLE &&
-            profile.blood != Blood.IDLE &&
-            profile.name.isNotBlank() &&
-            profile.subways[0].name.isNotBlank()
+            profile.subway.isNotBlank()
     }
 
     fun createProfile() {
         viewModelScope.launch {
-            /*createUserProfileUseCase(_profile.value).onSuccess {
-                // TODO : navigate to main
+            _uiState.update { CreateProfileUiState.Loading }
+            val profile = Profile(
+                name = _profile.value.name,
+                job = _profile.value.job,
+                clubs = _profile.value.clubs,
+                mbti = Mbti.valueOf(
+                    _profile.value.eOrI.name +
+                        _profile.value.nOrS.name +
+                        _profile.value.tOrF.name +
+                        _profile.value.jOrP.name
+                ),
+                blood = _profile.value.bloodType,
+                subways = listOf(
+                    SubwayStation(
+                        name = _profile.value.subway
+                    )
+                )
+            )
+            createUserProfileUseCase(profile).onSuccess {
+                _event.emit(CreateProfileEvent.NavigateToHome)
             }.onFailure {
-                // TODO : show error
-            }*/
+                _uiState.update { CreateProfileUiState.Enabled }
+                _event.emit(CreateProfileEvent.ShowError(it.message ?: "Error"))
+            }
         }
     }
 }
@@ -118,10 +137,4 @@ private fun <T> List<T>.toggleElement(element: T): List<T> {
     } else {
         this + element
     }
-}
-
-internal sealed class CreateProfileState {
-    data object Loading : CreateProfileState()
-    data object Success : CreateProfileState()
-    data object Error : CreateProfileState()
 }

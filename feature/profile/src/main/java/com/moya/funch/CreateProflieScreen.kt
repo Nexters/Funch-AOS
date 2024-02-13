@@ -3,6 +3,7 @@ package com.moya.funch
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -35,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalFocusManager
@@ -57,7 +59,6 @@ import com.moya.funch.component.FunchSmallLabel
 import com.moya.funch.entity.Blood
 import com.moya.funch.entity.Club
 import com.moya.funch.entity.Job
-import com.moya.funch.entity.profile.Profile
 import com.moya.funch.icon.FunchIconAsset
 import com.moya.funch.profile.R
 import com.moya.funch.theme.FunchTheme
@@ -73,43 +74,75 @@ import com.moya.funch.ui.FunchDropDownMenu
 import com.moya.funch.ui.FunchTopBar
 import com.moya.funch.uimodel.MbtiItem
 import com.moya.funch.uimodel.ProfileLabel
+import com.moya.funch.uimodel.ProfileUiModel
 
 @Composable
 internal fun CreateProfileRoute(onNavigateToHome: () -> Unit, viewModel: CreateProfileViewModel = hiltViewModel()) {
     val profile by viewModel.profile.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    var isEnabledButton by remember { mutableStateOf(false) }
+
+    LaunchedEffect(uiState) {
+        when (uiState) {
+            is CreateProfileUiState.Enabled -> {
+                isEnabledButton = true
+            }
+
+            is CreateProfileUiState.Disabled -> {
+                isEnabledButton = false
+            }
+
+            is CreateProfileUiState.Loading -> {
+                // @Gun Hyung TODO : 로딩 UI 디자인시스템에 정의하고 그리기
+            }
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.event.collect { event ->
+            when (event) {
+                is CreateProfileEvent.NavigateToHome -> {
+                    onNavigateToHome()
+                }
+
+                is CreateProfileEvent.ShowError -> {
+                    // @Gun Hyung TODO : 에러 메시지 호출
+                }
+            }
+        }
+    }
 
     CreateProfileScreen(
         profile = profile,
-        isSelectMbti = viewModel::isSelectMbti,
-        isCreateProfile = viewModel::isCreateProfile,
+        isCreateProfile = isEnabledButton,
         onSelectJob = viewModel::setJob,
         onSelectClub = viewModel::setClub,
         onSelectMbti = viewModel::setMbti,
         onSelectBloodType = viewModel::setBloodType,
         onNicknameChange = viewModel::setNickname,
         onSubwayStationChange = viewModel::setSubwayName,
-        onNavigateToHome = onNavigateToHome,
+        onCreateProfile = viewModel::createProfile,
         onSendFeedback = {}
     )
 }
 
 @Composable
 fun CreateProfileScreen(
-    profile: Profile,
-    isSelectMbti: (MbtiItem) -> Boolean,
-    isCreateProfile: (Profile) -> Boolean,
+    profile: ProfileUiModel,
+    isCreateProfile: Boolean,
     onSelectJob: (Job) -> Unit,
     onSelectClub: (Club) -> Unit,
     onSelectMbti: (MbtiItem) -> Unit,
     onSelectBloodType: (Blood) -> Unit,
     onNicknameChange: (String) -> Unit,
     onSubwayStationChange: (String) -> Unit,
-    onNavigateToHome: () -> Unit,
+    onCreateProfile: () -> Unit,
     onSendFeedback: () -> Unit
 ) {
     val scrollState = rememberScrollState()
     val backgroundColor = LocalBackgroundTheme.current.color
     var isKeyboardVisible by remember { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current
 
     Scaffold(
         topBar = {
@@ -123,8 +156,8 @@ fun CreateProfileScreen(
             if (!isKeyboardVisible) {
                 BottomBar(
                     backgroundColor = backgroundColor,
-                    isCreateProfile = isCreateProfile(profile),
-                    onNavigateToHome = onNavigateToHome
+                    isCreateProfile = isCreateProfile,
+                    onCreateProfile = onCreateProfile
                 )
             }
         },
@@ -132,6 +165,11 @@ fun CreateProfileScreen(
     ) { padding ->
         Column(
             modifier = Modifier
+                .pointerInput(Unit) {
+                    detectTapGestures(onTap = {
+                        focusManager.clearFocus()
+                    })
+                }
                 .fillMaxSize()
                 .verticalScroll(state = scrollState)
                 .padding(padding)
@@ -161,10 +199,10 @@ fun CreateProfileScreen(
                 ) {
                     JobRow(profile = profile, onSelected = onSelectJob)
                     ClubRow(onSelectClub = onSelectClub)
-                    MbtiRow(onSelectMbti = onSelectMbti, isSelectMbti = isSelectMbti)
+                    MbtiRow(profile = profile, onSelectMbti = onSelectMbti)
                     BooldTypeRow(onSelectBloodType = onSelectBloodType)
                     SubwayRow(
-                        subwayStation = profile.subways[0].name,
+                        subwayStation = profile.subway,
                         onSubwayStationChange = onSubwayStationChange,
                         isKeyboardVisible = { isKeyboardVisible = it }
                     )
@@ -174,8 +212,8 @@ fun CreateProfileScreen(
             if (isKeyboardVisible) {
                 BottomBar(
                     backgroundColor = backgroundColor,
-                    isCreateProfile = isCreateProfile(profile),
-                    onNavigateToHome = onNavigateToHome
+                    isCreateProfile = isCreateProfile,
+                    onCreateProfile = onCreateProfile
                 )
             }
         }
@@ -232,7 +270,7 @@ private fun NicknameRow(nickname: String, onNicknameChange: (String) -> Unit, is
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun JobRow(profile: Profile, onSelected: (Job) -> Unit) {
+private fun JobRow(profile: ProfileUiModel, onSelected: (Job) -> Unit) {
     Row {
         FunchSmallLabel(text = ProfileLabel.JOB.labelName)
         FlowRow(
@@ -327,14 +365,20 @@ private fun ClubRow(onSelectClub: (Club) -> Unit) {
 }
 
 @Composable
-private fun MbtiRow(onSelectMbti: (MbtiItem) -> Unit, isSelectMbti: (MbtiItem) -> Boolean) {
+private fun MbtiRow(profile: ProfileUiModel, onSelectMbti: (MbtiItem) -> Unit) {
+    val eOrI = profile.eOrI
+    val nOrS = profile.nOrS
+    val tOrF = profile.tOrF
+    val jOrP = profile.jOrP
+    val currentMbti = listOf(eOrI, nOrS, tOrF, jOrP)
+
     Row {
         FunchSmallLabel(text = ProfileLabel.MBTI.labelName)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            MbtiItem.entries.chunked(2).forEach { pair ->
+            MbtiItem.entries.chunked(2).forEachIndexed { i, pair ->
                 Column(
                     modifier = Modifier
                         .background(color = Gray800, shape = FunchTheme.shapes.medium)
@@ -343,7 +387,7 @@ private fun MbtiRow(onSelectMbti: (MbtiItem) -> Unit, isSelectMbti: (MbtiItem) -
                     pair.forEach { mbti ->
                         MbtiButton(
                             mbtiItem = mbti,
-                            isSelected = isSelectMbti(mbti),
+                            isSelected = currentMbti[i] == mbti,
                             onSelected = {
                                 onSelectMbti(it)
                             }
@@ -457,7 +501,7 @@ private fun SubwayRow(
 }
 
 @Composable
-private fun BottomBar(backgroundColor: Color, isCreateProfile: Boolean, onNavigateToHome: () -> Unit) {
+private fun BottomBar(backgroundColor: Color, isCreateProfile: Boolean, onCreateProfile: () -> Unit) {
     Box(
         modifier = Modifier
             .background(color = backgroundColor)
@@ -472,7 +516,7 @@ private fun BottomBar(backgroundColor: Color, isCreateProfile: Boolean, onNaviga
             enabled = isCreateProfile,
             modifier = Modifier.fillMaxWidth(),
             buttonType = FunchButtonType.Full,
-            onClick = onNavigateToHome,
+            onClick = onCreateProfile,
             text = stringResource(id = R.string.bottom_button_title)
         )
     }
@@ -493,9 +537,17 @@ private fun Preview1() {
             modifier = Modifier.fillMaxSize(),
             color = backgroundColor
         ) {
-            CreateProfileRoute(
-                onNavigateToHome = {},
-                viewModel = CreateProfileViewModel()
+            CreateProfileScreen(
+                profile = ProfileUiModel(),
+                isCreateProfile = false,
+                onSelectJob = {},
+                onSelectClub = {},
+                onSelectMbti = {},
+                onSelectBloodType = {},
+                onNicknameChange = {},
+                onSubwayStationChange = {},
+                onCreateProfile = {},
+                onSendFeedback = {}
             )
         }
     }
