@@ -38,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -58,6 +59,7 @@ import com.moya.funch.entity.Club
 import com.moya.funch.entity.Job
 import com.moya.funch.entity.profile.Profile
 import com.moya.funch.icon.FunchIconAsset
+import com.moya.funch.profile.R
 import com.moya.funch.theme.FunchTheme
 import com.moya.funch.theme.Gray300
 import com.moya.funch.theme.Gray400
@@ -137,13 +139,13 @@ fun CreateProfileScreen(
             Column(modifier = Modifier.padding(horizontal = 20.dp)) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "프로필 만들기",
+                    text = stringResource(id = R.string.create_profile_title),
                     color = White,
                     style = FunchTheme.typography.t2
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = "프로필을 만들어 공통점을 찾을 수 있어요",
+                    text = stringResource(id = R.string.create_profile_sub_title),
                     color = Gray300,
                     style = FunchTheme.typography.b
                 )
@@ -210,11 +212,11 @@ private fun NicknameRow(nickname: String, onNicknameChange: (String) -> Unit, is
                     }
                 },
                 maxLength = MAX_NICKNAME_LENGTH,
-                hint = "최대 ${MAX_NICKNAME_LENGTH}글자",
+                hint = stringResource(id = R.string.nickname_textfield_hint, MAX_NICKNAME_LENGTH),
                 isError = isNicknameError,
                 interactionSource = interactionSource,
                 isFocus = isFocused,
-                errorText = "최대 ${MAX_NICKNAME_LENGTH}글자까지 입력할 수 있어요",
+                errorText = stringResource(id = R.string.nickname_error_caption, MAX_NICKNAME_LENGTH),
                 keyboardOptions = KeyboardOptions.Default.copy(
                     imeAction = ImeAction.Done
                 ),
@@ -434,9 +436,9 @@ private fun SubwayRow(
         FunchIconTextField(
             value = subwayStation,
             onValueChange = onSubwayStationChange,
-            hint = "가까운 지하철역 검색",
+            hint = stringResource(id = R.string.subway_textfield_hint),
             isError = isError,
-            errorText = "존재하지 않는 지하철역이에요",
+            errorText = stringResource(id = R.string.subway_error_caption),
             iconType = FunchIcon(
                 resId = FunchIconAsset.Search.search_24,
                 tint = Gray400,
@@ -473,7 +475,7 @@ private fun BottomBar(backgroundColor: Color, isCreateProfile: Boolean, onNaviga
             modifier = Modifier.fillMaxWidth(),
             buttonType = FunchButtonType.Full,
             onClick = onNavigateToHome,
-            text = "이제 매칭할래요!"
+            text = stringResource(id = R.string.bottom_button_title)
         )
     }
 }
