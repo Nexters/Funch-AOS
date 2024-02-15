@@ -88,7 +88,7 @@ internal fun MyProfileScreen(profile: Profile, onCloseMyProfile: () -> Unit) {
                 description = "Back",
                 tint = Gray400
             ),
-            onClickLeadingIcon = onCloseMyProfile,
+            onClickLeadingIcon = onCloseMyProfile
         )
         Box(
             modifier = Modifier
@@ -237,7 +237,7 @@ private fun UsersDistinct(profile: Profile) {
 
 @Preview(
     showBackground = true,
-    device = Devices.NEXUS_6,
+    device = Devices.NEXUS_6
 )
 @Composable
 private fun Preview1() {

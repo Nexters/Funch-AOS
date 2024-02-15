@@ -5,11 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.moya.funch.entity.profile.Profile
 import com.moya.funch.usecase.LoadUserProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 sealed class MyProfileUiState {
     data object Loading : MyProfileUiState()
