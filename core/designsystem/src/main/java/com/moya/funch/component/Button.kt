@@ -43,12 +43,13 @@ import com.moya.funch.theme.Gray800
 import com.moya.funch.theme.Gray900
 import com.moya.funch.theme.Lemon500
 import com.moya.funch.theme.Lemon900
+import com.moya.funch.theme.White
 import com.moya.funch.theme.Yellow500
 import com.moya.funch.theme.funchTypography
 
 enum class FunchButtonType(val shape: Shape, val contentVerticalPadding: Dp, val textStyle: TextStyle) {
-    Full(RoundedCornerShape(16.dp), 21.dp, funchTypography.sbt1),
-    Large(RoundedCornerShape(16.dp), 21.dp, funchTypography.sbt1),
+    Full(RoundedCornerShape(16.dp), 20.5f.dp, funchTypography.sbt1),
+    Large(RoundedCornerShape(16.dp), 20.5f.dp, funchTypography.sbt1),
     Medium(RoundedCornerShape(16.dp), 16.dp, funchTypography.sbt2),
     Small(RoundedCornerShape(12.dp), 12.dp, funchTypography.b),
     XSmall(RoundedCornerShape(12.dp), 8.dp, funchTypography.b)
@@ -139,7 +140,7 @@ fun FunchSubButton(
 ) {
     val color =
         if (enabled) {
-            FunchTheme.colors.white
+            White
         } else {
             Gray400
         }
