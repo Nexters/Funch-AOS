@@ -195,15 +195,45 @@ private fun UsersDistinct(profile: Profile) {
 
 @Preview(
     showBackground = true,
-    widthDp = 360,
-    heightDp = 640
+    device = Devices.NEXUS_6,
 )
 @Composable
 private fun Preview1() {
     FunchTheme {
-        MyProfileScreen(
-            onCloseMyProfile = {},
-            profile = Profile.default()
-        )
+        val backgroundColor = LocalBackgroundTheme.current.color
+
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = backgroundColor
+        ) {
+            MyProfileScreen(
+                onCloseMyProfile = {},
+                profile = Profile(
+                    id = "QW2E213EEADF",
+                    code = "U23C",
+                    name = "김민수",
+                    job = Job.DEVELOPER,
+                    clubs = listOf(Club.NEXTERS, Club.SOPT, Club.DEPROMEET),
+                    mbti = Mbti.ENFP,
+                    blood = Blood.A,
+                    subways = listOf(
+                        SubwayStation(
+                            "동대문역사문화공원",
+                            listOf(
+                                SubwayLine.ONE,
+                                SubwayLine.FOUR
+                            )
+                        ),
+                        SubwayStation(
+                            "초지역",
+                            listOf(
+                                SubwayLine.TWO,
+                                SubwayLine.THREE
+                            )
+                        )
+                    )
+                )
+            )
+        }
     }
 }
