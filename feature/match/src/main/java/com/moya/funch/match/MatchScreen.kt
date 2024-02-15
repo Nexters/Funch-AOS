@@ -107,7 +107,7 @@ internal fun LoadingContent(onClose: () -> Unit) {
                 space = 12.dp,
                 alignment = Alignment.CenterVertically
             ),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             LottieAnimation(
                 modifier = Modifier.size(200.dp),
