@@ -1,8 +1,8 @@
 package com.moya.funch.onboarding
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,16 +11,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.rememberLottieComposition
 import com.moya.funch.component.FunchButtonType
 import com.moya.funch.component.FunchMainButton
 import com.moya.funch.onboarding.theme.Gray300
@@ -50,7 +46,7 @@ internal fun OnBoardingScreen(onNavigateToCreateProfile: () -> Unit) {
             style = FunchTheme.typography.t1
         )
         Spacer(modifier = Modifier.height(48.dp))
-        OnBoardingLottie()
+        OnBoardingImage()
         Spacer(modifier = Modifier.height(48.dp))
         Text(
             text = stringResource(id = R.string.profile_create_recommend),
@@ -68,24 +64,13 @@ internal fun OnBoardingScreen(onNavigateToCreateProfile: () -> Unit) {
 }
 
 @Composable
-private fun OnBoardingLottie() {
-    val composition by rememberLottieComposition(
-        LottieCompositionSpec.RawRes(
-            R.raw.temp_lottie
-        )
-    )
-
-    Box(
+private fun OnBoardingImage() {
+    Image(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(185.dp),
-        contentAlignment = Alignment.TopCenter
-    ) {
-        LottieAnimation(
-            composition = composition,
-            iterations = LottieConstants.IterateForever
-        )
-    }
+            .fillMaxWidth(),
+        painter = painterResource(id = R.drawable.onboarding),
+        contentDescription = "onBoard"
+    )
 }
 
 @Composable
