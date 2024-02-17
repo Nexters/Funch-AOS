@@ -9,11 +9,12 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 sealed class MyProfileUiState {
     data object Loading : MyProfileUiState()
     data class Success(val profile: Profile) : MyProfileUiState()
-    data class Error(val message: String) : MyProfileUiState()
+    data object Error : MyProfileUiState()
 }
 
 @HiltViewModel
@@ -34,7 +35,8 @@ internal class MyProfileViewModel @Inject constructor(
             result.onSuccess { profile ->
                 _uiState.value = MyProfileUiState.Success(profile)
             }.onFailure { exception ->
-                _uiState.value = MyProfileUiState.Error(exception.message ?: "Unknown Error")
+                _uiState.value = MyProfileUiState.Error
+                Timber.e(exception)
             }
         }
     }

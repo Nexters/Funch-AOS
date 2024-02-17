@@ -53,24 +53,14 @@ import com.moya.funch.uimodel.ProfileLabel
 internal fun MyProfileRoute(viewModel: MyProfileViewModel = hiltViewModel(), onCloseMyProfile: () -> Unit) {
     val uiState = viewModel.uiState.collectAsState().value
 
-    when (uiState) {
-        is MyProfileUiState.Loading -> {
-            // @Gun Hyung TODO : 추후 로딩 화면 추가
-        }
-        is MyProfileUiState.Error -> {
-            // @Gun Hyung TODO : 추후 에러 화면 추가
-        }
-        is MyProfileUiState.Success -> {
-            MyProfileScreen(
-                profile = uiState.profile,
-                onCloseMyProfile = onCloseMyProfile
-            )
-        }
-    }
+    MyProfileScreen(
+        uiState = uiState,
+        onCloseMyProfile = onCloseMyProfile
+    )
 }
 
 @Composable
-internal fun MyProfileScreen(profile: Profile, onCloseMyProfile: () -> Unit) {
+internal fun MyProfileScreen(uiState: MyProfileUiState, onCloseMyProfile: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -112,22 +102,39 @@ internal fun MyProfileScreen(profile: Profile, onCloseMyProfile: () -> Unit) {
                         horizontal = 20.dp
                     )
             ) {
-                Text(
-                    text = profile.code,
-                    style = FunchTheme.typography.b,
-                    color = Gray400
-                )
-                Spacer(modifier = Modifier.height(2.dp))
-                Text(
-                    text = profile.name,
-                    style = FunchTheme.typography.t2,
-                    color = Color.White
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                UsersDistinct(profile = profile)
+                when (uiState) {
+                    is MyProfileUiState.Loading -> {
+                        LoadingContent()
+                    }
+
+                    is MyProfileUiState.Success -> {
+                        LoadMyProfile(profile = uiState.profile)
+                    }
+
+                    is MyProfileUiState.Error -> {
+                        ErrorContent()
+                    }
+                }
             }
         }
     }
+}
+
+@Composable
+private fun LoadMyProfile(profile: Profile) {
+    Text(
+        text = profile.code,
+        style = FunchTheme.typography.b,
+        color = Gray400
+    )
+    Spacer(modifier = Modifier.height(2.dp))
+    Text(
+        text = profile.name,
+        style = FunchTheme.typography.t2,
+        color = Color.White
+    )
+    Spacer(modifier = Modifier.height(20.dp))
+    UsersDistinct(profile = profile)
 }
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -235,6 +242,32 @@ private fun UsersDistinct(profile: Profile) {
     }
 }
 
+@Composable
+private fun LoadingContent() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = "Loading...",
+            color = White
+        )
+    }
+}
+
+@Composable
+private fun ErrorContent() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = "Error",
+            color = White
+        )
+    }
+}
+
 @Preview(
     showBackground = true,
     device = Devices.NEXUS_6
@@ -249,32 +282,80 @@ private fun Preview1() {
             color = backgroundColor
         ) {
             MyProfileScreen(
-                onCloseMyProfile = {},
-                profile = Profile(
-                    id = "QW2E213EEADF",
-                    code = "U23C",
-                    name = "김민수",
-                    job = Job.DEVELOPER,
-                    clubs = listOf(Club.NEXTERS, Club.SOPT, Club.DEPROMEET),
-                    mbti = Mbti.ENFP,
-                    blood = Blood.A,
-                    subways = listOf(
-                        SubwayStation(
-                            "동대문역사문화공원",
-                            listOf(
-                                SubwayLine.ONE,
-                                SubwayLine.FOUR
-                            )
-                        ),
-                        SubwayStation(
-                            "초지역",
-                            listOf(
-                                SubwayLine.TWO,
-                                SubwayLine.THREE
+                uiState = MyProfileUiState.Success(
+                    profile = Profile(
+                        id = "QW2E213EEADF",
+                        code = "U23C",
+                        name = "김민수",
+                        job = Job.DEVELOPER,
+                        clubs = listOf(Club.NEXTERS, Club.SOPT, Club.DEPROMEET),
+                        mbti = Mbti.ENFP,
+                        blood = Blood.A,
+                        subways = listOf(
+                            SubwayStation(
+                                "동대문역사문화공원",
+                                listOf(
+                                    SubwayLine.ONE,
+                                    SubwayLine.FOUR
+                                )
+                            ),
+                            SubwayStation(
+                                "초지역",
+                                listOf(
+                                    SubwayLine.TWO,
+                                    SubwayLine.THREE
+                                )
                             )
                         )
                     )
-                )
+                ),
+                onCloseMyProfile = {}
+            )
+        }
+    }
+}
+
+@Preview(
+    name = "My Profile Loading",
+    showBackground = true,
+    device = Devices.NEXUS_6,
+    showSystemUi = true
+)
+@Composable
+private fun Preview2() {
+    FunchTheme {
+        val backgroundColor = LocalBackgroundTheme.current.color
+
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = backgroundColor
+        ) {
+            MyProfileScreen(
+                uiState = MyProfileUiState.Loading,
+                onCloseMyProfile = {}
+            )
+        }
+    }
+}
+
+@Preview(
+    name = "My Profile Loading",
+    showBackground = true,
+    device = Devices.NEXUS_6,
+    showSystemUi = true
+)
+@Composable
+private fun Preview3() {
+    FunchTheme {
+        val backgroundColor = LocalBackgroundTheme.current.color
+
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = backgroundColor
+        ) {
+            MyProfileScreen(
+                uiState = MyProfileUiState.Error,
+                onCloseMyProfile = {}
             )
         }
     }
