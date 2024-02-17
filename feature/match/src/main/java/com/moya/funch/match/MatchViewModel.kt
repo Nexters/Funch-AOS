@@ -17,6 +17,7 @@ import com.moya.funch.usecase.MatchProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -34,6 +35,7 @@ internal class MatchViewModel @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val uiState: StateFlow<MatchUiState> = matchCode.mapLatest { code ->
+        delay(2400)
         if (code.isEmpty()) {
             MatchUiState.Loading
         } else {
