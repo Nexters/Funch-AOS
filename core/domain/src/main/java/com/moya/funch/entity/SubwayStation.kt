@@ -32,5 +32,5 @@ enum class SubwayLine {
     GYEONGGANG,
     INCHEON,
     INCHEON_TWO,
-    SINBUNDANG,
+    SINBUNDANG
 }
