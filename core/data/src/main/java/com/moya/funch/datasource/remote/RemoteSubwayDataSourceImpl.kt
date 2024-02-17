@@ -1,6 +1,6 @@
 package com.moya.funch.datasource.remote
 
-import com.moya.funch.network.dto.response.subway_station.SubwayStationsResponse
+import com.moya.funch.network.dto.response.subwaystation.SubwayStationsResponse
 import com.moya.funch.network.service.SubwayService
 import javax.inject.Inject
 
@@ -13,5 +13,4 @@ class RemoteSubwayDataSourceImpl @Inject constructor(
             subwayStationService.findSubwayStations(subwayStation = subwayStation)
         }.mapCatching { response -> response.data }
     }
-
 }

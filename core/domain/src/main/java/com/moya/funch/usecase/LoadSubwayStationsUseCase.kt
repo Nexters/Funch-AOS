@@ -11,7 +11,6 @@ class LoadSubwayStationsUseCaseImpl @Inject constructor(
     override suspend operator fun invoke(subwayStation: String): Result<List<SubwayStation>> {
         return subwayRepository.fetchSubwayStations(subwayStation = subwayStation)
     }
-
 }
 
 fun interface LoadSubwayStationsUseCase {

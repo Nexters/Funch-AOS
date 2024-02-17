@@ -3,10 +3,11 @@ package com.moya.funch.network.service
 import com.google.common.truth.Truth
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.moya.funch.network.dto.response.BaseResponse
-import com.moya.funch.network.dto.response.subway_station.LocationResponse
-import com.moya.funch.network.dto.response.subway_station.SubwayStationsResponse
+import com.moya.funch.network.dto.response.subwaystation.LocationResponse
+import com.moya.funch.network.dto.response.subwaystation.SubwayStationsResponse
 import com.moya.funch.rule.CoroutinesTestExtension
 import io.mockk.junit5.MockKExtension
+import java.io.File
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
@@ -18,7 +19,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import retrofit2.Retrofit
 import retrofit2.create
-import java.io.File
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @ExtendWith(MockKExtension::class)
@@ -77,5 +77,4 @@ internal class SubwayServiceTest {
         // then
         Truth.assertThat(actualResponse).isEqualTo(expected)
     }
-
 }

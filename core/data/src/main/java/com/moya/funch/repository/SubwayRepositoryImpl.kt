@@ -10,9 +10,8 @@ class SubwayRepositoryImpl(
 
     override suspend fun fetchSubwayStations(subwayStation: String): Result<List<SubwayStation>> {
         return remoteSubwayDataSource.fetchSubwayStations(subwayStation = subwayStation)
-            .mapCatching {  response ->
+            .mapCatching { response ->
                 response.map { it.toDomain() }
-        }
+            }
     }
-
 }

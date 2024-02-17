@@ -1,4 +1,4 @@
-package com.moya.funch.network.dto.response.subway_station
+package com.moya.funch.network.dto.response.subwaystation
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
