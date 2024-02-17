@@ -15,4 +15,6 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.domain)
     implementation(projects.core.testing)
+
+    implementation(libs.compose.lottie)
 }

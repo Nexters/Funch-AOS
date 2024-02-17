@@ -10,7 +10,6 @@ class LocalUserDataSourceImpl @Inject constructor(
 ) : LocalUserDataSource {
 
     override suspend fun fetchUserProfile(): Result<ProfileModel> {
-//        userDataStore.clear() 여기 부분 주석 해제하고 한 번 빌드돌리면 데이터가 초기화됩니다!!
         if (userDataStore.hasUserId()) {
             return Result.success(
                 ProfileModel(

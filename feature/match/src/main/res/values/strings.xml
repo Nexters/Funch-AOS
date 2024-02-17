@@ -11,6 +11,8 @@
     <string name="match_blood_good">우리는 최강의 콤비!</string>
     <string name="match_blood_soso">안정적인 관계인 우리</string>
     <string name="match_blood_bad">서로 다른 점을 찾는 재미</string>
+    <!--    loading-->
+    <string name="match_loading_title">우리 사이 케미 측정 중</string>
     <!-- recommends -->
     <string-array name="match_recommend_labels">
         <item>어느 팀이세요?</item>

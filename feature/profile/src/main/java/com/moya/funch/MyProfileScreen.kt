@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -22,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -29,63 +31,110 @@ import com.moya.funch.common.clubPainter
 import com.moya.funch.common.jobPainter
 import com.moya.funch.common.subwayLinePainter
 import com.moya.funch.component.FunchChip
+import com.moya.funch.component.FunchIcon
+import com.moya.funch.entity.Blood
+import com.moya.funch.entity.Club
+import com.moya.funch.entity.Job
+import com.moya.funch.entity.Mbti
+import com.moya.funch.entity.SubwayLine
+import com.moya.funch.entity.SubwayStation
 import com.moya.funch.entity.profile.Profile
+import com.moya.funch.icon.FunchIconAsset
 import com.moya.funch.theme.FunchTheme
 import com.moya.funch.theme.Gray400
 import com.moya.funch.theme.Gray800
 import com.moya.funch.theme.Gray900
+import com.moya.funch.theme.LocalBackgroundTheme
 import com.moya.funch.theme.White
+import com.moya.funch.ui.FunchTopBar
 import com.moya.funch.uimodel.ProfileLabel
 
 @Composable
 internal fun MyProfileRoute(viewModel: MyProfileViewModel = hiltViewModel(), onCloseMyProfile: () -> Unit) {
-    val profile = viewModel.profile.collectAsState().value
+    val uiState = viewModel.uiState.collectAsState().value
 
     MyProfileScreen(
-        onCloseMyProfile = onCloseMyProfile,
-        profile = profile
+        uiState = uiState,
+        onCloseMyProfile = onCloseMyProfile
     )
 }
 
 @Composable
-internal fun MyProfileScreen(onCloseMyProfile: () -> Unit, profile: Profile) {
-    Box(
+internal fun MyProfileScreen(uiState: MyProfileUiState, onCloseMyProfile: () -> Unit) {
+    Column(
         modifier = Modifier
-            .padding(
-                top = 8.dp,
-                bottom = 14.dp,
-                start = 20.dp,
-                end = 20.dp
-            )
+            .fillMaxSize()
     ) {
-        Column(
+        FunchTopBar(
             modifier = Modifier
-                .fillMaxSize()
-                .clip(FunchTheme.shapes.large)
-                .background(
-                    color = Gray800,
-                    shape = FunchTheme.shapes.large
-                )
                 .padding(
-                    vertical = 24.dp,
-                    horizontal = 20.dp
+                    start = 12.dp,
+                    end = 20.dp
+                ),
+            enabledLeadingIcon = true,
+            enabledTrailingIcon = true,
+            leadingIcon = FunchIcon(
+                resId = FunchIconAsset.Arrow.arrow_left_small_24,
+                description = "Back",
+                tint = Gray400
+            ),
+            onClickLeadingIcon = onCloseMyProfile
+        )
+        Box(
+            modifier = Modifier
+                .padding(
+                    top = 8.dp,
+                    bottom = 14.dp,
+                    start = 20.dp,
+                    end = 20.dp
                 )
         ) {
-            Text(
-                text = profile.code,
-                style = FunchTheme.typography.b,
-                color = Gray400
-            )
-            Spacer(modifier = Modifier.height(2.dp))
-            Text(
-                text = profile.name,
-                style = FunchTheme.typography.t2,
-                color = Color.White
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            UsersDistinct(profile = profile)
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(FunchTheme.shapes.large)
+                    .background(
+                        color = Gray800,
+                        shape = FunchTheme.shapes.large
+                    )
+                    .padding(
+                        vertical = 24.dp,
+                        horizontal = 20.dp
+                    )
+            ) {
+                when (uiState) {
+                    is MyProfileUiState.Loading -> {
+                        LoadingContent()
+                    }
+
+                    is MyProfileUiState.Success -> {
+                        LoadMyProfile(profile = uiState.profile)
+                    }
+
+                    is MyProfileUiState.Error -> {
+                        ErrorContent()
+                    }
+                }
+            }
         }
     }
+}
+
+@Composable
+private fun LoadMyProfile(profile: Profile) {
+    Text(
+        text = profile.code,
+        style = FunchTheme.typography.b,
+        color = Gray400
+    )
+    Spacer(modifier = Modifier.height(2.dp))
+    Text(
+        text = profile.name,
+        style = FunchTheme.typography.t2,
+        color = Color.White
+    )
+    Spacer(modifier = Modifier.height(20.dp))
+    UsersDistinct(profile = profile)
 }
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -193,17 +242,121 @@ private fun UsersDistinct(profile: Profile) {
     }
 }
 
+@Composable
+private fun LoadingContent() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = "Loading...",
+            color = White
+        )
+    }
+}
+
+@Composable
+private fun ErrorContent() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = "Error",
+            color = White
+        )
+    }
+}
+
 @Preview(
     showBackground = true,
-    widthDp = 360,
-    heightDp = 640
+    device = Devices.NEXUS_6
 )
 @Composable
 private fun Preview1() {
     FunchTheme {
-        MyProfileScreen(
-            onCloseMyProfile = {},
-            profile = Profile.default()
-        )
+        val backgroundColor = LocalBackgroundTheme.current.color
+
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = backgroundColor
+        ) {
+            MyProfileScreen(
+                uiState = MyProfileUiState.Success(
+                    profile = Profile(
+                        id = "QW2E213EEADF",
+                        code = "U23C",
+                        name = "김민수",
+                        job = Job.DEVELOPER,
+                        clubs = listOf(Club.NEXTERS, Club.SOPT, Club.DEPROMEET),
+                        mbti = Mbti.ENFP,
+                        blood = Blood.A,
+                        subways = listOf(
+                            SubwayStation(
+                                "동대문역사문화공원",
+                                listOf(
+                                    SubwayLine.ONE,
+                                    SubwayLine.FOUR
+                                )
+                            ),
+                            SubwayStation(
+                                "초지역",
+                                listOf(
+                                    SubwayLine.TWO,
+                                    SubwayLine.THREE
+                                )
+                            )
+                        )
+                    )
+                ),
+                onCloseMyProfile = {}
+            )
+        }
+    }
+}
+
+@Preview(
+    name = "My Profile Loading",
+    showBackground = true,
+    device = Devices.NEXUS_6,
+    showSystemUi = true
+)
+@Composable
+private fun Preview2() {
+    FunchTheme {
+        val backgroundColor = LocalBackgroundTheme.current.color
+
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = backgroundColor
+        ) {
+            MyProfileScreen(
+                uiState = MyProfileUiState.Loading,
+                onCloseMyProfile = {}
+            )
+        }
+    }
+}
+
+@Preview(
+    name = "My Profile Loading",
+    showBackground = true,
+    device = Devices.NEXUS_6,
+    showSystemUi = true
+)
+@Composable
+private fun Preview3() {
+    FunchTheme {
+        val backgroundColor = LocalBackgroundTheme.current.color
+
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = backgroundColor
+        ) {
+            MyProfileScreen(
+                uiState = MyProfileUiState.Error,
+                onCloseMyProfile = {}
+            )
+        }
     }
 }
