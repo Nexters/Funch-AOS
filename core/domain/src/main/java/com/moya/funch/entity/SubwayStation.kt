@@ -19,10 +19,18 @@ enum class SubwayLine {
     SEVEN,
     EIGHT,
     NINE,
+    SEOHAE,
     AIRPORT,
-    EVERLINE,
+    GIMPO,
+    UI_SINSEOL,
+    SILLIM,
+    YOUNGIN,
+    UIJEONGBU,
+    BUNDANG,
     GYEONGCHUN,
     GYEONGUI,
-    SINBUNDANG,
-    SUIN
+    GYEONGGANG,
+    INCHEON,
+    INCHEON_TWO,
+    SINBUNDANG
 }
