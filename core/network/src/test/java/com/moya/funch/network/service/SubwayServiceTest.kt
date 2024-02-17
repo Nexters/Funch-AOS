@@ -23,7 +23,7 @@ import java.io.File
 @OptIn(ExperimentalCoroutinesApi::class)
 @ExtendWith(MockKExtension::class)
 @ExtendWith(CoroutinesTestExtension::class)
-internal class SubwayStationServiceTest {
+internal class SubwayServiceTest {
 
     private lateinit var mockWebServer: MockWebServer
     private lateinit var subwayStationService: SubwayService
