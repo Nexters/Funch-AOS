@@ -10,7 +10,7 @@ class RemoteSubwayDataSourceImpl @Inject constructor(
 
     override suspend fun fetchSubwayStations(subwayStation: String): Result<List<SubwayStationsResponse>> {
         return runCatching {
-            subwayStationService.findSubwayStations(subwayStation = subwayStation)
-        }.mapCatching { response -> response.data }
+            subwayStationService.findSubwayStations(subwayStation = subwayStation).data
+        }
     }
 }
