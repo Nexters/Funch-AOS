@@ -11,14 +11,13 @@ data class Matching(
     val profile: Profile = Profile(),
     val similarity: Int = 0,
     val chemistrys: List<Chemistry> = emptyList(),
-    val recommends: List<Recommend> = emptyList(),
+    val recommends: List<Recommend> = emptyList()
 ) {
     init {
         require(similarity in 0..100) {
             "similarity must be in 0..100"
         }
     }
-
 
     fun matches(job: Job, recommends: List<Recommend>): Boolean {
         return recommends.any { recommend ->
@@ -49,5 +48,4 @@ data class Matching(
             subway.name == recommend.title
         }
     }
-
 }

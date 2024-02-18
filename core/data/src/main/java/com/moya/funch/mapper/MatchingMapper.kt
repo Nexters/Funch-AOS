@@ -22,7 +22,7 @@ fun MatchingResponse.toDomain(): Matching {
         profile = profile.toDomain(subways),
         similarity = similarity,
         chemistrys = chemistryInfos.map { it.toDomain() },
-        recommends = recommends.map { it.toDomain() },
+        recommends = recommends.map { it.toDomain() }
     )
 }
 
@@ -39,7 +39,8 @@ private fun ProfileResponse.toDomain(subways: List<SubwayStation>): Profile {
 
 private fun ChemistryResponse.toDomain(): Chemistry {
     return Chemistry(
-        title = title, description = description
+        title = title,
+        description = description
     )
 }
 

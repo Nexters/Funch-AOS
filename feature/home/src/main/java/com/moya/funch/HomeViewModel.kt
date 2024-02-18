@@ -7,13 +7,13 @@ import com.moya.funch.usecase.CanMatchProfileUseCase
 import com.moya.funch.usecase.LoadUserProfileUseCase
 import com.moya.funch.usecase.LoadViewCountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 data class HomeModel(
     val myCode: String,

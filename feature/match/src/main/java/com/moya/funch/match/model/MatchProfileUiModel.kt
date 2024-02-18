@@ -12,7 +12,7 @@ internal sealed interface ProfileItems {
 
     enum class LeadingIcon(override val title: String) : ProfileItems {
         JOB("직군"),
-        CLUB("동아리"),
+        CLUB("동아리")
     }
 
     enum class TrailingIcon(override val title: String) : ProfileItems {
@@ -33,7 +33,7 @@ internal data class MatchProfileUiModel(
     val clubs: List<MatchingWrapper<Club>>,
     val mbti: MatchingWrapper<Mbti>,
     val blood: MatchingWrapper<Blood>,
-    val subways: List<MatchingWrapper<SubwayStation>>,
+    val subways: List<MatchingWrapper<SubwayStation>>
 ) {
     companion object {
         fun from(matching: Matching): MatchProfileUiModel {

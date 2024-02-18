@@ -78,14 +78,14 @@ internal fun SimilarityCard(similarity: Int, chemistrys: List<Chemistry>, curren
             .fillMaxSize()
             .background(Gray800, shape = FunchTheme.shapes.large)
             .padding(top = 20.dp)
-            .padding(horizontal = 28.dp), horizontalAlignment = Alignment.CenterHorizontally
+            .padding(horizontal = 28.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         MatchPageIndicator(current = current, pageCount = pageCount)
         Spacer(modifier = Modifier.height(8.dp))
         SimilarityCardContent(similarity = similarity, chemistrys = chemistrys)
     }
 }
-
 
 @Composable
 private fun SimilarityCardContent(similarity: Int, chemistrys: List<Chemistry>) {
@@ -110,12 +110,16 @@ private fun SimilarityText(similarity: Int) {
         append(text)
         val start = text.indexOf("$similarity")
         addStyle(
-            style = SpanStyle(brush = Brush.horizontalGradient(Gradient_Lemon500)), start = start, end = start + 3
+            style = SpanStyle(brush = Brush.horizontalGradient(Gradient_Lemon500)),
+            start = start,
+            end = start + 3
         )
     }
 
     Text(
-        text = annotatedString, style = FunchTheme.typography.t2, color = White
+        text = annotatedString,
+        style = FunchTheme.typography.t2,
+        color = White
     )
 }
 
@@ -133,7 +137,8 @@ private fun ChemistryList(chemistrys: List<Chemistry>) {
 private fun ChemistryItem(chemistry: Chemistry) {
     val (title, description) = chemistry
     Row(
-        Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top
+        Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.Top
     ) {
         Image(modifier = Modifier.size(24.dp), painter = title.toPainter(), contentDescription = "Chemistry Icon")
         Spacer(modifier = Modifier.width(12.dp))
@@ -198,7 +203,9 @@ private fun String.toPainter(): Painter {
     showSystemUi = true
 )
 @Preview(
-    name = "Phone - 891dpi", device = "spec:width = 411dp, height = 891dp, dpi = 420", showSystemUi = true
+    name = "Phone - 891dpi",
+    device = "spec:width = 411dp, height = 891dp, dpi = 420",
+    showSystemUi = true
 )
 private fun Preview() {
     FunchTheme {

@@ -24,7 +24,6 @@ import com.moya.funch.theme.FunchTheme
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun MatchHorizontalPager(profile: MatchProfileUiModel, similarity: Int, chemistrys: List<Chemistry>) {
-
     val pageCount = 3
     val pagerState = rememberPagerState(pageCount = { pageCount })
     HorizontalPager(
@@ -77,7 +76,7 @@ private fun Preview() {
                         Recommend("SOPT"),
                         Recommend("ENFJ"),
                         Recommend("A형"),
-                        Recommend("목동역"),
+                        Recommend("목동역")
                     )
                 )
             ),

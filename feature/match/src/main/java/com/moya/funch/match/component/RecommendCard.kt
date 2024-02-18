@@ -74,7 +74,6 @@ private fun RecommendItem(recommend: String) {
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {

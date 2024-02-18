@@ -264,11 +264,7 @@ private fun CodeCard(modifier: Modifier = Modifier, myCode: String) {
 }
 
 @Composable
-private fun MyProfileCard(
-    job: Job,
-    modifier: Modifier = Modifier,
-    onMyProfileClick: () -> Unit
-) {
+private fun MyProfileCard(job: Job, modifier: Modifier = Modifier, onMyProfileClick: () -> Unit) {
     Column(
         modifier = modifier
             .background(

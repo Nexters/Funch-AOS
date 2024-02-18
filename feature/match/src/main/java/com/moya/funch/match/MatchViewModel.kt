@@ -16,6 +16,7 @@ import com.moya.funch.entity.profile.Profile
 import com.moya.funch.match.model.MatchProfileUiModel
 import com.moya.funch.usecase.MatchProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
@@ -23,9 +24,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.plus
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 internal class MatchViewModel @Inject constructor(
@@ -34,8 +33,6 @@ internal class MatchViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val matchCode: StateFlow<String> = savedStateHandle.getStateFlow(MATCH_CODE, "")
-
-    private var matchJob: kotlinx.coroutines.Job? = null
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val uiState: StateFlow<MatchUiState> = matchCode.mapLatest { code ->
@@ -56,9 +53,10 @@ internal class MatchViewModel @Inject constructor(
         Timber.e("it")
         emit(MatchUiState.Error)
     }.stateIn(
-        matchJob?.let { viewModelScope.plus(it) } ?: viewModelScope,
+        viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = MatchUiState.Loading)
+        initialValue = MatchUiState.Loading
+    )
 
     fun saveMatchCode(code: String) {
         savedStateHandle[MATCH_CODE] = code
@@ -98,7 +96,7 @@ internal class MatchViewModel @Inject constructor(
                 Recommend("SOPT"),
                 Recommend("ENFJ"),
                 Recommend("A형"),
-                Recommend("목동역"),
+                Recommend("목동역")
             )
         )
     }
@@ -110,6 +108,6 @@ internal sealed class MatchUiState {
     data class Success(
         val profile: MatchProfileUiModel,
         val similarity: Int = 0,
-        val chemistrys: List<Chemistry> = emptyList(),
+        val chemistrys: List<Chemistry> = emptyList()
     ) : MatchUiState()
 }

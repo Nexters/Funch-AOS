@@ -64,12 +64,18 @@ private fun MatchProfileCardContent(profile: MatchProfileUiModel) {
     Column {
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = profile.name, style = FunchTheme.typography.t2, color = Color.White
+            text = profile.name,
+            style = FunchTheme.typography.t2,
+            color = Color.White
         )
         Spacer(modifier = Modifier.height(20.dp))
 
         ProfileInfo(
-            profile.job, profile.clubs, profile.mbti, profile.blood, profile.subways
+            profile.job,
+            profile.clubs,
+            profile.mbti,
+            profile.blood,
+            profile.subways
         )
     }
 }
@@ -84,7 +90,8 @@ private fun ProfileInfo(
     subways: List<MatchingWrapper<SubwayStation>>
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp)
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         // job
         Row(
@@ -92,7 +99,8 @@ private fun ProfileInfo(
         ) {
             ProfileItemTitle(title = job.profileItem.title)
             FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 MatchChip(
                     label = job.data.krName,
@@ -108,7 +116,8 @@ private fun ProfileInfo(
             val title = clubs.firstOrNull()?.profileItem?.title.orEmpty()
             ProfileItemTitle(title = title)
             FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 clubs.forEach { club ->
                     MatchChip(
@@ -125,7 +134,8 @@ private fun ProfileInfo(
         ) {
             ProfileItemTitle(title = mbti.profileItem.title)
             FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 MatchChip(
                     label = mbti.data.name,
@@ -140,11 +150,12 @@ private fun ProfileInfo(
         ) {
             ProfileItemTitle(title = blood.profileItem.title)
             FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 MatchChip(
                     label = blood.data.type,
-                    mached = blood.matched,
+                    mached = blood.matched
                 )
             }
         }
@@ -155,7 +166,8 @@ private fun ProfileInfo(
             val title = subways.firstOrNull()?.profileItem?.title.orEmpty()
             ProfileItemTitle(title = title)
             FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 subways.forEach { subway ->
                     MatchChip(
@@ -182,7 +194,6 @@ private fun <T> ProfileItem(item: MatchingWrapper<T>) {
         // 아이템 타입에 따른 특수 처리 로직
         when (item.profileItem) {
             is ProfileItems.NonIcon -> {
-
             }
 
             is ProfileItems.LeadingIcon -> {
@@ -194,23 +205,26 @@ private fun <T> ProfileItem(item: MatchingWrapper<T>) {
         }
         // 공통 UI 컴포넌트 렌더링
         FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             // 아이템 데이터를 기반으로 MatchChip 렌더링
         }
     }
 }
 
-
 @Composable
 private fun ProfileItemTitle(title: String) {
     Box(
         modifier = Modifier
             .width(52.dp)
-            .height(48.dp), contentAlignment = Alignment.CenterStart
+            .height(48.dp),
+        contentAlignment = Alignment.CenterStart
     ) {
         Text(
-            text = title, color = Gray400, style = FunchTheme.typography.b
+            text = title,
+            color = Gray400,
+            style = FunchTheme.typography.b
         )
     }
 }
@@ -228,13 +242,16 @@ private fun MatchChip(
         enabled = false,
         leadingIcon = { LeadingIcon(painter = leadingPainter) },
         label = { ChipLabel(label = label) },
-        trailingIcon = { TrailingIcon(painters = trailingPainter) })
+        trailingIcon = { TrailingIcon(painters = trailingPainter) }
+    )
 }
 
 @Composable
 private fun ChipLabel(label: String) {
     Text(
-        text = label, style = FunchTheme.typography.b, color = White
+        text = label,
+        style = FunchTheme.typography.b,
+        color = White
     )
 }
 
@@ -245,16 +262,17 @@ private fun LeadingIcon(painter: Painter? = null) {
             modifier = Modifier
                 .size(32.dp)
                 .background(
-                    color = Gray900, shape = FunchTheme.shapes.extraSmall
+                    color = Gray900,
+                    shape = FunchTheme.shapes.extraSmall
                 )
                 .clip(FunchTheme.shapes.extraSmall),
             contentAlignment = Alignment.Center
         ) {
-
             Image(
-                modifier = Modifier.size(18.dp), painter = it, contentDescription = ""
+                modifier = Modifier.size(18.dp),
+                painter = it,
+                contentDescription = ""
             )
-
         }
     }
 }
@@ -275,7 +293,9 @@ private fun TrailingIcon(painters: List<Painter>? = null) {
 private fun Preview() {
     FunchTheme {
         MatchProfileCard(
-            MatchProfileUiModel.from(MatchViewModel.MOCK_MATCHING), 2, 3
+            MatchProfileUiModel.from(MatchViewModel.MOCK_MATCHING),
+            2,
+            3
         )
     }
 }
