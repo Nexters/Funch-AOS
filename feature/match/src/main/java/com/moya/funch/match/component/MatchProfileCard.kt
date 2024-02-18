@@ -36,6 +36,7 @@ import com.moya.funch.entity.SubwayStation
 import com.moya.funch.match.MatchViewModel
 import com.moya.funch.match.model.MatchProfileUiModel
 import com.moya.funch.match.model.MatchingWrapper
+import com.moya.funch.match.model.ProfileItems
 import com.moya.funch.match.theme.Gray400
 import com.moya.funch.match.theme.Gray800
 import com.moya.funch.match.theme.Gray900
@@ -119,7 +120,6 @@ private fun ProfileInfo(
             }
         }
         // mbti
-        listOf<Int>().size
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -167,6 +167,36 @@ private fun ProfileInfo(
                     )
                 }
             }
+        }
+    }
+}
+
+// TODO 나중에 리팩토링
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun <T> ProfileItem(item: MatchingWrapper<T>) {
+    Row(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        ProfileItemTitle(title = item.profileItem.title)
+        // 아이템 타입에 따른 특수 처리 로직
+        when (item.profileItem) {
+            is ProfileItems.NonIcon -> {
+
+            }
+
+            is ProfileItems.LeadingIcon -> {
+                // 일반적인 처리
+            }
+
+            is ProfileItems.TrailingIcon -> {
+            }
+        }
+        // 공통 UI 컴포넌트 렌더링
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            // 아이템 데이터를 기반으로 MatchChip 렌더링
         }
     }
 }
