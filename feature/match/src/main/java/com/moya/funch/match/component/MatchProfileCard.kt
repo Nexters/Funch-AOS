@@ -32,21 +32,34 @@ import com.moya.funch.entity.Blood
 import com.moya.funch.entity.Club
 import com.moya.funch.entity.Job
 import com.moya.funch.entity.Mbti
-import com.moya.funch.entity.SubwayLine
 import com.moya.funch.entity.SubwayStation
-import com.moya.funch.entity.match.Chemistry
-import com.moya.funch.entity.match.Matching
-import com.moya.funch.entity.match.Recommend
-import com.moya.funch.entity.profile.Profile
+import com.moya.funch.match.MatchViewModel
 import com.moya.funch.match.model.MatchProfileUiModel
 import com.moya.funch.match.model.MatchingWrapper
 import com.moya.funch.match.theme.Gray400
+import com.moya.funch.match.theme.Gray800
 import com.moya.funch.match.theme.Gray900
 import com.moya.funch.match.theme.White
 import com.moya.funch.theme.FunchTheme
 
 @Composable
-internal fun TargetProfileCardContent(profile: MatchProfileUiModel) {
+internal fun MatchProfileCard(profile: MatchProfileUiModel, current: Int, pageCount: Int) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Gray800, shape = FunchTheme.shapes.large)
+            .padding(top = 20.dp)
+            .padding(horizontal = 18.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        MatchPageIndicator(current = current, pageCount = pageCount)
+        Spacer(modifier = Modifier.height(8.dp))
+        MatchProfileCardContent(profile)
+    }
+}
+
+@Composable
+private fun MatchProfileCardContent(profile: MatchProfileUiModel) {
     Column {
         Spacer(modifier = Modifier.height(8.dp))
         Text(
@@ -231,37 +244,8 @@ private fun TrailingIcon(painters: List<Painter>? = null) {
 @Composable
 private fun Preview() {
     FunchTheme {
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .padding(30.dp)) {
-            TargetProfileCardContent(
-                MatchProfileUiModel.from(
-                    Matching(
-                        profile = Profile().copy(
-                            name = "abc",
-                            job = Job.DEVELOPER,
-                            clubs = listOf(Club.SOPT, Club.NEXTERS),
-                            mbti = Mbti.INFP,
-                            blood = Blood.A,
-                            subways = listOf(
-                                SubwayStation("목동역", lines = listOf(SubwayLine.FIVE))
-                            )
-                        ),
-                        similarity = 80,
-                        chemistrys = listOf(
-                            Chemistry("대한민국 선수분들", "정말 고생 많으셨습니다...")
-                        ),
-                        recommends = listOf(
-                            Recommend("개발자"),
-                            Recommend("SOPT"),
-                            Recommend("넥스터즈"),
-                            Recommend("ENFJ"),
-                            Recommend("A형"),
-                            Recommend("목동역"),
-                        )
-                    )
-                )
-            )
-        }
+        MatchProfileCard(
+            MatchProfileUiModel.from(MatchViewModel.MOCK_MATCHING), 2, 3
+        )
     }
 }

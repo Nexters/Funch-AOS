@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -29,6 +30,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.moya.funch.entity.match.Chemistry
 import com.moya.funch.icon.FunchIconAsset
+import com.moya.funch.match.MatchViewModel
 import com.moya.funch.match.R
 import com.moya.funch.match.theme.Gradient_Lemon500
 import com.moya.funch.match.theme.Gray400
@@ -70,8 +72,23 @@ private fun Int.formatNumber(): String {
 }
 
 @Composable
-internal fun SimilarityCardContent(similarity: Int, chemistrys: List<Chemistry>) {
-    Spacer(modifier = Modifier.height(8.dp))
+internal fun SimilarityCard(similarity: Int, chemistrys: List<Chemistry>, current: Int, pageCount: Int) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Gray800, shape = FunchTheme.shapes.large)
+            .padding(top = 20.dp)
+            .padding(horizontal = 28.dp), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        MatchPageIndicator(current = current, pageCount = pageCount)
+        Spacer(modifier = Modifier.height(8.dp))
+        SimilarityCardContent(similarity = similarity, chemistrys = chemistrys)
+    }
+}
+
+
+@Composable
+private fun SimilarityCardContent(similarity: Int, chemistrys: List<Chemistry>) {
     SimilarityText(similarity = similarity)
     Spacer(modifier = Modifier.height(16.dp))
     Image(
@@ -93,16 +110,12 @@ private fun SimilarityText(similarity: Int) {
         append(text)
         val start = text.indexOf("$similarity")
         addStyle(
-            style = SpanStyle(brush = Brush.horizontalGradient(Gradient_Lemon500)),
-            start = start,
-            end = start + 3
+            style = SpanStyle(brush = Brush.horizontalGradient(Gradient_Lemon500)), start = start, end = start + 3
         )
     }
 
     Text(
-        text = annotatedString,
-        style = FunchTheme.typography.t2,
-        color = White
+        text = annotatedString, style = FunchTheme.typography.t2, color = White
     )
 }
 
@@ -120,8 +133,7 @@ private fun ChemistryList(chemistrys: List<Chemistry>) {
 private fun ChemistryItem(chemistry: Chemistry) {
     val (title, description) = chemistry
     Row(
-        Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.Top
+        Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top
     ) {
         Image(modifier = Modifier.size(24.dp), painter = title.toPainter(), contentDescription = "Chemistry Icon")
         Spacer(modifier = Modifier.width(12.dp))
@@ -186,9 +198,7 @@ private fun String.toPainter(): Painter {
     showSystemUi = true
 )
 @Preview(
-    name = "Phone - 891dpi",
-    device = "spec:width = 411dp, height = 891dp, dpi = 420",
-    showSystemUi = true
+    name = "Phone - 891dpi", device = "spec:width = 411dp, height = 891dp, dpi = 420", showSystemUi = true
 )
 private fun Preview() {
     FunchTheme {
@@ -198,22 +208,11 @@ private fun Preview() {
                 .padding(horizontal = 28.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SimilarityCardContent(
-                similarity = 100,
-                chemistrys = listOf(
-                    Chemistry(
-                        title = "찾았다, 내 소울메이트!",
-                        description = "ENTJ인 {userName}님은 비전을 향해 적극적으로 이끄는 리더 타입!"
-                    ),
-                    Chemistry(
-                        title = "서로 다른 점을 찾는 재미",
-                        description = "B형인 {userName}님은 호기심과 창의력을 갖췄지만 변덕스러워요"
-                    ),
-                    Chemistry(
-                        title = "n호선에서 만나요",
-                        description = "{userName}님도 n호선에 살고 있어요"
-                    )
-                )
+            SimilarityCard(
+                similarity = MatchViewModel.MOCK_MATCHING.similarity,
+                chemistrys = MatchViewModel.MOCK_MATCHING.chemistrys,
+                current = 0,
+                pageCount = 3
             )
         }
     }

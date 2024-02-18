@@ -34,12 +34,9 @@ internal fun MatchHorizontalPager(profile: MatchProfileUiModel, similarity: Int,
         beyondBoundsPageCount = 2,
         state = pagerState
     ) { page ->
-        MatchCardLayout {
-            MatchPageIndicator(current = page, pageCount = pageCount)
-            if (page == 0) SimilarityCardContent(similarity, chemistrys)
-            if (page == 1) RecommendCardContent()
-            if (page == 2) TargetProfileCardContent(profile)
-        }
+        if (page == 0) SimilarityCard(similarity, chemistrys, page, pageCount)
+        if (page == 1) RecommendCard(page, pageCount)
+        if (page == 2) MatchProfileCard(profile, page, pageCount)
     }
 }
 

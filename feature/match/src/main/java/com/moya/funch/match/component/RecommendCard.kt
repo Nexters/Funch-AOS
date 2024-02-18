@@ -18,12 +18,28 @@ import androidx.compose.ui.unit.dp
 import com.moya.funch.match.R
 import com.moya.funch.match.theme.Gray300
 import com.moya.funch.match.theme.Gray500
-import com.moya.funch.match.theme.Gray900
+import com.moya.funch.match.theme.Gray800
 import com.moya.funch.match.theme.White
 import com.moya.funch.theme.FunchTheme
 
 @Composable
-internal fun RecommendCardContent() {
+internal fun RecommendCard(current: Int, pageCount: Int) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Gray800, shape = FunchTheme.shapes.large)
+            .padding(top = 20.dp)
+            .padding(horizontal = 28.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        MatchPageIndicator(current = current, pageCount = pageCount)
+        Spacer(modifier = Modifier.height(8.dp))
+        RecommendCardContent()
+    }
+}
+
+@Composable
+private fun RecommendCardContent() {
     Spacer(modifier = Modifier.height(8.dp))
     Text("우리 이런 주제로 대화해봐요", style = FunchTheme.typography.t2, color = White)
     Spacer(modifier = Modifier.height(4.dp))
@@ -63,14 +79,6 @@ private fun RecommendItem(recommend: String) {
 @Composable
 private fun Preview() {
     FunchTheme {
-        Column(
-            modifier = Modifier
-                .background(Gray900)
-                .fillMaxSize()
-                .padding(bottom = 32.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            RecommendCardContent()
-        }
+        RecommendCard(1, 3)
     }
 }
