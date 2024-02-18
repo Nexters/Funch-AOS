@@ -40,9 +40,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.moya.funch.common.jobPainter
 import com.moya.funch.component.FunchButtonTextField
 import com.moya.funch.component.FunchIcon
 import com.moya.funch.component.FunchIconButton
+import com.moya.funch.entity.Job
 import com.moya.funch.home.R
 import com.moya.funch.icon.FunchIconAsset
 import com.moya.funch.modifier.clickableSingle
@@ -91,6 +93,7 @@ internal fun HomeRoute(
     HomeScreen(
         myCode = homeModel.myCode,
         viewCount = homeModel.viewCount,
+        job = homeModel.job,
         matchingCode = homeModel.matchingCode,
         onMatchingCodeChange = viewModel::setMatchingCode,
         matchProfile = viewModel::matchProfile,
@@ -102,6 +105,7 @@ internal fun HomeRoute(
 internal fun HomeScreen(
     myCode: String,
     viewCount: Int,
+    job: Job,
     matchingCode: String,
     onMatchingCodeChange: (String) -> Unit,
     matchProfile: () -> Unit,
@@ -137,6 +141,7 @@ internal fun HomeScreen(
                 myCode = myCode
             )
             MyProfileCard(
+                job,
                 onMyProfileClick = onNavigateToMyProfile
             )
         }
@@ -259,7 +264,11 @@ private fun CodeCard(modifier: Modifier = Modifier, myCode: String) {
 }
 
 @Composable
-private fun MyProfileCard(modifier: Modifier = Modifier, onMyProfileClick: () -> Unit) {
+private fun MyProfileCard(
+    job: Job,
+    modifier: Modifier = Modifier,
+    onMyProfileClick: () -> Unit
+) {
     Column(
         modifier = modifier
             .background(
@@ -277,7 +286,7 @@ private fun MyProfileCard(modifier: Modifier = Modifier, onMyProfileClick: () ->
     ) {
         Image(
             modifier = Modifier.size(40.dp),
-            painter = painterResource(id = FunchIconAsset.Etc.profile_80),
+            painter = jobPainter(value = job.krName),
             contentDescription = ""
         )
         Text(
@@ -346,6 +355,7 @@ private fun Preview1() {
             HomeScreen(
                 myCode = code,
                 viewCount = 23,
+                job = Job.DESIGNER,
                 matchingCode = text,
                 onMatchingCodeChange = { text = it },
                 matchProfile = {},
