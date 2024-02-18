@@ -29,4 +29,5 @@ sealed class SubwayTextFieldState {
     data object Empty : SubwayTextFieldState()
     data object Error : SubwayTextFieldState()
     data object Success : SubwayTextFieldState()
+    data object Typing : SubwayTextFieldState()
 }
