@@ -13,9 +13,9 @@ import com.moya.funch.entity.match.Chemistry
 import com.moya.funch.entity.match.Matching
 import com.moya.funch.entity.match.Recommend
 import com.moya.funch.entity.profile.Profile
+import com.moya.funch.match.model.MatchProfileUiModel
 import com.moya.funch.usecase.MatchProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
@@ -23,7 +23,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.plus
 import timber.log.Timber
+import javax.inject.Inject
+import com.moya.funch.entity.Job as JobGroup
 
 @HiltViewModel
 internal class MatchViewModel @Inject constructor(
@@ -31,7 +34,9 @@ internal class MatchViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    val matchCode: StateFlow<String> = savedStateHandle.getStateFlow(MATCH_CODE, "")
+    private val matchCode: StateFlow<String> = savedStateHandle.getStateFlow(MATCH_CODE, "")
+
+    private var matchJob: kotlinx.coroutines.Job? = null
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val uiState: StateFlow<MatchUiState> = matchCode.mapLatest { code ->
@@ -45,25 +50,29 @@ internal class MatchViewModel @Inject constructor(
                 }
                 .getOrNull()
                 ?.let {
-                    MatchUiState.Success(it)
+                    MatchUiState.Success(MatchProfileUiModel.from(it), it.similarity, it.chemistrys)
                 } ?: MatchUiState.Error
         }
     }.catch {
+        Timber.e("it")
         emit(MatchUiState.Error)
-    }.stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5000), initialValue = MatchUiState.Loading)
+    }.stateIn(
+        matchJob?.let { viewModelScope.plus(it) } ?: viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = MatchUiState.Loading)
 
     fun saveMatchCode(code: String) {
         savedStateHandle[MATCH_CODE] = code
     }
 
-    companion object {
+    internal companion object {
         private const val MATCH_CODE = "matchCode"
 
-        private val MOCK_MATCHING = Matching(
+        val MOCK_MATCHING = Matching(
             profile = Profile().copy(
                 name = "abc",
                 job = Job.DEVELOPER,
-                clubs = listOf(Club.NEXTERS),
+                clubs = listOf(Club.SOPT, Club.NEXTERS),
                 mbti = Mbti.INFP,
                 blood = Blood.A,
                 subways = listOf(
@@ -75,10 +84,11 @@ internal class MatchViewModel @Inject constructor(
                 Chemistry("대한민국 선수분들", "정말 고생 많으셨습니다...")
             ),
             recommends = listOf(
-                Recommend("지금은"),
-                Recommend("새벽"),
-                Recommend("3시"),
-                Recommend("48뷴")
+                Recommend("개발자"),
+                Recommend("SOPT"),
+                Recommend("ENFJ"),
+                Recommend("A형"),
+                Recommend("목동역"),
             )
         )
     }
@@ -87,5 +97,9 @@ internal class MatchViewModel @Inject constructor(
 internal sealed class MatchUiState {
     data object Loading : MatchUiState()
     data object Error : MatchUiState()
-    data class Success(val matching: Matching) : MatchUiState()
+    data class Success(
+        val profile: MatchProfileUiModel,
+        val similarity: Int = 0,
+        val chemistrys: List<Chemistry> = emptyList(),
+    ) : MatchUiState()
 }
