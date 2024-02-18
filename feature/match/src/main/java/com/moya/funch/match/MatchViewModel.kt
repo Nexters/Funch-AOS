@@ -26,7 +26,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.plus
 import timber.log.Timber
 import javax.inject.Inject
-import com.moya.funch.entity.Job as JobGroup
 
 @HiltViewModel
 internal class MatchViewModel @Inject constructor(
@@ -81,7 +80,18 @@ internal class MatchViewModel @Inject constructor(
             ),
             similarity = 80,
             chemistrys = listOf(
-                Chemistry("대한민국 선수분들", "정말 고생 많으셨습니다...")
+                Chemistry(
+                    title = "찾았다, 내 소울메이트!",
+                    description = "ENTJ인 {userName}님은 비전을 향해 적극적으로 이끄는 리더 타입!"
+                ),
+                Chemistry(
+                    title = "서로 다른 점을 찾는 재미",
+                    description = "B형인 {userName}님은 호기심과 창의력을 갖췄지만 변덕스러워요"
+                ),
+                Chemistry(
+                    title = "n호선에서 만나요",
+                    description = "{userName}님도 n호선에 살고 있어요"
+                )
             ),
             recommends = listOf(
                 Recommend("개발자"),
