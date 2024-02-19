@@ -1,6 +1,5 @@
 package com.moya.funch
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moya.funch.entity.Blood
@@ -13,6 +12,7 @@ import com.moya.funch.uimodel.MbtiItem
 import com.moya.funch.uimodel.ProfileUiModel
 import com.moya.funch.uimodel.SubwayTextFieldState
 import com.moya.funch.usecase.CreateUserProfileUseCase
+import com.moya.funch.usecase.LoadSubwayStationsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,7 +35,8 @@ internal sealed class CreateProfileEvent {
 
 @HiltViewModel
 internal class CreateProfileViewModel @Inject constructor(
-    private val createUserProfileUseCase: CreateUserProfileUseCase
+    private val createUserProfileUseCase: CreateUserProfileUseCase,
+    private val loadSubwayStationsUseCase: LoadSubwayStationsUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(CreateProfileUiState())
     val uiState: StateFlow<CreateProfileUiState> = _uiState.asStateFlow()
@@ -99,7 +100,6 @@ internal class CreateProfileViewModel @Inject constructor(
 
     fun setSubwayName(subway: String) {
         viewModelScope.launch {
-            Log.d("텍스트 체인지", subway)
             _uiState.value = _uiState.value.copy(
                 profile = _uiState.value.profile.copy(
                     subway = subway
@@ -109,19 +109,26 @@ internal class CreateProfileViewModel @Inject constructor(
                 setSubwayTextFieldState(SubwayTextFieldState.Empty)
                 setSubwayStations(emptyList())
             } else {
-                //usecase 호출
-                val response = MOCK_DATA
-                setSubwayStations(response)
-                if (response.first().name == subway) {
-                    setSubwayTextFieldState(SubwayTextFieldState.Success)
-                } else {
-                    setSubwayTextFieldState(SubwayTextFieldState.Error)
-                }
+                loadSubwayStationsUseCase(subway).fold(
+                    onSuccess = { response ->
+                        val newState = when {
+                            response.isEmpty() -> SubwayTextFieldState.Error
+                            response.size == 1 && subway == response.first().name -> SubwayTextFieldState.Success
+                            else -> SubwayTextFieldState.Typing
+                        }
+                        setSubwayStations(response)
+                        setSubwayTextFieldState(newState)
+                    },
+                    onFailure = {
+                        setSubwayTextFieldState(SubwayTextFieldState.Error)
+                        setSubwayStations(emptyList())
+                    }
+                )
             }
         }
     }
 
-    fun setSubwayTextFieldState(state: SubwayTextFieldState) {
+    private fun setSubwayTextFieldState(state: SubwayTextFieldState) {
         _uiState.value = _uiState.value.copy(
             profile = _uiState.value.profile.copy(
                 subwayTextFieldState = state
@@ -129,7 +136,7 @@ internal class CreateProfileViewModel @Inject constructor(
         )
     }
 
-    fun setSubwayStations(stations: List<SubwayStation>) {
+    private fun setSubwayStations(stations: List<SubwayStation>) {
         _uiState.value = _uiState.value.copy(
             profile = _uiState.value.profile.copy(
                 subwayStations = stations
@@ -166,16 +173,6 @@ internal class CreateProfileViewModel @Inject constructor(
         }
     }
 
-    companion object {
-        private val MOCK_DATA = listOf(
-            SubwayStation(
-                name = "강남역"
-            ),
-            SubwayStation(
-                name = "강남구청역"
-            )
-        )
-    }
 }
 
 private fun <T> List<T>.toggleElement(element: T): List<T> {

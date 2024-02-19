@@ -60,7 +60,6 @@ import com.moya.funch.component.FunchSmallLabel
 import com.moya.funch.entity.Blood
 import com.moya.funch.entity.Club
 import com.moya.funch.entity.Job
-import com.moya.funch.entity.SubwayLine
 import com.moya.funch.entity.SubwayStation
 import com.moya.funch.icon.FunchIconAsset
 import com.moya.funch.profile.R
@@ -504,7 +503,8 @@ private fun SubwayRow(
             )
 
             when (textFieldState) {
-                is SubwayTextFieldState.Empty -> { }
+                is SubwayTextFieldState.Empty -> { /* @Gun Hyung : 아무것도 표시되지 않음 */ }
+                is SubwayTextFieldState.Success -> { /* @Gun Hyung : 아무것도 표시되지 않음 */ }
                 is SubwayTextFieldState.Error -> {
                     FunchErrorCaption(
                         modifier = Modifier
@@ -515,8 +515,7 @@ private fun SubwayRow(
                         errorText = stringResource(id = R.string.subway_error_caption)
                     )
                 }
-
-                is SubwayTextFieldState.Success -> {
+                is SubwayTextFieldState.Typing -> {
                     Spacer(modifier = Modifier.height(4.dp))
                     Row(
                         modifier = Modifier
@@ -580,8 +579,7 @@ private fun BottomBar(backgroundColor: Color, isCreateProfile: Boolean, onCreate
 
 @Preview(
     showBackground = true,
-    name = "CreateProfileScreen",
-    device = "id:pixel_7_pro"
+    name = "CreateProfileScreen"
 )
 @Composable
 private fun Preview1() {
@@ -610,23 +608,23 @@ private fun Preview1() {
 
 @Preview(
     showBackground = true,
-    name = "CreateProfileScreen",
-    device = "id:pixel_7_pro"
+    name = "CreateProfileScreen"
 )
 @Composable
 private fun Preview2() {
     FunchTheme {
-        var text by remember { mutableStateOf("") }
+        var text by remember { mutableStateOf("ㄴ") }
 
         Surface(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize(),
             color = LocalBackgroundTheme.current.color
         ) {
             SubwayRow(
                 subwayStation = text,
                 onSubwayStationChange = { text = it },
                 isKeyboardVisible = {},
-                textFieldState = SubwayTextFieldState.Success,
+                textFieldState = SubwayTextFieldState.Typing,
                 subwayStations = listOf(
                     SubwayStation("강남역"),
                     SubwayStation("역삼역"),
