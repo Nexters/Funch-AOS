@@ -13,6 +13,6 @@ data class MatchingResponse(
     val chemistryInfos: List<ChemistryResponse> = listOf(),
     @SerialName("recommendInfos")
     val recommends: List<RecommendResponse> = listOf(),
-    @SerialName("subwayInfos")
-    val subways: List<SubwayResponse> = listOf()
+    @SerialName("subwayChemistryInfo")
+    val subwayChemistry: ChemistryResponse
 )

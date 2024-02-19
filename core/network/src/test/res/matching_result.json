@@ -5,10 +5,20 @@
     "profile": {
       "name": "aaa",
       "jobGroup": "개발자",
-      "clubs": ["DEPROMEET"],
+      "clubs": [
+        "DEPROMEET"
+      ],
       "mbti": "ENFJ",
       "bloodType": "AB",
-      "subwayNames": []
+      "subwayInfos": [
+        {
+          "name": "서울역",
+          "lines": [
+            "ONE",
+            "FOUR"
+          ]
+        }
+      ]
     },
     "similarity": 40,
     "chemistryInfos": [
@@ -29,6 +39,9 @@
         "title": "전갈자리"
       }
     ],
-    "subwayInfos": []
+    "subwayChemistryInfo": {
+      "title": "ONE",
+      "description": "1호선"
+    }
   }
 }
