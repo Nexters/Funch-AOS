@@ -35,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -236,13 +237,15 @@ private fun NicknameRow(nickname: String, onNicknameChange: (String) -> Unit, is
         if (!isFocused || nickname.length < MAX_NICKNAME_LENGTH) {
             isNicknameError = false
         }
-        isKeyboardVisible(isFocused)
     }
 
     Row {
         FunchLargeLabel(text = ProfileLabel.NICKNAME.labelName)
         Column {
             FunchMaxLengthTextField(
+                modifier = Modifier.onFocusChanged { focusState ->
+                    isKeyboardVisible(focusState.isFocused)
+                },
                 value = nickname,
                 onValueChange = { innerText ->
                     isNicknameError = if (innerText.length <= MAX_NICKNAME_LENGTH) {
@@ -473,14 +476,13 @@ private fun SubwayRow(
     val isFocused by interactionSource.collectIsFocusedAsState()
     val focusManager = LocalFocusManager.current
 
-    LaunchedEffect(isFocused) {
-        isKeyboardVisible(isFocused)
-    }
-
     Row {
         FunchLargeLabel(text = ProfileLabel.SUBWAY.labelName)
         Column(modifier = Modifier.height(97.dp)) {
             FunchIconTextField(
+                modifier = Modifier.onFocusChanged { focusState ->
+                    isKeyboardVisible(focusState.isFocused)
+                },
                 value = subwayStation,
                 onValueChange = onSubwayStationChange,
                 hint = stringResource(id = R.string.subway_textfield_hint),
