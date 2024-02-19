@@ -11,7 +11,8 @@ data class Matching(
     val profile: Profile = Profile(),
     val similarity: Int = 0,
     val chemistrys: List<Chemistry> = emptyList(),
-    val recommends: List<Recommend> = emptyList()
+    val recommends: List<Recommend> = emptyList(),
+    val subwayChemistry: Chemistry? = null
 ) {
     init {
         require(similarity in 0..100) {
