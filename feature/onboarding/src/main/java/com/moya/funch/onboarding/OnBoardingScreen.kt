@@ -45,9 +45,9 @@ internal fun OnBoardingScreen(onNavigateToCreateProfile: () -> Unit) {
             color = White,
             style = FunchTheme.typography.t1
         )
-        Spacer(modifier = Modifier.height(48.dp))
+        Spacer(modifier = Modifier.height(28.dp))
         OnBoardingImage()
-        Spacer(modifier = Modifier.height(48.dp))
+        Spacer(modifier = Modifier.height(28.dp))
         Text(
             text = stringResource(id = R.string.profile_create_recommend),
             color = Gray300,

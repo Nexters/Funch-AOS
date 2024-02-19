@@ -1,0 +1,30 @@
+{
+  "status": "200",
+  "message": "OK",
+  "data": [
+    {
+      "id": "65cdf2d7ffc89209ea09ce65",
+      "name": "강남",
+      "lines": [
+        "TWO",
+        "SINBUNDANG"
+      ],
+      "location": {
+        "latitude": "0.0",
+        "longitude": "0.0"
+      }
+    },
+    {
+      "id": "65cdf2d7ffc89209ea09ce66",
+      "name": "강남구청",
+      "lines": [
+        "BUNDANG",
+        "SEVEN"
+      ],
+      "location": {
+        "latitude": "0.0",
+        "longitude": "0.0"
+      }
+    }
+  ]
+}

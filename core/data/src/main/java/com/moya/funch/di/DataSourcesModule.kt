@@ -6,6 +6,8 @@ import com.moya.funch.datasource.remote.RemoteMatchDataSource
 import com.moya.funch.datasource.remote.RemoteMatchDataSourceImpl
 import com.moya.funch.datasource.remote.RemoteMemberDataSource
 import com.moya.funch.datasource.remote.RemoteMemberDataSourceImpl
+import com.moya.funch.datasource.remote.RemoteSubwayDataSource
+import com.moya.funch.datasource.remote.RemoteSubwayDataSourceImpl
 import com.moya.funch.datasource.remote.RemoteUserDataSource
 import com.moya.funch.datasource.remote.RemoteUserDataSourceImpl
 import dagger.Binds
@@ -33,4 +35,8 @@ abstract class DataSourcesModule {
     @Binds
     @Singleton
     abstract fun provideRemoteMatchDataSource(remoteDataSource: RemoteMatchDataSourceImpl): RemoteMatchDataSource
+
+    @Binds
+    @Singleton
+    abstract fun provideRemoteSubwayDataSource(remoteDataSource: RemoteSubwayDataSourceImpl): RemoteSubwayDataSource
 }
