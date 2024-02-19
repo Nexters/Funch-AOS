@@ -10,7 +10,9 @@ import com.moya.funch.entity.SubwayStation
 import com.moya.funch.entity.profile.Profile
 import com.moya.funch.uimodel.MbtiItem
 import com.moya.funch.uimodel.ProfileUiModel
+import com.moya.funch.uimodel.SubwayTextFieldState
 import com.moya.funch.usecase.CreateUserProfileUseCase
+import com.moya.funch.usecase.LoadSubwayStationsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -33,7 +35,8 @@ internal sealed class CreateProfileEvent {
 
 @HiltViewModel
 internal class CreateProfileViewModel @Inject constructor(
-    private val createUserProfileUseCase: CreateUserProfileUseCase
+    private val createUserProfileUseCase: CreateUserProfileUseCase,
+    private val loadSubwayStationsUseCase: LoadSubwayStationsUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(CreateProfileUiState())
     val uiState: StateFlow<CreateProfileUiState> = _uiState.asStateFlow()
@@ -96,9 +99,47 @@ internal class CreateProfileViewModel @Inject constructor(
     }
 
     fun setSubwayName(subway: String) {
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(
+                profile = _uiState.value.profile.copy(
+                    subway = subway
+                )
+            )
+            if (subway.isBlank()) {
+                setSubwayTextFieldState(SubwayTextFieldState.Empty)
+                setSubwayStations(emptyList())
+            } else {
+                loadSubwayStationsUseCase(subway).fold(
+                    onSuccess = { response ->
+                        val newState = when {
+                            response.isEmpty() -> SubwayTextFieldState.Error
+                            response.size == 1 && subway == response.first().name -> SubwayTextFieldState.Success
+                            else -> SubwayTextFieldState.Typing
+                        }
+                        setSubwayStations(response)
+                        setSubwayTextFieldState(newState)
+                    },
+                    onFailure = {
+                        setSubwayTextFieldState(SubwayTextFieldState.Error)
+                        setSubwayStations(emptyList())
+                    }
+                )
+            }
+        }
+    }
+
+    private fun setSubwayTextFieldState(state: SubwayTextFieldState) {
         _uiState.value = _uiState.value.copy(
             profile = _uiState.value.profile.copy(
-                subway = subway
+                subwayTextFieldState = state
+            )
+        )
+    }
+
+    private fun setSubwayStations(stations: List<SubwayStation>) {
+        _uiState.value = _uiState.value.copy(
+            profile = _uiState.value.profile.copy(
+                subwayStations = stations
             )
         )
     }

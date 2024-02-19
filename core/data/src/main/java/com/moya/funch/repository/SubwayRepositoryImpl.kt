@@ -3,8 +3,9 @@ package com.moya.funch.repository
 import com.moya.funch.datasource.remote.RemoteSubwayDataSource
 import com.moya.funch.entity.SubwayStation
 import com.moya.funch.mapper.toDomain
+import javax.inject.Inject
 
-class SubwayRepositoryImpl(
+class SubwayRepositoryImpl @Inject constructor(
     private val remoteSubwayDataSource: RemoteSubwayDataSource
 ) : SubwayRepository {
 

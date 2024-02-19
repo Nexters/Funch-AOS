@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -34,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -59,6 +61,7 @@ import com.moya.funch.component.FunchSmallLabel
 import com.moya.funch.entity.Blood
 import com.moya.funch.entity.Club
 import com.moya.funch.entity.Job
+import com.moya.funch.entity.SubwayStation
 import com.moya.funch.icon.FunchIconAsset
 import com.moya.funch.profile.R
 import com.moya.funch.theme.FunchTheme
@@ -71,10 +74,12 @@ import com.moya.funch.theme.LocalBackgroundTheme
 import com.moya.funch.theme.White
 import com.moya.funch.ui.FunchDropDownButton
 import com.moya.funch.ui.FunchDropDownMenu
+import com.moya.funch.ui.FunchErrorCaption
 import com.moya.funch.ui.FunchTopBar
 import com.moya.funch.uimodel.MbtiItem
 import com.moya.funch.uimodel.ProfileLabel
 import com.moya.funch.uimodel.ProfileUiModel
+import com.moya.funch.uimodel.SubwayTextFieldState
 
 @Composable
 internal fun CreateProfileRoute(onNavigateToHome: () -> Unit, viewModel: CreateProfileViewModel = hiltViewModel()) {
@@ -86,6 +91,7 @@ internal fun CreateProfileRoute(onNavigateToHome: () -> Unit, viewModel: CreateP
                 is CreateProfileEvent.NavigateToHome -> {
                     onNavigateToHome()
                 }
+
                 is CreateProfileEvent.ShowError -> {
                     // @Gun Hyung TODO : 에러 메시지 호출
                 }
@@ -200,10 +206,12 @@ fun CreateProfileScreen(
                     SubwayRow(
                         subwayStation = profile.subway,
                         onSubwayStationChange = onSubwayStationChange,
-                        isKeyboardVisible = { isKeyboardVisible = it }
+                        isKeyboardVisible = { isKeyboardVisible = it },
+                        textFieldState = profile.subwayTextFieldState,
+                        subwayStations = profile.subwayStations
                     )
                 }
-                Spacer(modifier = Modifier.height(39.dp))
+                Spacer(modifier = Modifier.height(20.dp))
             }
             if (isKeyboardVisible) {
                 BottomBar(
@@ -229,13 +237,15 @@ private fun NicknameRow(nickname: String, onNicknameChange: (String) -> Unit, is
         if (!isFocused || nickname.length < MAX_NICKNAME_LENGTH) {
             isNicknameError = false
         }
-        isKeyboardVisible(isFocused)
     }
 
     Row {
         FunchLargeLabel(text = ProfileLabel.NICKNAME.labelName)
         Column {
             FunchMaxLengthTextField(
+                modifier = Modifier.onFocusChanged { focusState ->
+                    isKeyboardVisible(focusState.isFocused)
+                },
                 value = nickname,
                 onValueChange = { innerText ->
                     isNicknameError = if (innerText.length <= MAX_NICKNAME_LENGTH) {
@@ -458,41 +468,92 @@ private fun BooldTypeRow(onSelectBloodType: (Blood) -> Unit) {
 private fun SubwayRow(
     subwayStation: String,
     onSubwayStationChange: (String) -> Unit,
-    isKeyboardVisible: (Boolean) -> Unit
+    isKeyboardVisible: (Boolean) -> Unit,
+    textFieldState: SubwayTextFieldState,
+    subwayStations: List<SubwayStation>
 ) {
-    val isError by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
     val focusManager = LocalFocusManager.current
 
-    LaunchedEffect(isFocused) {
-        isKeyboardVisible(isFocused)
-    }
-
     Row {
         FunchLargeLabel(text = ProfileLabel.SUBWAY.labelName)
-        FunchIconTextField(
-            value = subwayStation,
-            onValueChange = onSubwayStationChange,
-            hint = stringResource(id = R.string.subway_textfield_hint),
-            isError = isError,
-            errorText = stringResource(id = R.string.subway_error_caption),
-            iconType = FunchIcon(
-                resId = FunchIconAsset.Search.search_24,
-                tint = Gray400,
-                description = ""
-            ),
-            interactionSource = interactionSource,
-            isFocus = isFocused,
-            keyboardOptions = KeyboardOptions.Default.copy(
-                imeAction = ImeAction.Done
-            ),
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    focusManager.clearFocus()
-                }
+        Column(modifier = Modifier.height(97.dp)) {
+            FunchIconTextField(
+                modifier = Modifier.onFocusChanged { focusState ->
+                    isKeyboardVisible(focusState.isFocused)
+                },
+                value = subwayStation,
+                onValueChange = onSubwayStationChange,
+                hint = stringResource(id = R.string.subway_textfield_hint),
+                isError = textFieldState == SubwayTextFieldState.Error,
+                iconType = FunchIcon(
+                    resId = FunchIconAsset.Search.search_24,
+                    tint = Gray400,
+                    description = ""
+                ),
+                interactionSource = interactionSource,
+                isFocus = isFocused,
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.clearFocus()
+                    }
+                )
             )
-        )
+
+            when (textFieldState) {
+                is SubwayTextFieldState.Empty -> { /* @Gun Hyung : 아무것도 표시되지 않음 */ }
+                is SubwayTextFieldState.Success -> { /* @Gun Hyung : 아무것도 표시되지 않음 */ }
+                is SubwayTextFieldState.Error -> {
+                    FunchErrorCaption(
+                        modifier = Modifier
+                            .padding(
+                                start = 8.dp,
+                                top = 4.dp
+                            ),
+                        errorText = stringResource(id = R.string.subway_error_caption)
+                    )
+                }
+                is SubwayTextFieldState.Typing -> {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .horizontalScroll(rememberScrollState()),
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        subwayStations.forEach { station ->
+                            Box(
+                                modifier = Modifier
+                                    .background(
+                                        color = Gray800,
+                                        shape = FunchTheme.shapes.extraLarge
+                                    )
+                                    .clip(FunchTheme.shapes.extraLarge)
+                                    .clickable(
+                                        onClick = {
+                                            onSubwayStationChange(station.name)
+                                            focusManager.clearFocus()
+                                        },
+                                        interactionSource = remember { MutableInteractionSource() },
+                                        indication = null
+                                    )
+                                    .padding(8.dp)
+                            ) {
+                                Text(
+                                    text = station.name,
+                                    color = White,
+                                    style = FunchTheme.typography.b
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -520,9 +581,7 @@ private fun BottomBar(backgroundColor: Color, isCreateProfile: Boolean, onCreate
 
 @Preview(
     showBackground = true,
-    name = "CreateProfileScreen",
-    widthDp = 360,
-    heightDp = 1040
+    name = "CreateProfileScreen"
 )
 @Composable
 private fun Preview1() {
@@ -544,6 +603,34 @@ private fun Preview1() {
                 onSubwayStationChange = {},
                 onCreateProfile = {},
                 onSendFeedback = {}
+            )
+        }
+    }
+}
+
+@Preview(
+    showBackground = true,
+    name = "CreateProfileScreen"
+)
+@Composable
+private fun Preview2() {
+    FunchTheme {
+        var text by remember { mutableStateOf("삼") }
+
+        Surface(
+            modifier = Modifier
+                .fillMaxSize(),
+            color = LocalBackgroundTheme.current.color
+        ) {
+            SubwayRow(
+                subwayStation = text,
+                onSubwayStationChange = { text = it },
+                isKeyboardVisible = {},
+                textFieldState = SubwayTextFieldState.Typing,
+                subwayStations = listOf(
+                    SubwayStation("삼성역"),
+                    SubwayStation("삼성중앙역")
+                )
             )
         }
     }

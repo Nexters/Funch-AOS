@@ -214,7 +214,6 @@ fun FunchMaxLengthTextField(
                                 start = 8.dp,
                                 top = 4.dp
                             ),
-                        isError = isError,
                         errorText = errorText
                     )
                 }
@@ -230,7 +229,6 @@ fun FunchIconTextField(
     onValueChange: (String) -> Unit,
     hint: String,
     iconType: FunchIcon,
-    errorText: String,
     isError: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     isFocus: Boolean = interactionSource.collectIsFocusedAsState().value,
@@ -255,61 +253,48 @@ fun FunchIconTextField(
         keyboardActions = keyboardActions,
         interactionSource = interactionSource,
         decorationBox = { innerTextField ->
-            Column(modifier = Modifier.height((56 + 24).dp)) {
-                Row(
-                    modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .height(56.dp)
-                        .background(Gray800, RoundedCornerShape(16.dp))
-                        .then(
-                            if (isError) {
-                                Modifier.border(
-                                    width = 1.dp,
-                                    color = Coral500,
-                                    shape = RoundedCornerShape(16.dp)
-                                )
-                            } else if (isFocus) {
-                                Modifier.border(
-                                    width = 1.dp,
-                                    color = Color.White,
-                                    shape = RoundedCornerShape(16.dp)
-                                )
-                            } else {
-                                Modifier
-                            }
-                        )
-                        .padding(horizontal = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        painter = painterResource(id = iconType.resId),
-                        contentDescription = iconType.description,
-                        tint = iconType.tint
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Box {
-                        if (value.isEmpty()) {
-                            Text(
-                                text = hint,
-                                color = Gray400,
-                                fontSize = 14.sp,
-                                style = FunchTheme.typography.b
+            Row(
+                modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .background(Gray800, RoundedCornerShape(16.dp))
+                    .then(
+                        if (isError) {
+                            Modifier.border(
+                                width = 1.dp,
+                                color = Coral500,
+                                shape = RoundedCornerShape(16.dp)
                             )
+                        } else if (isFocus) {
+                            Modifier.border(
+                                width = 1.dp,
+                                color = Color.White,
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                        } else {
+                            Modifier
                         }
-                        innerTextField()
-                    }
-                }
-                if (isError) {
-                    FunchErrorCaption(
-                        modifier = Modifier
-                            .padding(
-                                start = 8.dp,
-                                top = 4.dp
-                            ),
-                        isError = isError,
-                        errorText = errorText
                     )
+                    .padding(horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(id = iconType.resId),
+                    contentDescription = iconType.description,
+                    tint = iconType.tint
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Box {
+                    if (value.isEmpty()) {
+                        Text(
+                            text = hint,
+                            color = Gray400,
+                            fontSize = 14.sp,
+                            style = FunchTheme.typography.b
+                        )
+                    }
+                    innerTextField()
                 }
             }
         }
@@ -418,11 +403,12 @@ private fun Preview1() {
                 hint = "최대 ${maxLength}글자",
                 isError = isError.value
             )
-            FunchErrorCaption(
-                modifier = Modifier.padding(top = 4.dp, start = 4.dp),
-                isError = isError.value,
-                errorText = "errorText"
-            )
+            if (isError.value) {
+                FunchErrorCaption(
+                    modifier = Modifier.padding(top = 4.dp, start = 4.dp),
+                    errorText = "errorText"
+                )
+            }
             Button(
                 onClick = { isError.value = text.length > maxLength }
             ) {
@@ -488,9 +474,18 @@ private fun Preview3() {
                     description = "",
                     tint = Gray500
                 ),
-                isError = isError.value,
-                errorText = "존재하지 않는 지하철역이에요"
+                isError = isError.value
             )
+            if (isError.value) {
+                FunchErrorCaption(
+                    modifier = Modifier
+                        .padding(
+                            start = 8.dp,
+                            top = 4.dp
+                        ),
+                    errorText = "존재하지 않는 지하철역이에요"
+                )
+            }
         }
     }
 }
@@ -523,10 +518,11 @@ private fun Preview4() {
                     )
                 }
             )
-            FunchErrorCaption(
-                isError = isError.value,
-                errorText = "존재하지 않는 지하철역이에요"
-            )
+            if (isError.value) {
+                FunchErrorCaption(
+                    errorText = "존재하지 않는 지하철역이에요"
+                )
+            }
         }
     }
 }
