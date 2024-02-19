@@ -10,8 +10,8 @@ import com.moya.funch.entity.Mbti
 import com.moya.funch.entity.SubwayLine
 import com.moya.funch.entity.SubwayStation
 import com.moya.funch.entity.match.Chemistry
+import com.moya.funch.entity.match.MatchInfo
 import com.moya.funch.entity.match.Matching
-import com.moya.funch.entity.match.Recommend
 import com.moya.funch.entity.profile.Profile
 import com.moya.funch.match.model.MatchProfileUiModel
 import com.moya.funch.usecase.MatchProfileUseCase
@@ -87,12 +87,12 @@ internal class MatchViewModel @Inject constructor(
                     description = "B형인 {userName}님은 호기심과 창의력을 갖췄지만 변덕스러워요"
                 )
             ),
-            recommends = listOf(
-                Recommend("개발자"),
-                Recommend("SOPT"),
-                Recommend("ENFJ"),
-                Recommend("A형"),
-                Recommend("목동역")
+            matchInfos = listOf(
+                MatchInfo("개발자"),
+                MatchInfo("SOPT"),
+                MatchInfo("ENFJ"),
+                MatchInfo("A형"),
+                MatchInfo("목동역")
             ),
             subwayChemistry = Chemistry(
                 title = "FIVE",

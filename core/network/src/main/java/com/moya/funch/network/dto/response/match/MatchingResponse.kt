@@ -11,8 +11,8 @@ data class MatchingResponse(
     val similarity: Int = 0,
     @SerialName("chemistryInfos")
     val chemistryInfos: List<ChemistryResponse> = listOf(),
-    @SerialName("recommendInfos")
-    val recommends: List<RecommendResponse> = listOf(),
+    @SerialName("matchedInfos")
+    val matchInfos: List<MatchInfoResponse> = listOf(),
     @SerialName("subwayChemistryInfo")
-    val subwayChemistry: ChemistryResponse
+    val subwayChemistry: ChemistryResponse? = null
 )

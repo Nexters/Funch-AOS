@@ -38,25 +38,25 @@ internal data class MatchProfileUiModel(
     companion object {
         fun from(matching: Matching): MatchProfileUiModel {
             val profile = matching.profile
-            val recommends = matching.recommends
+            val matchInfos = matching.matchInfos
             with(profile) {
-                val job = MatchingWrapper(ProfileItems.LeadingIcon.JOB, job, matching.matches(job, recommends))
+                val job = MatchingWrapper(ProfileItems.LeadingIcon.JOB, job, matching.matches(job, matchInfos))
                 val clubs =
                     clubs.map { club ->
                         MatchingWrapper(
                             ProfileItems.LeadingIcon.CLUB,
                             club,
-                            matching.matches(club, recommends)
+                            matching.matches(club, matchInfos)
                         )
                     }
-                val mbti = MatchingWrapper(ProfileItems.NonIcon.MBTI, mbti, matching.matches(mbti, recommends))
-                val blood = MatchingWrapper(ProfileItems.NonIcon.BLOOD, blood, matching.matches(blood, recommends))
+                val mbti = MatchingWrapper(ProfileItems.NonIcon.MBTI, mbti, matching.matches(mbti, matchInfos))
+                val blood = MatchingWrapper(ProfileItems.NonIcon.BLOOD, blood, matching.matches(blood, matchInfos))
                 val subwayStations =
                     subways.map { subway ->
                         MatchingWrapper(
                             ProfileItems.TrailingIcon.SUBWAY,
                             subway,
-                            matching.matches(subway, recommends)
+                            matching.matches(subway, matchInfos)
                         )
                     }
                 return MatchProfileUiModel(name = name, job, clubs, mbti, blood, subwayStations)

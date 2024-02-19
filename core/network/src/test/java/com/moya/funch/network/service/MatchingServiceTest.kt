@@ -5,9 +5,9 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import com.moya.funch.network.dto.request.MatchingRequest
 import com.moya.funch.network.dto.response.BaseResponse
 import com.moya.funch.network.dto.response.match.ChemistryResponse
+import com.moya.funch.network.dto.response.match.MatchInfoResponse
 import com.moya.funch.network.dto.response.match.MatchingResponse
 import com.moya.funch.network.dto.response.match.ProfileResponse
-import com.moya.funch.network.dto.response.match.RecommendResponse
 import com.moya.funch.network.dto.response.match.SubwayResponse
 import com.moya.funch.rule.CoroutinesTestExtension
 import io.mockk.junit5.MockKExtension
@@ -20,6 +20,7 @@ import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.RegisterExtension
 import retrofit2.Retrofit
@@ -83,15 +84,12 @@ internal class MatchingServiceTest {
                             "미정"
                         )
                     ),
-                    recommends =
+                    matchInfos =
                     listOf(
-                        RecommendResponse("ENFJ"),
-                        RecommendResponse("전갈자리")
+                        MatchInfoResponse("ENFJ"),
+                        MatchInfoResponse("전갈자리")
                     ),
-                    subwayChemistry = ChemistryResponse(
-                        "ONE",
-                        "1호선"
-                    )
+                    subwayChemistry = null
                 )
             )
         // when
@@ -103,7 +101,13 @@ internal class MatchingServiceTest {
                 )
             )
         // then
-        assertThat(actualResponse).isEqualTo(expected)
+        assertAll(
+            { assertThat(actualResponse.data.matchInfos).isEqualTo(expected.data.matchInfos) },
+            { assertThat(actualResponse.data.profile).isEqualTo(expected.data.profile) },
+            { assertThat(actualResponse.data.subwayChemistry).isEqualTo(expected.data.subwayChemistry) },
+            { assertThat(actualResponse.data.similarity).isEqualTo(expected.data.similarity) },
+            { assertThat(actualResponse.data.chemistryInfos).isEqualTo(expected.data.chemistryInfos) }
+        )
     }
 
     companion object {

@@ -31,7 +31,7 @@
         "description": "미정"
       }
     ],
-    "recommendInfos": [
+    "matchedInfos": [
       {
         "title": "ENFJ"
       },
@@ -39,9 +39,6 @@
         "title": "전갈자리"
       }
     ],
-    "subwayChemistryInfo": {
-      "title": "ONE",
-      "description": "1호선"
-    }
+    "subwayChemistryInfo": null
   }
 }
