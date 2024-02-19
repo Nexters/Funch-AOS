@@ -171,7 +171,7 @@ private fun ProfileInfo(
             ) {
                 subways.forEach { subway ->
                     MatchChip(
-                        label = subway.data.name,
+                        label = formatSubwayLabel(subway.data.name),
                         mached = subway.matched,
                         trailingPainter = subway.data.lines.map {
                             subwayLinePainter(value = it.name)
@@ -181,6 +181,13 @@ private fun ProfileInfo(
             }
         }
     }
+}
+
+private fun formatSubwayLabel(subwayLabel: String): String {
+    if (subwayLabel.lastOrNull() != null && subwayLabel.last() == '역') {
+        return subwayLabel
+    }
+    return "${subwayLabel}역"
 }
 
 // TODO 나중에 리팩토링
