@@ -88,7 +88,7 @@ internal class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun fetchViewCount() {
+    fun fetchViewCount() {
         viewModelScope.launch {
             loadViewCountUseCase().onSuccess {
                 setViewCount(it)
