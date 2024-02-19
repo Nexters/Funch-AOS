@@ -28,7 +28,7 @@ internal fun MatchCardLayout(modifier: Modifier = Modifier, content: @Composable
         modifier = modifier
             .fillMaxSize()
             .background(Gray800, shape = FunchTheme.shapes.large)
-            .padding(top = 20.dp, start = 28.dp, end = 28.dp),
+            .padding(top = 20.dp, start = 20.dp, end = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         content()

@@ -2,6 +2,7 @@ package com.moya.funch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.moya.funch.entity.Job
 import com.moya.funch.usecase.CanMatchProfileUseCase
 import com.moya.funch.usecase.LoadUserProfileUseCase
 import com.moya.funch.usecase.LoadViewCountUseCase
@@ -17,12 +18,14 @@ import timber.log.Timber
 data class HomeModel(
     val myCode: String,
     val viewCount: Int,
+    val job: Job = Job.IDLE,
     val matchingCode: String = ""
 ) {
     companion object {
         fun empty() = HomeModel(
             myCode = "",
             viewCount = 0,
+            job = Job.IDLE,
             matchingCode = ""
         )
     }
@@ -59,9 +62,6 @@ internal class HomeViewModel @Inject constructor(
                 _matched.value = true
             }.onFailure {
                 Timber.e("matchProfile(): ${it.stackTraceToString()}")
-                // TODO @murjune : Matching Page로 일단 갈 수 있도록
-//                _homeModel.value = _homeModel.value.copy(matchingCode = "TEMP")
-//                _matched.value = true
                 _homeErrorMessage.emit("매칭할 수 없는 코드입니다.")
             }
         }
@@ -80,6 +80,7 @@ internal class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             loadUserProfileUseCase().onSuccess {
                 setMyCode(it.code)
+                _homeModel.value = _homeModel.value.copy(job = it.job)
             }.onFailure {
                 Timber.e("fetchUserProfile(): ${it.stackTraceToString()}")
                 setMyCode("NONE")

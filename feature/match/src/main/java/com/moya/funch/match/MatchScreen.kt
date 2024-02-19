@@ -26,10 +26,11 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.moya.funch.component.FunchIcon
-import com.moya.funch.entity.match.Matching
 import com.moya.funch.icon.FunchIconAsset
+import com.moya.funch.match.MatchViewModel.Companion.MOCK_MATCHING
 import com.moya.funch.match.component.MatchHorizontalPager
 import com.moya.funch.match.component.MatchTopBar
+import com.moya.funch.match.model.MatchProfileUiModel
 import com.moya.funch.match.theme.Gray400
 import com.moya.funch.match.theme.Gray900
 import com.moya.funch.match.theme.White
@@ -40,7 +41,6 @@ import com.moya.funch.ui.FunchTopBar
 @Composable
 internal fun MatchRoute(onClose: () -> Unit, code: String, matchViewModel: MatchViewModel = hiltViewModel()) {
     val uiState by matchViewModel.uiState.collectAsStateWithLifecycle()
-    val matchCode by matchViewModel.matchCode.collectAsStateWithLifecycle()
 
     LaunchedEffect(matchViewModel) {
         matchViewModel.saveMatchCode(code)
@@ -48,18 +48,19 @@ internal fun MatchRoute(onClose: () -> Unit, code: String, matchViewModel: Match
 
     when (uiState) {
         is MatchUiState.Loading -> LoadingContent(onClose = onClose)
-        is MatchUiState.Error -> ErrorMatchContent(matchCode)
+        is MatchUiState.Error -> ErrorMatchContent(code)
         is MatchUiState.Success -> {
             MatchScreen(
                 onClose = onClose,
-                matching = (uiState as MatchUiState.Success).matching
+                matching = (uiState as MatchUiState.Success)
             )
         }
     }
 }
 
 @Composable
-private fun MatchScreen(onClose: () -> Unit, matching: Matching) {
+private fun MatchScreen(onClose: () -> Unit, matching: MatchUiState.Success) {
+    val (profile, similarity, chemistrys, subwayChemistry) = matching
     Column(
         modifier = Modifier
             .background(Gray900)
@@ -69,17 +70,17 @@ private fun MatchScreen(onClose: () -> Unit, matching: Matching) {
     ) {
         MatchTopBar(onClose = onClose)
         Spacer(modifier = Modifier.height(8.dp))
-        MatchHorizontalPager(matching = matching)
+        MatchHorizontalPager(profile, similarity, chemistrys, subwayChemistry)
     }
 }
 
 @Composable
-internal fun ErrorMatchContent(code: String) {
+private fun ErrorMatchContent(code: String) {
     Text("There is no match code $code. Please try again.", color = Color.Red)
 }
 
 @Composable
-internal fun LoadingContent(onClose: () -> Unit) {
+private fun LoadingContent(onClose: () -> Unit) {
     val lottieComposition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(
             R.raw.funch_character_loading
@@ -130,7 +131,12 @@ private fun Preview1() {
         Surface(color = LocalBackgroundTheme.current.color) {
             MatchScreen(
                 onClose = {},
-                matching = Matching()
+                matching = MatchUiState.Success(
+                    MatchProfileUiModel.from(MOCK_MATCHING),
+                    MOCK_MATCHING.similarity,
+                    MOCK_MATCHING.chemistrys,
+                    MOCK_MATCHING.subwayChemistry
+                )
             )
         }
     }

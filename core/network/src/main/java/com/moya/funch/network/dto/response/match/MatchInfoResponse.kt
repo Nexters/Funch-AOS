@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RecommendResponse(
+data class MatchInfoResponse(
     @SerialName("title")
     val title: String = ""
 )

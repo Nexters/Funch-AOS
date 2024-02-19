@@ -7,13 +7,13 @@ import com.moya.funch.entity.Mbti
 import com.moya.funch.entity.SubwayLine
 import com.moya.funch.entity.SubwayStation
 import com.moya.funch.entity.match.Chemistry
+import com.moya.funch.entity.match.MatchInfo
 import com.moya.funch.entity.match.Matching
-import com.moya.funch.entity.match.Recommend
 import com.moya.funch.entity.profile.Profile
 import com.moya.funch.network.dto.response.match.ChemistryResponse
+import com.moya.funch.network.dto.response.match.MatchInfoResponse
 import com.moya.funch.network.dto.response.match.MatchingResponse
 import com.moya.funch.network.dto.response.match.ProfileResponse
-import com.moya.funch.network.dto.response.match.RecommendResponse
 import com.moya.funch.network.dto.response.match.SubwayResponse
 
 fun MatchingResponse.toDomain(): Matching {
@@ -21,8 +21,8 @@ fun MatchingResponse.toDomain(): Matching {
         profile = profile.toDomain(),
         similarity = similarity,
         chemistrys = chemistryInfos.map { it.toDomain() },
-        recommends = recommends.map { it.toDomain() },
-        subways = subways.map { it.toDomain() }
+        matchInfos = matchInfos.map { it.toDomain() },
+        subwayChemistry = subwayChemistry?.toDomain()
     )
 }
 
@@ -33,7 +33,7 @@ private fun ProfileResponse.toDomain(): Profile {
         clubs = clubs.map { Club.of(it) },
         mbti = Mbti.valueOf(mbti),
         blood = Blood.valueOf(bloodType),
-        subways = subwayNames.map { SubwayStation(name = it) }
+        subways = this.subways.map { it.toDomain() }
     )
 }
 
@@ -44,8 +44,8 @@ private fun ChemistryResponse.toDomain(): Chemistry {
     )
 }
 
-private fun RecommendResponse.toDomain(): Recommend {
-    return Recommend(
+private fun MatchInfoResponse.toDomain(): MatchInfo {
+    return MatchInfo(
         title = title
     )
 }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -27,8 +28,10 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.moya.funch.common.subwayLinePainter
 import com.moya.funch.entity.match.Chemistry
 import com.moya.funch.icon.FunchIconAsset
+import com.moya.funch.match.MatchViewModel
 import com.moya.funch.match.R
 import com.moya.funch.match.theme.Gradient_Lemon500
 import com.moya.funch.match.theme.Gray400
@@ -70,8 +73,40 @@ private fun Int.formatNumber(): String {
 }
 
 @Composable
-internal fun SimilarityCardContent(similarity: Int, chemistrys: List<Chemistry>) {
-    Spacer(modifier = Modifier.height(8.dp))
+internal fun SimilarityCard(
+    userName: String,
+    similarity: Int,
+    chemistrys: List<Chemistry>,
+    subwayChemistry: Chemistry? = null,
+    current: Int,
+    pageCount: Int
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Gray800, shape = FunchTheme.shapes.large)
+            .padding(top = 20.dp)
+            .padding(horizontal = 28.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        MatchPageIndicator(current = current, pageCount = pageCount)
+        Spacer(modifier = Modifier.height(8.dp))
+        SimilarityCardContent(
+            userName = userName,
+            similarity = similarity,
+            chemistrys = chemistrys,
+            subwayChemistry = subwayChemistry
+        )
+    }
+}
+
+@Composable
+private fun SimilarityCardContent(
+    userName: String,
+    similarity: Int,
+    chemistrys: List<Chemistry>,
+    subwayChemistry: Chemistry?
+) {
     SimilarityText(similarity = similarity)
     Spacer(modifier = Modifier.height(16.dp))
     Image(
@@ -83,7 +118,7 @@ internal fun SimilarityCardContent(similarity: Int, chemistrys: List<Chemistry>)
         contentDescription = "Similarity"
     )
     Spacer(modifier = Modifier.height(16.dp))
-    ChemistryList(chemistrys = chemistrys)
+    ChemistryList(userName, chemistrys, subwayChemistry)
 }
 
 @Composable
@@ -107,11 +142,14 @@ private fun SimilarityText(similarity: Int) {
 }
 
 @Composable
-private fun ChemistryList(chemistrys: List<Chemistry>) {
+private fun ChemistryList(userName: String, chemistrys: List<Chemistry>, subwayChemistry: Chemistry? = null) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         chemistrys.forEach { chemistry ->
             ChemistryItem(chemistry = chemistry)
             Spacer(modifier = Modifier.height(20.dp))
+        }
+        subwayChemistry?.let {
+            SubwayChemistryItem(userName = userName, chemistry = it)
         }
     }
 }
@@ -129,6 +167,35 @@ private fun ChemistryItem(chemistry: Chemistry) {
             Text(text = title, style = FunchTheme.typography.sbt2, color = White)
             Spacer(modifier = Modifier.height(2.dp))
             Text(text = description, style = FunchTheme.typography.b, color = Gray400)
+        }
+    }
+}
+
+@Composable
+private fun SubwayChemistryItem(userName: String, chemistry: Chemistry) {
+    val (title, description) = chemistry
+    Row(
+        Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.Top
+    ) {
+        Image(
+            modifier = Modifier.size(24.dp),
+            painter = subwayLinePainter(value = title),
+            contentDescription = "Chemistry Icon"
+        )
+        Spacer(modifier = Modifier.width(12.dp))
+        Column {
+            Text(
+                text = stringResource(id = R.string.subway_chemistry_title, description),
+                style = FunchTheme.typography.sbt2,
+                color = White
+            )
+            Spacer(modifier = Modifier.height(2.dp))
+            Text(
+                text = stringResource(id = R.string.subway_chemistry_desciption, userName, description),
+                style = FunchTheme.typography.b,
+                color = Gray400
+            )
         }
     }
 }
@@ -198,22 +265,39 @@ private fun Preview() {
                 .padding(horizontal = 28.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SimilarityCardContent(
-                similarity = 100,
-                chemistrys = listOf(
-                    Chemistry(
-                        title = "찾았다, 내 소울메이트!",
-                        description = "ENTJ인 {userName}님은 비전을 향해 적극적으로 이끄는 리더 타입!"
-                    ),
-                    Chemistry(
-                        title = "서로 다른 점을 찾는 재미",
-                        description = "B형인 {userName}님은 호기심과 창의력을 갖췄지만 변덕스러워요"
-                    ),
-                    Chemistry(
-                        title = "n호선에서 만나요",
-                        description = "{userName}님도 n호선에 살고 있어요"
-                    )
-                )
+            SimilarityCard(
+                userName = MatchViewModel.MOCK_MATCHING.profile.name,
+                similarity = MatchViewModel.MOCK_MATCHING.similarity,
+                chemistrys = MatchViewModel.MOCK_MATCHING.chemistrys,
+                subwayChemistry = MatchViewModel.MOCK_MATCHING.subwayChemistry,
+                current = 0,
+                pageCount = 3
+            )
+        }
+    }
+}
+
+@Preview(
+    showBackground = true,
+    name = "no subwayLine - 640dpi",
+    device = "spec:width = 360dp, height = 640dp, dpi = 420",
+    showSystemUi = true
+)
+@Composable
+private fun Preview2() {
+    FunchTheme {
+        Column(
+            modifier = Modifier
+                .background(Gray800)
+                .padding(horizontal = 28.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            SimilarityCard(
+                userName = MatchViewModel.MOCK_MATCHING.profile.name,
+                similarity = MatchViewModel.MOCK_MATCHING.similarity,
+                chemistrys = MatchViewModel.MOCK_MATCHING.chemistrys,
+                current = 0,
+                pageCount = 3
             )
         }
     }
