@@ -46,7 +46,7 @@ internal class MatchViewModel @Inject constructor(
                 }
                 .getOrNull()
                 ?.let {
-                    MatchUiState.Success(MatchProfileUiModel.from(it), it.similarity, it.chemistrys)
+                    MatchUiState.Success(MatchProfileUiModel.from(it), it.similarity, it.chemistrys, it.subwayChemistry)
                 } ?: MatchUiState.Error
         }
     }.catch {
@@ -85,10 +85,6 @@ internal class MatchViewModel @Inject constructor(
                 Chemistry(
                     title = "서로 다른 점을 찾는 재미",
                     description = "B형인 {userName}님은 호기심과 창의력을 갖췄지만 변덕스러워요"
-                ),
-                Chemistry(
-                    title = "n호선에서 만나요",
-                    description = "{userName}님도 n호선에 살고 있어요"
                 )
             ),
             recommends = listOf(
@@ -97,6 +93,10 @@ internal class MatchViewModel @Inject constructor(
                 Recommend("ENFJ"),
                 Recommend("A형"),
                 Recommend("목동역")
+            ),
+            subwayChemistry = Chemistry(
+                title = "FIVE",
+                description = "5호선"
             )
         )
     }
@@ -108,6 +108,7 @@ internal sealed class MatchUiState {
     data class Success(
         val profile: MatchProfileUiModel,
         val similarity: Int = 0,
-        val chemistrys: List<Chemistry> = emptyList()
+        val chemistrys: List<Chemistry> = emptyList(),
+        val subWayChemistry: Chemistry? = null
     ) : MatchUiState()
 }

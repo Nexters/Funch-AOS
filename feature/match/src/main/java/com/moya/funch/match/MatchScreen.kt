@@ -60,7 +60,7 @@ internal fun MatchRoute(onClose: () -> Unit, code: String, matchViewModel: Match
 
 @Composable
 private fun MatchScreen(onClose: () -> Unit, matching: MatchUiState.Success) {
-    val (profile, similarity, chemistrys) = matching
+    val (profile, similarity, chemistrys, subwayChemistry) = matching
     Column(
         modifier = Modifier
             .background(Gray900)
@@ -70,7 +70,7 @@ private fun MatchScreen(onClose: () -> Unit, matching: MatchUiState.Success) {
     ) {
         MatchTopBar(onClose = onClose)
         Spacer(modifier = Modifier.height(8.dp))
-        MatchHorizontalPager(profile, similarity, chemistrys)
+        MatchHorizontalPager(profile, similarity, chemistrys, subwayChemistry)
     }
 }
 
@@ -134,7 +134,8 @@ private fun Preview1() {
                 matching = MatchUiState.Success(
                     MatchProfileUiModel.from(MOCK_MATCHING),
                     MOCK_MATCHING.similarity,
-                    MOCK_MATCHING.chemistrys
+                    MOCK_MATCHING.chemistrys,
+                    MOCK_MATCHING.subwayChemistry
                 )
             )
         }

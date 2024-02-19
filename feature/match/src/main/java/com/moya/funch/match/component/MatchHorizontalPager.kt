@@ -23,7 +23,12 @@ import com.moya.funch.theme.FunchTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun MatchHorizontalPager(profile: MatchProfileUiModel, similarity: Int, chemistrys: List<Chemistry>) {
+internal fun MatchHorizontalPager(
+    profile: MatchProfileUiModel,
+    similarity: Int,
+    chemistrys: List<Chemistry>,
+    subwayChemistry: Chemistry?
+) {
     val pageCount = 3
     val pagerState = rememberPagerState(pageCount = { pageCount })
     HorizontalPager(
@@ -33,7 +38,7 @@ internal fun MatchHorizontalPager(profile: MatchProfileUiModel, similarity: Int,
         beyondBoundsPageCount = 2,
         state = pagerState
     ) { page ->
-        if (page == 0) SimilarityCard(similarity, chemistrys, page, pageCount)
+        if (page == 0) SimilarityCard(profile.name, similarity, chemistrys, subwayChemistry, page, pageCount)
         if (page == 1) RecommendCard(page, pageCount)
         if (page == 2) MatchProfileCard(profile, page, pageCount)
     }
@@ -89,11 +94,11 @@ private fun Preview() {
                 Chemistry(
                     title = "서로 다른 점을 찾는 재미",
                     description = "B형인 {userName}님은 호기심과 창의력을 갖췄지만 변덕스러워요"
-                ),
-                Chemistry(
-                    title = "n호선에서 만나요",
-                    description = "{userName}님도 n호선에 살고 있어요"
                 )
+            ),
+            subwayChemistry = Chemistry(
+                title = "FIVE",
+                description = "5호선"
             )
         )
     }

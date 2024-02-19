@@ -11,6 +11,7 @@ import com.moya.funch.network.dto.response.match.RecommendResponse
 import com.moya.funch.network.dto.response.match.SubwayResponse
 import com.moya.funch.rule.CoroutinesTestExtension
 import io.mockk.junit5.MockKExtension
+import java.io.File
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
@@ -23,7 +24,6 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.RegisterExtension
 import retrofit2.Retrofit
 import retrofit2.create
-import java.io.File
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @ExtendWith(MockKExtension::class)

@@ -21,5 +21,8 @@
         <item>가장 인상 깊었던 여행지는?</item>
         <item>취미를 소개해주세요!</item>
     </string-array>
+    <!--    subway-chemi-->
+    <string name="subway_chemistry_title">%s에서 만나요</string>
+    <string name="subway_chemistry_desciption">%s님도 %s에 살고 있어요</string>
 
 </resources>
