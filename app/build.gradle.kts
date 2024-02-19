@@ -49,6 +49,7 @@ dependencies {
 //    implementation(libs.google.android.gms)
 
     // Third Party
+    implementation(libs.compose.lottie)
     implementation(libs.coil.core)
 //    implementation(libs.kakao.login)
     implementation(libs.bundles.retrofit)
