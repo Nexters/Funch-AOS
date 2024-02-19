@@ -2,7 +2,6 @@ package com.moya.funch.ui
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -17,11 +16,7 @@ import com.moya.funch.theme.Coral500
 import com.moya.funch.theme.FunchTheme
 
 @Composable
-fun FunchErrorCaption(
-    modifier: Modifier = Modifier,
-    errorText: String,
-    description: String = ""
-) {
+fun FunchErrorCaption(modifier: Modifier = Modifier, errorText: String, description: String = "") {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically

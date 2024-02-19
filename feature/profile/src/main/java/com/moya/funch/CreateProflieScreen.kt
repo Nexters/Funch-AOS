@@ -615,7 +615,7 @@ private fun Preview1() {
 @Composable
 private fun Preview2() {
     FunchTheme {
-        var text by remember { mutableStateOf("ㄴ") }
+        var text by remember { mutableStateOf("삼") }
 
         Surface(
             modifier = Modifier
@@ -628,13 +628,8 @@ private fun Preview2() {
                 isKeyboardVisible = {},
                 textFieldState = SubwayTextFieldState.Typing,
                 subwayStations = listOf(
-                    SubwayStation("강남역"),
-                    SubwayStation("역삼역"),
                     SubwayStation("삼성역"),
-                    SubwayStation("선릉역"),
-                    SubwayStation("삼성중앙역"),
-                    SubwayStation("봉은사역"),
-                    SubwayStation("삼전")
+                    SubwayStation("삼성중앙역")
                 )
             )
         }

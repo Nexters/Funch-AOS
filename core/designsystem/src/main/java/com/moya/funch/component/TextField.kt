@@ -474,7 +474,7 @@ private fun Preview3() {
                     description = "",
                     tint = Gray500
                 ),
-                isError = isError.value,
+                isError = isError.value
             )
             if (isError.value) {
                 FunchErrorCaption(

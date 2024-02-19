@@ -14,6 +14,7 @@ import com.moya.funch.uimodel.SubwayTextFieldState
 import com.moya.funch.usecase.CreateUserProfileUseCase
 import com.moya.funch.usecase.LoadSubwayStationsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,7 +22,6 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 data class CreateProfileUiState(
     val profile: ProfileUiModel = ProfileUiModel(),
@@ -172,7 +172,6 @@ internal class CreateProfileViewModel @Inject constructor(
             }
         }
     }
-
 }
 
 private fun <T> List<T>.toggleElement(element: T): List<T> {
