@@ -216,7 +216,7 @@ private fun UsersDistinct(profile: Profile) {
                                 enabled = false,
                                 label = {
                                     Text(
-                                        text = if (profileLabel == ProfileLabel.SUBWAY) value+"역" else value,
+                                        text = if (profileLabel == ProfileLabel.SUBWAY) value + "역" else value,
                                         style = FunchTheme.typography.b,
                                         color = White
                                     )
