@@ -14,8 +14,8 @@ import com.moya.funch.splash.LoadingScreen
 import com.moya.funch.theme.FunchTheme
 import com.moya.funch.ui.FunchApp
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import javax.inject.Inject
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
