@@ -13,7 +13,10 @@ const val PROFILE_GRAPH_ROUTE = "profile_graph"
 fun NavController.navigateToMyProfile(navOptions: NavOptions? = null) =
     navigate(ProfileScreens.MyProfile.route, navOptions)
 
-fun NavController.closeMyProfile() = popBackStack()
+fun NavController.navigateToCreateProfile(navOptions: NavOptions? = null) =
+    navigate(ProfileScreens.Create.route, navOptions)
+
+fun NavController.onCloseMyProfile() = popBackStack()
 
 fun NavGraphBuilder.profileGraph(onNavigateToHome: () -> Unit, onCloseMyProfile: () -> Unit) {
     navigation(

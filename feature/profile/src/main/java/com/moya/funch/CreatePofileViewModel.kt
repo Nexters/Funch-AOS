@@ -113,7 +113,7 @@ internal class CreateProfileViewModel @Inject constructor(
                     onSuccess = { response ->
                         val newState = when {
                             response.isEmpty() -> SubwayTextFieldState.Error
-                            response.size == 1 && subway == response.first().name -> SubwayTextFieldState.Success
+                            subway == response.first().name -> SubwayTextFieldState.Success
                             else -> SubwayTextFieldState.Typing
                         }
                         setSubwayStations(response)

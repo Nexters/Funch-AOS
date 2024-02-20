@@ -166,7 +166,6 @@ data class PunchChipColors(
     private val selectedLabelColor: Color = White,
     private val disabledLabelColor: Color = Gray400,
     private val disabledSelectedLabelColor: Color = White
-    // private val
 ) {
     @Stable
     fun provideContainerColor(enabled: Boolean, selected: Boolean): Color {

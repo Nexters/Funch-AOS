@@ -1,6 +1,7 @@
 package com.moya.funch
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -35,6 +36,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
@@ -208,7 +210,8 @@ fun CreateProfileScreen(
                         onSubwayStationChange = onSubwayStationChange,
                         isKeyboardVisible = { isKeyboardVisible = it },
                         textFieldState = profile.subwayTextFieldState,
-                        subwayStations = profile.subwayStations
+                        subwayStations = profile.subwayStations,
+                        scrollState = scrollState
                     )
                 }
                 Spacer(modifier = Modifier.height(20.dp))
@@ -276,7 +279,11 @@ private fun NicknameRow(nickname: String, onNicknameChange: (String) -> Unit, is
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun JobRow(profile: ProfileUiModel, onSelected: (Job) -> Unit) {
+private fun JobRow(
+    profile: ProfileUiModel,
+    onSelected: (Job) -> Unit,
+    focusManager: FocusManager = LocalFocusManager.current
+) {
     Row {
         FunchSmallLabel(text = ProfileLabel.JOB.labelName)
         FlowRow(
@@ -288,7 +295,10 @@ private fun JobRow(profile: ProfileUiModel, onSelected: (Job) -> Unit) {
                 FunchChip(
                     selected = profile.job == job,
                     enabled = true,
-                    onSelected = { onSelected(job) },
+                    onSelected = {
+                        onSelected(job)
+                        focusManager.clearFocus()
+                    },
                     label = {
                         Text(
                             text = job.krName,
@@ -322,7 +332,7 @@ private fun JobRow(profile: ProfileUiModel, onSelected: (Job) -> Unit) {
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun ClubRow(onSelectClub: (Club) -> Unit) {
+private fun ClubRow(onSelectClub: (Club) -> Unit, focusManager: FocusManager = LocalFocusManager.current) {
     Row {
         FunchSmallLabel(text = ProfileLabel.CLUB.labelName)
         FlowRow(
@@ -336,6 +346,7 @@ private fun ClubRow(onSelectClub: (Club) -> Unit) {
                     selected = isSelected,
                     enabled = true,
                     onSelected = {
+                        focusManager.clearFocus()
                         onSelectClub(club)
                         isSelected = !isSelected
                     },
@@ -371,7 +382,11 @@ private fun ClubRow(onSelectClub: (Club) -> Unit) {
 }
 
 @Composable
-private fun MbtiRow(profile: ProfileUiModel, onSelectMbti: (MbtiItem) -> Unit) {
+private fun MbtiRow(
+    profile: ProfileUiModel,
+    onSelectMbti: (MbtiItem) -> Unit,
+    focusManager: FocusManager = LocalFocusManager.current
+) {
     val eOrI = profile.eOrI
     val nOrS = profile.nOrS
     val tOrF = profile.tOrF
@@ -395,6 +410,7 @@ private fun MbtiRow(profile: ProfileUiModel, onSelectMbti: (MbtiItem) -> Unit) {
                             mbtiItem = mbti,
                             isSelected = currentMbti[i] == mbti,
                             onSelected = {
+                                focusManager.clearFocus()
                                 onSelectMbti(it)
                             }
                         )
@@ -431,7 +447,7 @@ private fun MbtiButton(mbtiItem: MbtiItem, isSelected: Boolean, onSelected: (Mbt
 }
 
 @Composable
-private fun BooldTypeRow(onSelectBloodType: (Blood) -> Unit) {
+private fun BooldTypeRow(onSelectBloodType: (Blood) -> Unit, focusManager: FocusManager = LocalFocusManager.current) {
     val bloodTypes = Blood.entries.filterNot { it == Blood.IDLE }.map { it.type }
     var placeHolder by remember { mutableStateOf(bloodTypes[0]) }
     var isDropDownMenuExpanded by remember { mutableStateOf(false) }
@@ -442,7 +458,10 @@ private fun BooldTypeRow(onSelectBloodType: (Blood) -> Unit) {
         Box {
             FunchDropDownButton(
                 placeHolder = placeHolder,
-                onClick = { isDropDownMenuExpanded = !isDropDownMenuExpanded },
+                onClick = {
+                    focusManager.clearFocus()
+                    isDropDownMenuExpanded = !isDropDownMenuExpanded
+                },
                 isDropDownMenuExpanded = isDropDownMenuExpanded,
                 indication = null,
                 modifier = Modifier.onGloballyPositioned { coordinates ->
@@ -470,11 +489,18 @@ private fun SubwayRow(
     onSubwayStationChange: (String) -> Unit,
     isKeyboardVisible: (Boolean) -> Unit,
     textFieldState: SubwayTextFieldState,
-    subwayStations: List<SubwayStation>
+    subwayStations: List<SubwayStation>,
+    scrollState: ScrollState
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
     val focusManager = LocalFocusManager.current
+
+    if (isFocused) {
+        LaunchedEffect(subwayStation) {
+            scrollState.animateScrollTo(scrollState.maxValue)
+        }
+    }
 
     Row {
         FunchLargeLabel(text = ProfileLabel.SUBWAY.labelName)
@@ -484,7 +510,9 @@ private fun SubwayRow(
                     isKeyboardVisible(focusState.isFocused)
                 },
                 value = subwayStation,
-                onValueChange = onSubwayStationChange,
+                onValueChange = { subway ->
+                    onSubwayStationChange(subway)
+                },
                 hint = stringResource(id = R.string.subway_textfield_hint),
                 isError = textFieldState == SubwayTextFieldState.Error,
                 iconType = FunchIcon(
@@ -505,8 +533,17 @@ private fun SubwayRow(
             )
 
             when (textFieldState) {
-                is SubwayTextFieldState.Empty -> { /* @Gun Hyung : 아무것도 표시되지 않음 */ }
-                is SubwayTextFieldState.Success -> { /* @Gun Hyung : 아무것도 표시되지 않음 */ }
+                is SubwayTextFieldState.Empty -> {
+                    /* @Gun Hyung : 아무것도 표시되지 않음 */
+                }
+
+                is SubwayTextFieldState.Success -> {
+                    HorizontalSubwayStations(
+                        subwayStations = subwayStations,
+                        onSubwayStationChange = onSubwayStationChange
+                    )
+                }
+
                 is SubwayTextFieldState.Error -> {
                     FunchErrorCaption(
                         modifier = Modifier
@@ -517,41 +554,52 @@ private fun SubwayRow(
                         errorText = stringResource(id = R.string.subway_error_caption)
                     )
                 }
+
                 is SubwayTextFieldState.Typing -> {
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .horizontalScroll(rememberScrollState()),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
-                        subwayStations.forEach { station ->
-                            Box(
-                                modifier = Modifier
-                                    .background(
-                                        color = Gray800,
-                                        shape = FunchTheme.shapes.extraLarge
-                                    )
-                                    .clip(FunchTheme.shapes.extraLarge)
-                                    .clickable(
-                                        onClick = {
-                                            onSubwayStationChange(station.name)
-                                            focusManager.clearFocus()
-                                        },
-                                        interactionSource = remember { MutableInteractionSource() },
-                                        indication = null
-                                    )
-                                    .padding(8.dp)
-                            ) {
-                                Text(
-                                    text = station.name,
-                                    color = White,
-                                    style = FunchTheme.typography.b
-                                )
-                            }
-                        }
-                    }
+                    HorizontalSubwayStations(
+                        subwayStations = subwayStations,
+                        onSubwayStationChange = onSubwayStationChange
+                    )
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun HorizontalSubwayStations(subwayStations: List<SubwayStation>, onSubwayStationChange: (String) -> Unit) {
+    val focusManager = LocalFocusManager.current
+
+    Spacer(modifier = Modifier.height(4.dp))
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .horizontalScroll(rememberScrollState()),
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        subwayStations.forEach { station ->
+            Box(
+                modifier = Modifier
+                    .background(
+                        color = Gray800,
+                        shape = FunchTheme.shapes.extraLarge
+                    )
+                    .clip(FunchTheme.shapes.extraLarge)
+                    .clickable(
+                        onClick = {
+                            onSubwayStationChange(station.name)
+                            focusManager.clearFocus()
+                        },
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null
+                    )
+                    .padding(8.dp)
+            ) {
+                Text(
+                    text = station.name,
+                    color = White,
+                    style = FunchTheme.typography.b
+                )
             }
         }
     }
@@ -630,7 +678,8 @@ private fun Preview2() {
                 subwayStations = listOf(
                     SubwayStation("삼성역"),
                     SubwayStation("삼성중앙역")
-                )
+                ),
+                scrollState = rememberScrollState()
             )
         }
     }

@@ -7,7 +7,7 @@ import com.moya.funch.HomeRoute
 
 const val HOME_ROUTE = "home"
 
-fun NavController.navigateToHome() = navigate(HOME_ROUTE) {
+fun NavController.onNavigateToHome() = navigate(HOME_ROUTE) {
     popUpTo(graph.id)
 }
 
