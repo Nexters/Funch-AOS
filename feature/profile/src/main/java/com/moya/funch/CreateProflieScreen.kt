@@ -479,8 +479,10 @@ private fun SubwayRow(
     val isFocused by interactionSource.collectIsFocusedAsState()
     val focusManager = LocalFocusManager.current
 
-    LaunchedEffect(subwayStation) {
-        scrollState.animateScrollTo(scrollState.maxValue)
+    if (isFocused) {
+        LaunchedEffect(subwayStation) {
+            scrollState.animateScrollTo(scrollState.maxValue)
+        }
     }
 
     Row {
