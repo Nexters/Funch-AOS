@@ -35,6 +35,7 @@ private fun statusBar() {
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = Gray900.toArgb()
+            window.navigationBarColor = Gray900.toArgb()
         }
     }
 }
