@@ -2,7 +2,7 @@ name: Hous PR Builder
 
 on:
   pull_request:
-    branches: [ develop, main ]
+    branches: [ develop, master ]
 
 jobs:
   build:
