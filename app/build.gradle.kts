@@ -35,6 +35,7 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.domain)
     implementation(projects.core.data)
+    implementation(projects.core.datastore)
     // feature
     implementation(projects.feature.profile)
     implementation(projects.feature.home)

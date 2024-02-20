@@ -4,11 +4,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.moya.funch.datastore.UserDataStore
 import com.moya.funch.navigation.FunchNavHost
 import com.moya.funch.theme.LocalBackgroundTheme
 
 @Composable
-fun FunchApp() {
+fun FunchApp(dataStore: UserDataStore) {
     val backgroundColor = LocalBackgroundTheme.current.color
 
     Surface(
@@ -16,7 +17,7 @@ fun FunchApp() {
         color = backgroundColor
     ) {
         FunchNavHost(
-            hasProfile = false
+            hasProfile = dataStore.hasUserId()
         )
     }
 }
