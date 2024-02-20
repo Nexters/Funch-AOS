@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+import java.io.FileInputStream
+
 plugins {
     alias(libs.plugins.funch.application)
     alias(libs.plugins.funch.compose)
@@ -19,6 +22,18 @@ android {
         versionName = libs.versions.appVersion.get()
     }
 
+    signingConfigs {
+        create("release") {
+            Properties().apply {
+                load(FileInputStream(rootProject.file("local.properties")))
+                storeFile = rootProject.file(this["STORE_FILE"] as String)
+                keyAlias = this["KEY_ALIAS"] as String
+                keyPassword = this["KEY_PASSWORD"] as String
+                storePassword = this["STORE_PASSWORD"] as String
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -26,6 +41,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }
