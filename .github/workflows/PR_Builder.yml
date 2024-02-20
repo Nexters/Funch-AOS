@@ -46,20 +46,28 @@ jobs:
 #        KAKAO_NATIVE_APP_KEY: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
 #        KAKAO_REDIRECT_SCHEME: ${{ secrets.KAKAO_REDIRECT_SCHEME }}
 #        KEYSTORE_PATH: ${{ secrets.KEYSTORE_PATH }}
-#        STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
-#        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-#        KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-#        STORE_FILE: ${{ secrets.STORE_FILE }}
+        STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        STORE_FILE: ${{ secrets.STORE_FILE }}
       run: |
         echo FUNCH_DEBUG_BASE_URL=\"FUNCH_DEBUG_BASE_URL\" >> local.properties
 #        echo HOST_RELEASE_URI=\"$HOST_RELEASE_URI\" >> local.properties
 #        echo KAKAO_NATIVE_APP_KEY=\"$KAKAO_NATIVE_APP_KEY\" >> local.properties
 #        echo KAKAO_REDIRECT_SCHEME=\"$KAKAO_REDIRECT_SCHEME\" >> local.properties
 #        echo KEYSTORE_PATH= $KEYSTORE_PATH >> local.properties
-#        echo STORE_PASSWORD= $STORE_PASSWORD >> local.properties
-#        echo KEY_PASSWORD= $KEY_PASSWORD >> local.properties
-#        echo KEY_ALIAS= $KEY_ALIAS >> local.properties
-#        echo STORE_FILE= $STORE_FILE >> local.properties
+        echo STORE_PASSWORD= $STORE_PASSWORD >> local.properties
+        echo KEY_PASSWORD= $KEY_PASSWORD >> local.properties
+        echo KEY_ALIAS= $KEY_ALIAS >> local.properties
+        echo STORE_FILE= $STORE_FILE >> local.properties
+
+    - name: Create keystore
+      run: |
+        mkdir -p app/keystore
+        touch app/keystore/hous_key.jks
+
+    - name: decode release keystore
+      run: echo "${{ secrets.STORE_FILE }}" | base64 -d > keystore/funch_key_store.jks
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
