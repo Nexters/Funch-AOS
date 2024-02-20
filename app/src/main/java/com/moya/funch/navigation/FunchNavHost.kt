@@ -8,6 +8,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.moya.funch.match.navigation.matchingScreen
 import com.moya.funch.match.navigation.navigateToMatching
+import com.moya.funch.onboarding.navigation.ON_BOARDING_ROUTE
+import com.moya.funch.onboarding.navigation.onBoardingScreen
 
 @Composable
 fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = rememberNavController()) {
@@ -17,14 +19,15 @@ fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = remembe
     ) {
         with(navController) {
             profileGraph(
-                onNavigateToHome = ::navigateToHome,
-                onCloseMyProfile = ::closeMyProfile
+                onNavigateToHome = ::onNavigateToHome,
+                onCloseMyProfile = ::onCloseMyProfile
             )
             homeScreen(
                 onNavigateToMatching = ::onNavigateToMatching,
                 onNavigateToMyProfile = ::onNavigateToMyProfile
             )
             matchingScreen(onClose = { popBackStack(HOME_ROUTE, false) })
+            onBoardingScreen(onNavigateToCreateProfile = ::navigateToCreateProfile)
         }
     }
 }
@@ -39,5 +42,5 @@ private val singleTopNavOptions = navOptions {
 }
 
 private fun determineStartDestination(hasProfile: Boolean): String {
-    return if (hasProfile) HOME_ROUTE else PROFILE_GRAPH_ROUTE
+    return if (hasProfile) HOME_ROUTE else ON_BOARDING_ROUTE
 }
