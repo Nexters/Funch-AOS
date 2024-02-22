@@ -4,6 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.moya.funch.network.dto.request.MatchingRequest
 import com.moya.funch.network.dto.response.BaseResponse
+import com.moya.funch.network.dto.response.match.CanMatchResponse
 import com.moya.funch.network.dto.response.match.ChemistryResponse
 import com.moya.funch.network.dto.response.match.MatchInfoResponse
 import com.moya.funch.network.dto.response.match.MatchingResponse
@@ -39,7 +40,6 @@ internal class MatchingServiceTest {
         matchingService =
             Retrofit.Builder().addConverterFactory(
                 Json {
-                    ignoreUnknownKeys = true
                     prettyPrint = true
                     coerceInputValues = true
                 }.asConverterFactory("application/json".toMediaType())
@@ -107,6 +107,43 @@ internal class MatchingServiceTest {
             { assertThat(actualResponse.data.subwayChemistry).isEqualTo(expected.data.subwayChemistry) },
             { assertThat(actualResponse.data.similarity).isEqualTo(expected.data.similarity) },
             { assertThat(actualResponse.data.chemistryInfos).isEqualTo(expected.data.chemistryInfos) }
+        )
+    }
+
+    @Test
+    fun `상대방 code 로 매칭 성공 유부를 알 수 있다`() = runTest {
+        // given
+        val successJson = File("src/test/res/can_matching_success.json").readText()
+        val failJson = File("src/test/res/can_matching_fail.json").readText()
+        val fakeSuccessResponse = MockResponse().setBody(successJson).setResponseCode(200)
+        val fakeFailResponse = MockResponse().setBody(failJson).setResponseCode(200)
+        mockWebServer.enqueue(fakeSuccessResponse)
+        mockWebServer.enqueue(fakeFailResponse)
+        val expectedSuccessResponse = CanMatchResponse(
+            200,
+            "OK",
+            1000,
+            null
+        )
+        val expectedFailResponse = CanMatchResponse(
+            200,
+            "매칭상대 프로필 존재하지 않음",
+            4001,
+            null
+        )
+        // when
+        val actualSuccessResponse =
+            matchingService.canMatchProfile(
+                "1BD"
+            )
+        val actualFailResponse =
+            matchingService.canMatchProfile(
+                "1B3D"
+            )
+        // then
+        assertAll(
+            { assertThat(actualSuccessResponse).isEqualTo(expectedSuccessResponse) },
+            { assertThat(actualFailResponse).isEqualTo(expectedFailResponse) }
         )
     }
 
