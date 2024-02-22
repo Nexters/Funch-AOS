@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_sub_title">친구와 프로필 매칭하기</string>
+    <string name="onboarding_title">우리 사이의 공통점을 찾아요</string>
+    <string name="profile_create_recommend">1분만에 프로필 만들고 매칭해보기!</string>
+    <string name="profile_create_btn_text">프로필 생성 시작🚀</string>
+</resources>

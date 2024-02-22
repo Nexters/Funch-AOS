@@ -1,0 +1,44 @@
+{
+  "status": "200",
+  "message": "OK",
+  "data": {
+    "profile": {
+      "name": "aaa",
+      "jobGroup": "개발자",
+      "clubs": [
+        "DEPROMEET"
+      ],
+      "mbti": "ENFJ",
+      "bloodType": "AB",
+      "subwayInfos": [
+        {
+          "name": "서울역",
+          "lines": [
+            "ONE",
+            "FOUR"
+          ]
+        }
+      ]
+    },
+    "similarity": 40,
+    "chemistryInfos": [
+      {
+        "title": "기막힌 타이밍에 등장한 너!",
+        "description": "미정"
+      },
+      {
+        "title": "서로 비슷한 똑! 닮은 꼴",
+        "description": "미정"
+      }
+    ],
+    "matchedInfos": [
+      {
+        "title": "ENFJ"
+      },
+      {
+        "title": "전갈자리"
+      }
+    ],
+    "subwayChemistryInfo": null
+  }
+}

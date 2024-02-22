@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="create_profile_title">프로필 만들기</string>
+    <string name="create_profile_sub_title">프로필을 만들어 공통점을 찾을 수 있어요</string>
+    <string name="nickname_textfield_hint">최대 %d글자</string>
+    <string name="nickname_error_caption">최대 %d글자까지 입력할 수 있어요</string>
+    <string name="subway_textfield_hint">가까운 지하철역 검색</string>
+    <string name="subway_error_caption">존재하지 않는 지하철역이에요</string>
+    <string name="bottom_button_title">이제 매칭할래요!</string>
+</resources>

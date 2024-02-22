@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    mbti-->
+    <string name="match_mbti_pride_first">찾았다, 내 소울메이트!</string>
+    <string name="match_mbti_pride_second">기막힌 타이밍에 등장한 너!</string>
+    <string name="match_mbti_pride_third">끈끈한 사이로 발전할 수 있어요!</string>
+    <string name="match_mbti_pride_fourth">서로를 알아가 볼까요?</string>
+    <string name="match_mbti_pride_fifth">펀치가 아니면 몰랐을 사이</string>
+    <!--    blood-->
+    <string name="match_blood_great">쿵짝 쿵짜작~이 잘 맞아요</string>
+    <string name="match_blood_good">우리는 최강의 콤비!</string>
+    <string name="match_blood_soso">안정적인 관계인 우리</string>
+    <string name="match_blood_bad">서로 다른 점을 찾는 재미</string>
+    <!--    loading-->
+    <string name="match_loading_title">우리 사이 케미 측정 중</string>
+    <!-- recommends -->
+    <string-array name="match_recommend_labels">
+        <item>어느 팀이세요?</item>
+        <item>팀에서 어떤 서비스를 만드나요?</item>
+        <item>서로의 첫인상은?</item>
+        <item>가장 인상 깊었던 여행지는?</item>
+        <item>취미를 소개해주세요!</item>
+    </string-array>
+    <!--    subway-chemi-->
+    <string name="subway_chemistry_title">%s에서 만나요</string>
+    <string name="subway_chemistry_desciption">%s님도 %s에 살고 있어요</string>
+
+</resources>
