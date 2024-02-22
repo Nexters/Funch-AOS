@@ -21,4 +21,13 @@ class RemoteMatchDataSourceImpl @Inject constructor(
             )
         }.mapCatching { it.data }
     }
+
+    override suspend fun canMatchProfile(targetCode: String): Result<Boolean> {
+        return runCatching { matchingService.canMatchProfile(targetCode).code == SUCCESS_CODE }
+    }
+
+    companion object {
+        private const val SUCCESS_CODE = 1000 // @murjune TODO 추후 : DTO 전면 개편 시 Enum 으로 가져갈지 논의
+        private const val FAILURE_CODE = 4001
+    }
 }
