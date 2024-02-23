@@ -10,4 +10,6 @@ interface MemberRepository {
     suspend fun fetchUserViewCount(): Result<Int>
 
     suspend fun fetchMemberProfile(id: String): Result<Profile>
+
+    suspend fun deleteUserProfile(): Result<String>
 }

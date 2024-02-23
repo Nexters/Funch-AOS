@@ -5,4 +5,6 @@ import com.moya.funch.model.ProfileModel
 
 interface RemoteUserDataSource : UserDataSource {
     suspend fun createUserProfile(userModel: ProfileModel): Result<ProfileModel>
+
+    suspend fun deleteUserProfile(): Result<String>
 }
