@@ -2,6 +2,7 @@ package com.moya.funch
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,17 +13,26 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,27 +50,44 @@ import com.moya.funch.entity.SubwayLine
 import com.moya.funch.entity.SubwayStation
 import com.moya.funch.entity.profile.Profile
 import com.moya.funch.icon.FunchIconAsset
+import com.moya.funch.profile.R
 import com.moya.funch.theme.FunchTheme
 import com.moya.funch.theme.Gray400
 import com.moya.funch.theme.Gray800
 import com.moya.funch.theme.Gray900
 import com.moya.funch.theme.LocalBackgroundTheme
 import com.moya.funch.theme.White
+import com.moya.funch.ui.FunchDialog
 import com.moya.funch.ui.FunchTopBar
 import com.moya.funch.uimodel.ProfileLabel
 
 @Composable
-internal fun MyProfileRoute(viewModel: MyProfileViewModel = hiltViewModel(), onCloseMyProfile: () -> Unit) {
+internal fun MyProfileRoute(
+    viewModel: MyProfileViewModel = hiltViewModel(),
+    onCloseMyProfile: () -> Unit,
+    onNavigateCreateProfile: () -> Unit
+) {
     val uiState = viewModel.uiState.collectAsState().value
+
+    LaunchedEffect(Unit) {
+        viewModel.event.collect { event ->
+            if (event is MyProfileEvent.DeleteProfile) {
+                onNavigateCreateProfile()
+            }
+        }
+    }
 
     MyProfileScreen(
         uiState = uiState,
-        onCloseMyProfile = onCloseMyProfile
+        onCloseMyProfile = onCloseMyProfile,
+        onDeleteProfile = viewModel::deleteUserProfile
     )
 }
 
 @Composable
-internal fun MyProfileScreen(uiState: MyProfileUiState, onCloseMyProfile: () -> Unit) {
+internal fun MyProfileScreen(uiState: MyProfileUiState, onCloseMyProfile: () -> Unit, onDeleteProfile: () -> Unit) {
+    var showDialog by remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -80,18 +107,17 @@ internal fun MyProfileScreen(uiState: MyProfileUiState, onCloseMyProfile: () -> 
             ),
             onClickLeadingIcon = onCloseMyProfile
         )
-        Box(
+        Spacer(modifier = Modifier.height(8.dp))
+        Column(
             modifier = Modifier
-                .padding(
-                    top = 8.dp,
-                    bottom = 14.dp,
-                    start = 20.dp,
-                    end = 20.dp
-                )
+                .fillMaxSize()
+                .verticalScroll(state = rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .width(320.dp)
+                    .heightIn(min = 477.dp)
                     .clip(FunchTheme.shapes.large)
                     .background(
                         color = Gray800,
@@ -116,7 +142,39 @@ internal fun MyProfileScreen(uiState: MyProfileUiState, onCloseMyProfile: () -> 
                     }
                 }
             }
+            Spacer(modifier = Modifier.height(20.dp))
+            Box(
+                modifier = Modifier
+                    .background(
+                        color = Gray800,
+                        shape = FunchTheme.shapes.small
+                    )
+                    .clip(FunchTheme.shapes.small)
+                    .clickable(
+                        onClick = { showDialog = true }
+                    )
+                    .padding(
+                        vertical = 7.5f.dp,
+                        horizontal = 12.dp
+                    )
+            ) {
+                Text(
+                    text = stringResource(id = R.string.profile_delete_body),
+                    style = FunchTheme.typography.b,
+                    color = White
+                )
+            }
         }
+    }
+    if (showDialog) {
+        FunchDialog(
+            title = stringResource(id = R.string.profile_delete_body),
+            text = stringResource(id = R.string.dialog_text),
+            dismissText = stringResource(id = R.string.dialog_dismiss),
+            confirmText = stringResource(id = R.string.dialog_confirm),
+            onDismiss = { showDialog = false },
+            onConfirm = onDeleteProfile
+        )
     }
 }
 
@@ -309,7 +367,8 @@ private fun Preview1() {
                         )
                     )
                 ),
-                onCloseMyProfile = {}
+                onCloseMyProfile = {},
+                onDeleteProfile = {}
             )
         }
     }
@@ -332,7 +391,8 @@ private fun Preview2() {
         ) {
             MyProfileScreen(
                 uiState = MyProfileUiState.Loading,
-                onCloseMyProfile = {}
+                onCloseMyProfile = {},
+                onDeleteProfile = {}
             )
         }
     }
@@ -355,7 +415,8 @@ private fun Preview3() {
         ) {
             MyProfileScreen(
                 uiState = MyProfileUiState.Error,
-                onCloseMyProfile = {}
+                onCloseMyProfile = {},
+                onDeleteProfile = {}
             )
         }
     }
