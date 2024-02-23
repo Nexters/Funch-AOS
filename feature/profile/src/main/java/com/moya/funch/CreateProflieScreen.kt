@@ -45,7 +45,10 @@ import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -540,7 +543,8 @@ private fun SubwayRow(
                 is SubwayTextFieldState.Success -> {
                     HorizontalSubwayStations(
                         subwayStations = subwayStations,
-                        onSubwayStationChange = onSubwayStationChange
+                        onSubwayStationChange = onSubwayStationChange,
+                        text = subwayStation
                     )
                 }
 
@@ -558,7 +562,8 @@ private fun SubwayRow(
                 is SubwayTextFieldState.Typing -> {
                     HorizontalSubwayStations(
                         subwayStations = subwayStations,
-                        onSubwayStationChange = onSubwayStationChange
+                        onSubwayStationChange = onSubwayStationChange,
+                        text = subwayStation
                     )
                 }
             }
@@ -567,7 +572,11 @@ private fun SubwayRow(
 }
 
 @Composable
-private fun HorizontalSubwayStations(subwayStations: List<SubwayStation>, onSubwayStationChange: (String) -> Unit) {
+private fun HorizontalSubwayStations(
+    subwayStations: List<SubwayStation>,
+    onSubwayStationChange: (String) -> Unit,
+    text: String
+) {
     val focusManager = LocalFocusManager.current
 
     Spacer(modifier = Modifier.height(4.dp))
@@ -578,6 +587,30 @@ private fun HorizontalSubwayStations(subwayStations: List<SubwayStation>, onSubw
         horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         subwayStations.forEach { station ->
+            val annotatedText = buildAnnotatedString {
+                val startIndex = station.name.indexOf(text)
+                if (startIndex >= 0) {
+                    val endIndex = startIndex + text.length
+                    if (startIndex > 0) {
+                        withStyle(style = SpanStyle(color = Gray500)) {
+                            append(station.name.substring(0, startIndex))
+                        }
+                    }
+                    withStyle(style = SpanStyle(color = White)) {
+                        append(station.name.substring(startIndex, endIndex))
+                    }
+                    if (endIndex < station.name.length) {
+                        withStyle(style = SpanStyle(color = Gray500)) {
+                            append(station.name.substring(endIndex))
+                        }
+                    }
+                } else {
+                    withStyle(style = SpanStyle(color = Gray500)) {
+                        append(station.name)
+                    }
+                }
+            }
+
             Box(
                 modifier = Modifier
                     .background(
@@ -596,8 +629,7 @@ private fun HorizontalSubwayStations(subwayStations: List<SubwayStation>, onSubw
                     .padding(8.dp)
             ) {
                 Text(
-                    text = station.name,
-                    color = White,
+                    text = annotatedText,
                     style = FunchTheme.typography.b
                 )
             }
@@ -663,7 +695,7 @@ private fun Preview1() {
 @Composable
 private fun Preview2() {
     FunchTheme {
-        var text by remember { mutableStateOf("삼") }
+        var text by remember { mutableStateOf("삼성") }
 
         Surface(
             modifier = Modifier
@@ -676,8 +708,8 @@ private fun Preview2() {
                 isKeyboardVisible = {},
                 textFieldState = SubwayTextFieldState.Typing,
                 subwayStations = listOf(
-                    SubwayStation("삼성역"),
-                    SubwayStation("삼성중앙역")
+                    SubwayStation("삼성"),
+                    SubwayStation("삼성중앙")
                 ),
                 scrollState = rememberScrollState()
             )

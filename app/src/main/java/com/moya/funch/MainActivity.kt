@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.moya.funch.datastore.UserDataStore
@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             FunchTheme {
-                var showLoading by remember { mutableStateOf(true) }
+                var showLoading by rememberSaveable { mutableStateOf(true) }
 
                 LaunchedEffect(Unit) {
                     delay(1500)

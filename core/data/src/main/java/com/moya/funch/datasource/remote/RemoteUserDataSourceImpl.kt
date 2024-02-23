@@ -33,4 +33,12 @@ class RemoteUserDataSourceImpl @Inject constructor(
             memberService.createMember(request).data
         }.mapCatching { it.toModel() }
     }
+
+    override suspend fun deleteUserProfile(): Result<String> {
+        return runCatching {
+            memberService.deleteMember(userDataStore.userId).message
+        }.onSuccess {
+            userDataStore.clear()
+        }
+    }
 }
