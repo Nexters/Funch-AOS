@@ -41,4 +41,8 @@ class MemberRepositoryImpl @Inject constructor(
             it.toDomain()
         }
     }
+
+    override suspend fun deleteUserProfile(): Result<String> {
+        return remoteUserDataSource.deleteUserProfile()
+    }
 }
