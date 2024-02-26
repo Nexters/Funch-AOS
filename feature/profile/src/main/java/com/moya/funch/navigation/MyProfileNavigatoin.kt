@@ -18,7 +18,11 @@ fun NavController.navigateToCreateProfile(navOptions: NavOptions? = null) =
 
 fun NavController.onCloseMyProfile() = popBackStack()
 
-fun NavGraphBuilder.profileGraph(onNavigateToHome: () -> Unit, onCloseMyProfile: () -> Unit) {
+fun NavGraphBuilder.profileGraph(
+    onNavigateToHome: () -> Unit,
+    onCloseMyProfile: () -> Unit,
+    onNavigateCreateProfile: () -> Unit
+) {
     navigation(
         route = PROFILE_GRAPH_ROUTE,
         startDestination = ProfileScreens.Create.route
@@ -30,7 +34,8 @@ fun NavGraphBuilder.profileGraph(onNavigateToHome: () -> Unit, onCloseMyProfile:
         }
         composable(route = ProfileScreens.MyProfile.route) {
             MyProfileRoute(
-                onCloseMyProfile = onCloseMyProfile
+                onCloseMyProfile = onCloseMyProfile,
+                onNavigateCreateProfile = onNavigateCreateProfile
             )
         }
     }

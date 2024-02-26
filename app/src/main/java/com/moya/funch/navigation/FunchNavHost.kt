@@ -20,7 +20,8 @@ fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = remembe
         with(navController) {
             profileGraph(
                 onNavigateToHome = ::onNavigateToHome,
-                onCloseMyProfile = ::onCloseMyProfile
+                onCloseMyProfile = ::onCloseMyProfile,
+                onNavigateCreateProfile = ::onNavigateToCreateProfile
             )
             homeScreen(
                 onNavigateToMatching = ::onNavigateToMatching,
@@ -31,6 +32,9 @@ fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = remembe
         }
     }
 }
+
+private fun NavController.onNavigateToCreateProfile() =
+    navigateToCreateProfile(navOptions { popUpTo(graph.id) { inclusive = true } })
 
 private fun NavController.onNavigateToMyProfile() = navigateToMyProfile(singleTopNavOptions)
 

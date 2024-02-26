@@ -9,7 +9,7 @@ class CanMatchProfileUseCaseImpl @Inject constructor(
     override suspend operator fun invoke(targetCode: String): Result<Unit> = runCatching {
         val code = targetCode.uppercase()
         validate(code)
-        matchingRepository.matchProfile(code).getOrThrow()
+        matchingRepository.canMatchProfile(code).getOrThrow()
     }
 
     private fun validate(targetCode: String) {

@@ -4,6 +4,8 @@ import com.moya.funch.repository.MemberRepository
 import com.moya.funch.repository.MemberRepositoryImpl
 import com.moya.funch.usecase.CreateUserProfileUseCase
 import com.moya.funch.usecase.CreateUserProfileUseCaseImpl
+import com.moya.funch.usecase.DeleteUserProfileUseCase
+import com.moya.funch.usecase.DeleteUserProfileUseCaseImpl
 import com.moya.funch.usecase.LoadUserProfileUseCase
 import com.moya.funch.usecase.LoadUserProfileUseCaseImpl
 import com.moya.funch.usecase.LoadViewCountUseCase
@@ -32,6 +34,10 @@ object MemberModule {
         @Binds
         @Singleton
         fun bindCreateUserProfileUseCase(useCase: CreateUserProfileUseCaseImpl): CreateUserProfileUseCase
+
+        @Binds
+        @Singleton
+        fun bindDeleteUserProfileUseCase(useCase: DeleteUserProfileUseCaseImpl): DeleteUserProfileUseCase
     }
 
     @Module
