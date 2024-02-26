@@ -16,17 +16,19 @@ import com.moya.funch.theme.Coral500
 import com.moya.funch.theme.FunchTheme
 
 @Composable
-fun FunchErrorCaption(modifier: Modifier = Modifier, errorText: String, description: String = "") {
+fun FunchErrorCaption(
+    modifier: Modifier = Modifier,
+    errorText: String,
+    errorIcon: @Composable (() -> Unit)? = null
+) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
-            painter = painterResource(id = FunchIconAsset.Etc.information_24),
-            contentDescription = description,
-            tint = Coral500
-        )
-        Spacer(modifier = Modifier.width(4.dp))
+        if (errorIcon != null) {
+            errorIcon()
+            Spacer(modifier = Modifier.width(4.dp))
+        }
         Text(
             text = errorText,
             color = Coral500,
@@ -37,9 +39,26 @@ fun FunchErrorCaption(modifier: Modifier = Modifier, errorText: String, descript
 
 // ============================== Preview =================================
 
-@Preview("Error Caption", showBackground = true, backgroundColor = 0xFF2C2C2C)
+@Preview("Error Caption With Icon", showBackground = true, backgroundColor = 0xFF2C2C2C)
 @Composable
 private fun Preview1() {
+    FunchTheme {
+        FunchErrorCaption(
+            errorIcon = {
+                Icon(
+                    painter = painterResource(id = FunchIconAsset.Etc.information_24),
+                    tint = Coral500,
+                    contentDescription = null
+                )
+            },
+            errorText = "errorText"
+        )
+    }
+}
+
+@Preview("Only Text Error Caption", showBackground = true, backgroundColor = 0xFF2C2C2C)
+@Composable
+private fun Preview2() {
     FunchTheme {
         FunchErrorCaption(
             errorText = "errorText"
