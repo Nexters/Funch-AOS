@@ -18,8 +18,6 @@ fun NavController.navigateToCreateProfile(navOptions: NavOptions? = null) =
 
 fun NavController.onCloseMyProfile() = popBackStack()
 
-fun NavController.navigateToCreateProfileFromMyProfile() = popBackStack(route = PROFILE_GRAPH_ROUTE, inclusive = true)
-
 fun NavGraphBuilder.profileGraph(
     onNavigateToHome: () -> Unit,
     onCloseMyProfile: () -> Unit,
