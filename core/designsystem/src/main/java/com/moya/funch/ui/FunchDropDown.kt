@@ -134,7 +134,7 @@ fun FunchDropDownMenu(
         Column(
             modifier = modifier
                 .width(with(LocalDensity.current) { buttonBounds.width.toDp() })
-                .height(144.dp)
+                .height(192.dp)
                 .background(
                     color = Gray800,
                     shape = FunchTheme.shapes.medium
