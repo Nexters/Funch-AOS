@@ -18,8 +18,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -30,6 +32,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -41,8 +44,9 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -147,14 +151,31 @@ fun CreateProfileScreen(
     onSendFeedback: () -> Unit
 ) {
     val scrollState = rememberScrollState()
+    val focusManager = LocalFocusManager.current
     val backgroundColor = LocalBackgroundTheme.current.color
     var isKeyboardVisible by remember { mutableStateOf(false) }
-    val focusManager = LocalFocusManager.current
+    var topBarHeight by remember { mutableFloatStateOf(0f) }
+    val bloodDropDownMenuHeight = 192.dp
+    val bloodTypes = Blood.entries.filterNot { it == Blood.IDLE }.map { it.type }
+    var bloodTypePlaceHolder by remember { mutableStateOf(bloodTypes[0]) }
+    var bloodButtonRect by remember { mutableStateOf(Rect.Zero) }
+    var isBloodDropDownMenuExpanded by remember { mutableStateOf(false) }
 
     Scaffold(
+        modifier = Modifier
+            .pointerInput(Unit) {
+                detectTapGestures(onTap = {
+                    focusManager.clearFocus()
+                    isBloodDropDownMenuExpanded = false
+                })
+            },
         topBar = {
             FunchTopBar(
-                modifier = Modifier.padding(end = 20.dp),
+                modifier = Modifier
+                    .padding(end = 20.dp)
+                    .onGloballyPositioned { layoutCoordinates ->
+                        topBarHeight = layoutCoordinates.boundsInRoot().height
+                    },
                 leadingIcon = null,
                 onClickTrailingIcon = onSendFeedback
             )
@@ -172,52 +193,76 @@ fun CreateProfileScreen(
     ) { padding ->
         Column(
             modifier = Modifier
-                .pointerInput(Unit) {
-                    detectTapGestures(onTap = {
-                        focusManager.clearFocus()
-                    })
-                }
                 .fillMaxSize()
                 .verticalScroll(state = scrollState)
                 .padding(padding)
         ) {
-            Column(modifier = Modifier.padding(horizontal = 20.dp)) {
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = stringResource(id = R.string.create_profile_title),
-                    color = White,
-                    style = FunchTheme.typography.t2
-                )
-                Spacer(modifier = Modifier.height(2.dp))
-                Text(
-                    text = stringResource(id = R.string.create_profile_sub_title),
-                    color = Gray300,
-                    style = FunchTheme.typography.b
-                )
-                Spacer(modifier = Modifier.height(24.dp))
-                NicknameRow(
-                    nickname = profile.name,
-                    onNicknameChange = onNicknameChange,
-                    isKeyboardVisible = { isKeyboardVisible = it }
-                )
-                Spacer(modifier = Modifier.height(14.dp))
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    JobRow(profile = profile, onSelected = onSelectJob)
-                    ClubRow(onSelectClub = onSelectClub)
-                    MbtiRow(profile = profile, onSelectMbti = onSelectMbti)
-                    BooldTypeRow(onSelectBloodType = onSelectBloodType)
-                    SubwayRow(
-                        subwayStation = profile.subway,
-                        onSubwayStationChange = onSubwayStationChange,
-                        isKeyboardVisible = { isKeyboardVisible = it },
-                        textFieldState = profile.subwayTextFieldState,
-                        subwayStations = profile.subwayStations,
-                        scrollState = scrollState
+            Box {
+                Column(modifier = Modifier.padding(horizontal = 20.dp)) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = stringResource(id = R.string.create_profile_title),
+                        color = White,
+                        style = FunchTheme.typography.t2
                     )
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        text = stringResource(id = R.string.create_profile_sub_title),
+                        color = Gray300,
+                        style = FunchTheme.typography.b
+                    )
+                    Spacer(modifier = Modifier.height(24.dp))
+                    NicknameRow(
+                        nickname = profile.name,
+                        onNicknameChange = onNicknameChange,
+                        isKeyboardVisible = { isKeyboardVisible = it }
+                    )
+                    Spacer(modifier = Modifier.height(14.dp))
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        JobRow(profile = profile, onSelected = onSelectJob)
+                        ClubRow(onSelectClub = onSelectClub)
+                        MbtiRow(profile = profile, onSelectMbti = onSelectMbti)
+                        BooldTypeRow(
+                            isExpended = isBloodDropDownMenuExpanded,
+                            placeHolder = bloodTypePlaceHolder,
+                            onClickBloodButton = { isClicked -> isBloodDropDownMenuExpanded = isClicked },
+                            buttonOffset = { rect -> bloodButtonRect = rect }
+                        )
+                        SubwayRow(
+                            subwayStation = profile.subway,
+                            onSubwayStationChange = onSubwayStationChange,
+                            isKeyboardVisible = { isKeyboardVisible = it },
+                            textFieldState = profile.subwayTextFieldState,
+                            subwayStations = profile.subwayStations,
+                            scrollState = scrollState
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(20.dp))
                 }
-                Spacer(modifier = Modifier.height(20.dp))
+                if (isBloodDropDownMenuExpanded) {
+                    Box(
+                        modifier = Modifier
+                            .offset(
+                                x = with(LocalDensity.current) { bloodButtonRect.left.toDp() },
+                                y = with(LocalDensity.current) {
+                                    bloodButtonRect.top.toDp() - topBarHeight.toDp() - bloodDropDownMenuHeight - 8.dp
+                                }
+                            )
+                            .width(with(LocalDensity.current) { bloodButtonRect.width.toDp() })
+                            .height(bloodDropDownMenuHeight)
+                    ) {
+                        FunchDropDownMenu(
+                            items = bloodTypes,
+                            onItemSelected = { bloodType ->
+                                onSelectBloodType(Blood.of(bloodType))
+                                bloodTypePlaceHolder = bloodType
+                                isBloodDropDownMenuExpanded = false
+                            }
+                        )
+                    }
+                }
             }
             if (isKeyboardVisible) {
                 BottomBar(
@@ -450,39 +495,32 @@ private fun MbtiButton(mbtiItem: MbtiItem, isSelected: Boolean, onSelected: (Mbt
 }
 
 @Composable
-private fun BooldTypeRow(onSelectBloodType: (Blood) -> Unit, focusManager: FocusManager = LocalFocusManager.current) {
-    val bloodTypes = Blood.entries.filterNot { it == Blood.IDLE }.map { it.type }
-    var placeHolder by remember { mutableStateOf(bloodTypes[0]) }
-    var isDropDownMenuExpanded by remember { mutableStateOf(false) }
-    val buttonBounds = remember { mutableStateOf(Rect.Zero) }
+private fun BooldTypeRow(
+    isExpended: Boolean,
+    placeHolder: String,
+    buttonOffset: (Rect) -> Unit,
+    onClickBloodButton: (Boolean) -> Unit
+) {
+    val focusManager = LocalFocusManager.current
+    val isPositioned = remember { mutableStateOf(false) }
 
     Row {
         FunchLargeLabel(text = ProfileLabel.BLOOD_TYPE.labelName)
-        Box {
-            FunchDropDownButton(
-                placeHolder = placeHolder,
-                onClick = {
-                    focusManager.clearFocus()
-                    isDropDownMenuExpanded = !isDropDownMenuExpanded
-                },
-                isDropDownMenuExpanded = isDropDownMenuExpanded,
-                indication = null,
-                modifier = Modifier.onGloballyPositioned { coordinates ->
-                    buttonBounds.value = coordinates.boundsInWindow()
+        FunchDropDownButton(
+            placeHolder = placeHolder,
+            onClick = {
+                focusManager.clearFocus()
+                onClickBloodButton(!isExpended)
+            },
+            isDropDownMenuExpanded = isExpended,
+            indication = null,
+            modifier = Modifier.onGloballyPositioned { layoutCoordinates ->
+                if (!isPositioned.value) {
+                    isPositioned.value = true
+                    buttonOffset(layoutCoordinates.boundsInRoot())
                 }
-            )
-            if (isDropDownMenuExpanded) {
-                FunchDropDownMenu(
-                    items = bloodTypes,
-                    buttonBounds = buttonBounds.value,
-                    onItemSelected = { bloodType ->
-                        onSelectBloodType(Blood.of(bloodType))
-                        placeHolder = bloodType
-                        isDropDownMenuExpanded = false
-                    }
-                )
             }
-        }
+        )
     }
 }
 
