@@ -507,7 +507,7 @@ private fun SubwayRow(
 
     Row {
         FunchLargeLabel(text = ProfileLabel.SUBWAY.labelName)
-        Column(modifier = Modifier.height(97.dp)) {
+        Column(modifier = Modifier.height(101.dp)) {
             FunchIconTextField(
                 modifier = Modifier.onFocusChanged { focusState ->
                     isKeyboardVisible(focusState.isFocused)
@@ -579,12 +579,11 @@ private fun HorizontalSubwayStations(
 ) {
     val focusManager = LocalFocusManager.current
 
-    Spacer(modifier = Modifier.height(4.dp))
+    Spacer(modifier = Modifier.height(8.dp))
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .horizontalScroll(rememberScrollState()),
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
+            .horizontalScroll(rememberScrollState())
     ) {
         subwayStations.forEach { station ->
             val annotatedText = buildAnnotatedString {
