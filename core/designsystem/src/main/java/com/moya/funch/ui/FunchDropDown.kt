@@ -118,7 +118,7 @@ fun FunchDropDownMenu(
     items: List<String>,
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState(),
-    onItemSelected: (String) -> Unit,
+    onItemSelected: (String) -> Unit
 ) {
     Column(
         modifier = modifier

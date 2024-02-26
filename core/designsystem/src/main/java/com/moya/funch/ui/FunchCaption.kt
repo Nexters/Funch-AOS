@@ -16,11 +16,7 @@ import com.moya.funch.theme.Coral500
 import com.moya.funch.theme.FunchTheme
 
 @Composable
-fun FunchErrorCaption(
-    modifier: Modifier = Modifier,
-    errorText: String,
-    errorIcon: @Composable (() -> Unit)? = null
-) {
+fun FunchErrorCaption(modifier: Modifier = Modifier, errorText: String, errorIcon: @Composable (() -> Unit)? = null) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
