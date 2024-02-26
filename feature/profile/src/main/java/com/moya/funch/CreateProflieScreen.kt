@@ -1,5 +1,6 @@
 package com.moya.funch
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
@@ -46,6 +47,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
@@ -93,11 +95,13 @@ import com.moya.funch.uimodel.SubwayTextFieldState
 @Composable
 internal fun CreateProfileRoute(onNavigateToHome: () -> Unit, viewModel: CreateProfileViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         viewModel.event.collect { event ->
             when (event) {
                 is CreateProfileEvent.NavigateToHome -> {
+                    Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
                     onNavigateToHome()
                 }
 
