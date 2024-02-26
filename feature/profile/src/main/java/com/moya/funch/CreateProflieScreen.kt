@@ -91,6 +91,7 @@ import com.moya.funch.uimodel.MbtiItem
 import com.moya.funch.uimodel.ProfileLabel
 import com.moya.funch.uimodel.ProfileUiModel
 import com.moya.funch.uimodel.SubwayTextFieldState
+import kotlinx.coroutines.delay
 
 @Composable
 internal fun CreateProfileRoute(onNavigateToHome: () -> Unit, viewModel: CreateProfileViewModel = hiltViewModel()) {
@@ -543,6 +544,7 @@ private fun SubwayRow(
 
     if (isFocused) {
         LaunchedEffect(subwayStation) {
+            delay(100)
             scrollState.animateScrollTo(scrollState.maxValue)
         }
     }
