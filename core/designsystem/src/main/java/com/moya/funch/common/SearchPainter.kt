@@ -49,7 +49,7 @@ fun subwayLinePainter(value: String): Painter = when (value) {
 }
 
 @Composable
-fun activeMbtiBadgePainter(value: String): Painter = when(value) {
+fun activeMbtiBadgePainter(value: String): Painter = when (value) {
     "ISTJ" -> painterResource(id = FunchIconAsset.MbtiBadge.istj_active)
     "ISFJ" -> painterResource(id = FunchIconAsset.MbtiBadge.isfj_active)
     "INFJ" -> painterResource(id = FunchIconAsset.MbtiBadge.infj_active)
@@ -70,7 +70,7 @@ fun activeMbtiBadgePainter(value: String): Painter = when(value) {
 }
 
 @Composable
-fun inactiveMbtiBadgePainter(value: String): Painter = when(value) {
+fun inactiveMbtiBadgePainter(value: String): Painter = when (value) {
     "ISTJ" -> painterResource(id = FunchIconAsset.MbtiBadge.istj_inactive)
     "ISFJ" -> painterResource(id = FunchIconAsset.MbtiBadge.isfj_inactive)
     "INFJ" -> painterResource(id = FunchIconAsset.MbtiBadge.infj_inactive)

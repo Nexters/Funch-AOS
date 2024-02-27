@@ -40,10 +40,7 @@ import com.moya.funch.theme.LocalBackgroundTheme
 import com.moya.funch.ui.FunchTopBar
 
 @Composable
-internal fun CollectionRoute(
-    viewModel: CollectionViewModel = hiltViewModel(),
-    onNavigateToHome: () -> Unit
-) {
+internal fun CollectionRoute(viewModel: CollectionViewModel = hiltViewModel(), onNavigateToHome: () -> Unit) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     CollectionScreen(
@@ -54,11 +51,7 @@ internal fun CollectionRoute(
 }
 
 @Composable
-internal fun CollectionScreen(
-    name: String,
-    mbtiCollection: List<Mbti>,
-    onNavigateToHome: () -> Unit
-) {
+internal fun CollectionScreen(name: String, mbtiCollection: List<Mbti>, onNavigateToHome: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -98,7 +91,6 @@ internal fun CollectionScreen(
             Spacer(modifier = Modifier.height(12.dp))
             MbtiCollection(mbtiCollection = mbtiCollection)
         }
-
     }
 }
 
@@ -158,7 +150,8 @@ private fun Preview1() {
                     Mbti.INFJ,
                     Mbti.INTJ,
                     Mbti.INFP,
-                    Mbti.INTP),
+                    Mbti.INTP
+                ),
                 onNavigateToHome = {}
             )
         }

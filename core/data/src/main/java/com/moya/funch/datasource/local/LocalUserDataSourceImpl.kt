@@ -3,11 +3,11 @@ package com.moya.funch.datasource.local
 import com.moya.funch.datastore.UserDataStore
 import com.moya.funch.entity.Mbti
 import com.moya.funch.model.ProfileModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
-import javax.inject.Inject
 
 class LocalUserDataSourceImpl @Inject constructor(
     private val userDataStore: UserDataStore

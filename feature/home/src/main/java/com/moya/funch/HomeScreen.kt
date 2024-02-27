@@ -180,7 +180,7 @@ private fun HomeTopBar(onClickFeedBack: () -> Unit) {
     FunchTopBar(
         modifier = Modifier.padding(bottom = 8.dp),
         leadingIcon = null,
-        onClickTrailingIcon = onClickFeedBack,
+        onClickTrailingIcon = onClickFeedBack
     )
 }
 

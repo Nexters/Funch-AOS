@@ -6,11 +6,11 @@ import com.moya.funch.entity.Mbti
 import com.moya.funch.usecase.LoadMbtiCollectionUseCase
 import com.moya.funch.usecase.LoadUserProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 internal data class CollectionUiState(
     val name: String = "",
@@ -21,7 +21,7 @@ internal data class CollectionUiState(
 internal class CollectionViewModel @Inject constructor(
     private val loadMbtiCollectionUseCase: LoadMbtiCollectionUseCase,
     private val loadUserProfileUseCase: LoadUserProfileUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CollectionUiState())
     val uiState = _uiState.asStateFlow()

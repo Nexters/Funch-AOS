@@ -109,6 +109,7 @@ object FunchIconAsset {
         val esfp_active = R.drawable.ic_mbti_esfp_active_60
         val estj_active = R.drawable.ic_mbti_estj_active_60
         val estp_active = R.drawable.ic_mbti_estp_active_60
+
         /* inactive */
         val infj_inactive = R.drawable.ic_mbti_infj_inactive_60
         val intj_inactive = R.drawable.ic_mbti_intj_inactive_60
