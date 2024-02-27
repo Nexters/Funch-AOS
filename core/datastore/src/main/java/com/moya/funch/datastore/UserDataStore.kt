@@ -11,6 +11,7 @@ interface UserDataStore {
     var subwayName: String
     var subwayLines: Set<String>
     var mbti: String
+    var mbtiCollection: Set<String>
 
     fun hasUserCode(): Boolean
 
