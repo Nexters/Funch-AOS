@@ -6,6 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.moya.funch.collection.navigation.collectionScreen
+import com.moya.funch.collection.navigation.navigateToCollection
 import com.moya.funch.match.navigation.matchingScreen
 import com.moya.funch.match.navigation.navigateToMatching
 import com.moya.funch.onboarding.navigation.ON_BOARDING_ROUTE
@@ -25,10 +27,12 @@ fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = remembe
             )
             homeScreen(
                 onNavigateToMatching = ::onNavigateToMatching,
-                onNavigateToMyProfile = ::onNavigateToMyProfile
+                onNavigateToMyProfile = ::onNavigateToMyProfile,
+                onNavigateToCollection = ::navigateToCollection
             )
             matchingScreen(onClose = { popBackStack(HOME_ROUTE, false) })
             onBoardingScreen(onNavigateToCreateProfile = ::navigateToCreateProfile)
+            collectionScreen(onNavigateToHome = ::onNavigateToHome)
         }
     }
 }
