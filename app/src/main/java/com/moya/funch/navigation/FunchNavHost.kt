@@ -20,7 +20,7 @@ fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = remembe
         with(navController) {
             profileGraph(
                 onNavigateToHome = ::onNavigateToHome,
-                onCloseMyProfile = ::onCloseMyProfile,
+                onCloseMyProfile = { onPopBackstackUpTo(HOME_ROUTE) },
                 onNavigateCreateProfile = ::onNavigateToCreateProfile
             )
             homeScreen(
@@ -39,6 +39,8 @@ private fun NavController.onNavigateToCreateProfile() =
 private fun NavController.onNavigateToMyProfile() = navigateToMyProfile(singleTopNavOptions)
 
 private fun NavController.onNavigateToMatching(route: String) = navigateToMatching(route, singleTopNavOptions)
+
+private fun NavController.onPopBackstackUpTo(route: String) = popBackStack(route = route, inclusive = false)
 
 private val singleTopNavOptions = navOptions {
     launchSingleTop = true
