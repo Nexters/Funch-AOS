@@ -9,6 +9,7 @@ import androidx.navigation.navOptions
 import com.moya.funch.match.navigation.matchingScreen
 import com.moya.funch.match.navigation.navigateToMatching
 import com.moya.funch.onboarding.navigation.ON_BOARDING_ROUTE
+import com.moya.funch.onboarding.navigation.navigateToOnBoarding
 import com.moya.funch.onboarding.navigation.onBoardingScreen
 
 @Composable
@@ -21,7 +22,7 @@ fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = remembe
             profileGraph(
                 onNavigateToHome = ::onNavigateToHome,
                 onCloseMyProfile = { onPopBackstackUpTo(HOME_ROUTE) },
-                onNavigateCreateProfile = ::onNavigateToCreateProfile
+                onNavigateOnBoarding = ::onNavigateOnBoarding
             )
             homeScreen(
                 onNavigateToMatching = ::onNavigateToMatching,
@@ -35,6 +36,8 @@ fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = remembe
 
 private fun NavController.onNavigateToCreateProfile() =
     navigateToCreateProfile(navOptions { popUpTo(graph.id) { inclusive = true } })
+
+private fun NavController.onNavigateOnBoarding() = navigateToOnBoarding(singleTopNavOptions)
 
 private fun NavController.onNavigateToMyProfile() = navigateToMyProfile(singleTopNavOptions)
 
