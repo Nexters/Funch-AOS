@@ -2,6 +2,7 @@ package com.moya.funch.datasource.local
 
 import com.google.common.truth.Truth.assertThat
 import com.moya.funch.datastore.UserDataStore
+import com.moya.funch.entity.Mbti
 import com.moya.funch.model.ProfileModel
 import com.moya.funch.rule.CoroutinesTestExtension
 import io.mockk.coEvery
@@ -9,6 +10,8 @@ import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.junit5.MockKExtension
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertAll
 import org.junit.jupiter.api.BeforeEach
@@ -103,6 +106,19 @@ internal class LocalUserDataSourceImplTest {
             { coVerify(exactly = 1) { userDataStore.userCode = profile.userCode } },
             { coVerify(exactly = 1) { userDataStore.mbti = profile.mbti } },
             { assertThat(actualResult.isSuccess).isTrue() }
+        )
+    }
+
+    @Test
+    fun `MbtiCollection이 비어있으면 emptyList를 가져온다`() = runTest {
+        // given
+        coEvery { userDataStore.mbtiCollection.isEmpty() } returns false
+        // when
+        val actualResult = localUserDataSource.fetchUserMbtiCollection().first()
+        // then
+        assertAll(
+            { coVerify(exactly = 1) { userDataStore.mbtiCollection } },
+            { assertThat(actualResult).isEmpty() },
         )
     }
 
