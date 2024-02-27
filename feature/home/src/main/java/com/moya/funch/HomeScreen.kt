@@ -104,8 +104,10 @@ internal fun HomeRoute(
     }
 
     if (matched) {
-        matchDone()
-        onNavigateToMatching(homeModel.matchingCode)
+        homeModel.matchingCode.also {
+            matchDone()
+            onNavigateToMatching(it)
+        }
     }
 
     HomeScreen(
@@ -113,7 +115,7 @@ internal fun HomeRoute(
         viewCount = homeModel.viewCount,
         job = homeModel.job,
         matchingCode = homeModel.matchingCode,
-        onMatchingCodeChange = viewModel::setMatchingCode,
+        onMatchingCodeChange = viewModel::updateMatchingCode,
         matchProfile = viewModel::matchProfile,
         onNavigateToMyProfile = onNavigateToMyProfile
     )
