@@ -28,6 +28,7 @@ object FunchIconAsset {
         val profile_80 = R.drawable.ic_profile_80
         val view_count_80 = R.drawable.ic_view_count_80
         val code_80 = R.drawable.ic_code_80
+        val trophy_40 = R.drawable.ic_trophy_40
     }
 
     object Job {
@@ -88,5 +89,42 @@ object FunchIconAsset {
         val sixty = R.drawable.ic_match_percentage60_120
         val eighty = R.drawable.ic_match_percentage80_120
         val hundred = R.drawable.ic_match_percentage100_120
+    }
+
+    object MbtiBadge {
+        /* active */
+        val infj_active = R.drawable.ic_mbti_infj_active_60
+        val intj_active = R.drawable.ic_mbti_intj_active_60
+        val infp_active = R.drawable.ic_mbti_infp_active_60
+        val intp_active = R.drawable.ic_mbti_intp_active_60
+        val isfj_active = R.drawable.ic_mbti_isfj_active_60
+        val istj_active = R.drawable.ic_mbti_istj_active_60
+        val isfp_active = R.drawable.ic_mbti_isfp_active_60
+        val istp_active = R.drawable.ic_mbti_istp_active_60
+        val entj_active = R.drawable.ic_mbti_entj_active_60
+        val enfp_active = R.drawable.ic_mbti_enfp_active_60
+        val enfj_active = R.drawable.ic_mbti_enfj_active_60
+        val entp_active = R.drawable.ic_mbti_entp_active_60
+        val esfj_active = R.drawable.ic_mbti_esfj_active_60
+        val esfp_active = R.drawable.ic_mbti_esfp_active_60
+        val estj_active = R.drawable.ic_mbti_estj_active_60
+        val estp_active = R.drawable.ic_mbti_estp_active_60
+        /* inactive */
+        val infj_inactive = R.drawable.ic_mbti_infj_inactive_60
+        val intj_inactive = R.drawable.ic_mbti_intj_inactive_60
+        val infp_inactive = R.drawable.ic_mbti_infp_inactive_60
+        val intp_inactive = R.drawable.ic_mbti_intp_inactive_60
+        val isfj_inactive = R.drawable.ic_mbti_isfj_inactive_60
+        val istj_inactive = R.drawable.ic_mbti_istj_inactive_60
+        val isfp_inactive = R.drawable.ic_mbti_isfp_inactive_60
+        val istp_inactive = R.drawable.ic_mbti_istp_inactive_60
+        val entj_inactive = R.drawable.ic_mbti_entj_inactive_60
+        val enfp_inactive = R.drawable.ic_mbti_enfp_inactive_60
+        val enfj_inactive = R.drawable.ic_mbti_enfj_inactive_60
+        val entp_inactive = R.drawable.ic_mbti_entp_inactive_60
+        val esfj_inactive = R.drawable.ic_mbti_esfj_inactive_60
+        val esfp_inactive = R.drawable.ic_mbti_esfp_inactive_60
+        val estj_inactive = R.drawable.ic_mbti_estj_inactive_60
+        val estp_inactive = R.drawable.ic_mbti_estp_inactive_60
     }
 }
