@@ -13,12 +13,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
@@ -32,15 +34,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Popup
 import com.moya.funch.icon.FunchIconAsset
 import com.moya.funch.modifier.ScrollBarConfig
 import com.moya.funch.modifier.verticalScrollWithScrollbar
@@ -50,7 +50,6 @@ import com.moya.funch.theme.Gray500
 import com.moya.funch.theme.Gray800
 import com.moya.funch.theme.LocalBackgroundTheme
 import com.moya.funch.theme.White
-import kotlin.math.roundToInt
 
 @Composable
 fun FunchDropDownButton(
@@ -116,59 +115,46 @@ fun FunchDropDownButton(
 
 @Composable
 fun FunchDropDownMenu(
-    modifier: Modifier = Modifier,
     items: List<String>,
-    buttonBounds: Rect,
-    onItemSelected: (String) -> Unit,
-    scrollState: ScrollState = rememberScrollState()
+    modifier: Modifier = Modifier,
+    scrollState: ScrollState = rememberScrollState(),
+    onItemSelected: (String) -> Unit
 ) {
-    Popup(
-        alignment = Alignment.TopStart,
-        offset = IntOffset(
-            x = 0,
-            y = with(LocalDensity.current) {
-                (buttonBounds.height).toInt() + 8.dp.toPx().roundToInt()
-            }
-        )
+    Column(
+        modifier = modifier
+            .background(
+                color = Gray800,
+                shape = FunchTheme.shapes.medium
+            )
+            .clip(FunchTheme.shapes.medium)
+            .verticalScrollWithScrollbar(
+                state = scrollState,
+                scrollbarConfig = ScrollBarConfig(
+                    indicatorHeight = 39.dp,
+                    indicatorThickness = 4.dp,
+                    indicatorColor = Gray300,
+                    padding = PaddingValues(
+                        top = 16.dp,
+                        bottom = 16.dp,
+                        end = 4.dp
+                    )
+                )
+            )
     ) {
-        Column(
-            modifier = modifier
-                .width(with(LocalDensity.current) { buttonBounds.width.toDp() })
-                .height(144.dp)
-                .background(
-                    color = Gray800,
-                    shape = FunchTheme.shapes.medium
+        items.forEachIndexed { index, option ->
+            val interactionSource = remember { MutableInteractionSource() }
+            val isPressed by interactionSource.collectIsPressedAsState()
+            FunchDropDownItem(
+                option = option,
+                onItemSelected = { onItemSelected(option) },
+                isPressed = isPressed,
+                interactionSource = interactionSource
+            )
+            if (index < items.lastIndex) {
+                Divider(
+                    color = Gray500,
+                    thickness = 0.5f.dp
                 )
-                .clip(FunchTheme.shapes.medium)
-                .verticalScrollWithScrollbar(
-                    state = scrollState,
-                    scrollbarConfig = ScrollBarConfig(
-                        indicatorHeight = 39.dp,
-                        indicatorThickness = 4.dp,
-                        indicatorColor = Gray300,
-                        padding = PaddingValues(
-                            top = 16.dp,
-                            bottom = 16.dp,
-                            end = 4.dp
-                        )
-                    )
-                )
-        ) {
-            items.forEachIndexed { index, option ->
-                val interactionSource = remember { MutableInteractionSource() }
-                val isPressed by interactionSource.collectIsPressedAsState()
-                FunchDropDownItem(
-                    option = option,
-                    onItemSelected = { onItemSelected(option) },
-                    isPressed = isPressed,
-                    interactionSource = interactionSource
-                )
-                if (index < items.lastIndex) {
-                    Divider(
-                        color = Gray500,
-                        thickness = 0.5f.dp
-                    )
-                }
             }
         }
     }
@@ -219,35 +205,64 @@ private fun Preview1() {
             modifier = Modifier.fillMaxSize(),
             color = backgroundColor
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp)
-            ) {
-                val bloodTypes = listOf("A형", "B형", "O형", "AB형")
-                var placeHolder by remember { mutableStateOf(bloodTypes[0]) }
-                var isDropDownMenuExpanded by remember { mutableStateOf(true) }
-                val buttonBounds = remember { mutableStateOf(Rect.Zero) }
+            val bloodTypes = listOf("A형", "B형", "O형", "AB형")
+            var placeHolder by remember { mutableStateOf(bloodTypes[0]) }
+            var isDropDownMenuExpanded by remember { mutableStateOf(true) }
+            var buttonBounds by remember { mutableStateOf(Rect.Zero) }
+            val dropDownMenuHeight = 192.dp
 
-                Text(
-                    text = "Hello, World!",
-                    fontSize = 50.sp,
-                    color = White
-                )
-                Box {
+            Box(modifier = Modifier.fillMaxSize()) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp)
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    Text(
+                        text = "Hello, World!",
+                        fontSize = 50.sp,
+                        color = White
+                    )
+                    Text(
+                        text = "Hello, World!",
+                        fontSize = 50.sp,
+                        color = White
+                    )
+                    Text(
+                        text = "Hello, World!",
+                        fontSize = 50.sp,
+                        color = White
+                    )
                     FunchDropDownButton(
                         placeHolder = placeHolder,
                         onClick = { isDropDownMenuExpanded = !isDropDownMenuExpanded },
                         isDropDownMenuExpanded = isDropDownMenuExpanded,
                         indication = null,
                         modifier = Modifier.onGloballyPositioned { coordinates ->
-                            buttonBounds.value = coordinates.boundsInWindow()
+                            buttonBounds = coordinates.boundsInRoot()
+                            println(buttonBounds.top)
                         }
                     )
-                    if (isDropDownMenuExpanded) {
+                    for (i in 0 until 10) {
+                        Text(
+                            text = "Hello, World!",
+                            fontSize = 50.sp,
+                            color = White
+                        )
+                    }
+                }
+                if (isDropDownMenuExpanded) {
+                    Box(
+                        modifier = Modifier
+                            .absoluteOffset(
+                                x = with(LocalDensity.current) { buttonBounds.left.toDp() },
+                                y = with(LocalDensity.current) { buttonBounds.top.toDp() - dropDownMenuHeight - 8.dp }
+                            )
+                            .width(with(LocalDensity.current) { buttonBounds.width.toDp() })
+                            .height(dropDownMenuHeight)
+                    ) {
                         FunchDropDownMenu(
                             items = bloodTypes,
-                            buttonBounds = buttonBounds.value,
                             onItemSelected = { text ->
                                 placeHolder = text
                                 isDropDownMenuExpanded = false
@@ -255,11 +270,6 @@ private fun Preview1() {
                         )
                     }
                 }
-                Text(
-                    text = "Hello, World!",
-                    fontSize = 50.sp,
-                    color = White
-                )
             }
         }
     }

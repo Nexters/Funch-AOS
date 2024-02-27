@@ -29,7 +29,7 @@ data class CreateProfileUiState(
 )
 
 internal sealed class CreateProfileEvent {
-    data object NavigateToHome : CreateProfileEvent()
+    data class NavigateToHome(val message: String) : CreateProfileEvent()
     data class ShowError(val message: String) : CreateProfileEvent()
 }
 
@@ -165,7 +165,7 @@ internal class CreateProfileViewModel @Inject constructor(
                 )
             )
             createUserProfileUseCase(profile).onSuccess {
-                _event.emit(CreateProfileEvent.NavigateToHome)
+                _event.emit(CreateProfileEvent.NavigateToHome("프로필을 생성했어요"))
             }.onFailure {
                 _uiState.update { currentState -> currentState.copy(isLoading = false) }
                 _event.emit(CreateProfileEvent.ShowError(it.message ?: "Error"))
