@@ -20,11 +20,15 @@ class RemoteMatchDataSourceImpl @Inject constructor(
                 )
             )
         }.mapCatching {
-            dataStore.mbtiCollection = dataStore.mbtiCollection.toMutableSet().apply {
-                add(it.data.profile.mbti)
-            }.toSet()
+            saveMbtiCollection(it.data.profile.mbti)
             it.data
         }
+    }
+
+    private fun saveMbtiCollection(mbti: String) {
+        dataStore.mbtiCollection = dataStore.mbtiCollection.toMutableSet().apply {
+            add(mbti)
+        }.toSet()
     }
 
     override suspend fun canMatchProfile(targetCode: String): Result<Boolean> {
