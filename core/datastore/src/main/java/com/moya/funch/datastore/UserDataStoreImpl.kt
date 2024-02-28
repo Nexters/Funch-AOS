@@ -92,6 +92,14 @@ class UserDataStoreImpl @Inject constructor(
             }
         }
 
+    override var mbtiCollection: Set<String>
+        get() = preferences.getStringSet(MBTI_COLLECTION, setOf()).orEmpty()
+        set(value) {
+            preferences.edit(commit = true) {
+                putStringSet(MBTI_COLLECTION, value)
+            }
+        }
+
     override fun hasUserCode(): Boolean {
         return preferences.contains(USER_CODE)
     }
@@ -123,5 +131,6 @@ class UserDataStoreImpl @Inject constructor(
         const val SUBWAY_NAME = "SUBWAY_NAME"
         const val SUBWAY_LINE = "SUBWAY_LINE"
         const val MBTI = "MBTI"
+        const val MBTI_COLLECTION = "MBTI_COLLECTION"
     }
 }

@@ -8,4 +8,5 @@
     <string name="my_profile_card_caption">내 프로필</string>
     <string name="profile_view_counter_caption">내 프로필을</string>
     <string name="profile_view_counter_card_subtitle">%d명이 조회했어요</string>
+    <string name="collection_card_caption">수집 도감</string>
 </resources>

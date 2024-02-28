@@ -106,6 +106,20 @@ internal class LocalUserDataSourceImplTest {
         )
     }
 
+    @Test
+    fun `MbtiCollection이 비어있으면 emptySet를 가져온다`() = runTest {
+        // given
+        coEvery { userDataStore.mbtiCollection } returns emptySet()
+        // when
+        val actualResult = localUserDataSource.fetchUserMbtiCollection()
+        // then
+        assertAll(
+            { coVerify(exactly = 1) { userDataStore.mbtiCollection } },
+            { assertThat(actualResult.isSuccess).isTrue() },
+            { assertThat(actualResult.getOrNull()).isEmpty() }
+        )
+    }
+
     companion object {
         @JvmField
         @RegisterExtension

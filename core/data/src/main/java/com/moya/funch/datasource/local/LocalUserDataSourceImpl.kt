@@ -45,4 +45,6 @@ class LocalUserDataSourceImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun fetchUserMbtiCollection(): Result<Set<String>> = runCatching { userDataStore.mbtiCollection }
 }
