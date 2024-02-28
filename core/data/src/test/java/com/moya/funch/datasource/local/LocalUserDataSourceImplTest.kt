@@ -9,7 +9,6 @@ import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.junit5.MockKExtension
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertAll
 import org.junit.jupiter.api.BeforeEach
@@ -108,15 +107,16 @@ internal class LocalUserDataSourceImplTest {
     }
 
     @Test
-    fun `MbtiCollection이 비어있으면 emptyList를 가져온다`() = runTest {
+    fun `MbtiCollection이 비어있으면 emptySet를 가져온다`() = runTest {
         // given
-        coEvery { userDataStore.mbtiCollection.isEmpty() } returns false
+        coEvery { userDataStore.mbtiCollection } returns emptySet()
         // when
-        val actualResult = localUserDataSource.fetchUserMbtiCollection().first()
+        val actualResult = localUserDataSource.fetchUserMbtiCollection()
         // then
         assertAll(
             { coVerify(exactly = 1) { userDataStore.mbtiCollection } },
-            { assertThat(actualResult).isEmpty() }
+            { assertThat(actualResult.isSuccess).isTrue() },
+            { assertThat(actualResult.getOrNull()).isEmpty() }
         )
     }
 
