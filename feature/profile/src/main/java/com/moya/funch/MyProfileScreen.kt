@@ -65,14 +65,14 @@ import com.moya.funch.uimodel.ProfileLabel
 internal fun MyProfileRoute(
     viewModel: MyProfileViewModel = hiltViewModel(),
     onCloseMyProfile: () -> Unit,
-    onNavigateCreateProfile: () -> Unit
+    onDeleteMyProfile: () -> Unit
 ) {
     val uiState = viewModel.uiState.collectAsState().value
 
     LaunchedEffect(Unit) {
         viewModel.event.collect { event ->
             if (event is MyProfileEvent.DeleteProfile) {
-                onNavigateCreateProfile()
+                onDeleteMyProfile()
             }
         }
     }
