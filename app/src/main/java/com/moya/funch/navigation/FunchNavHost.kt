@@ -37,17 +37,20 @@ fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = remembe
 private fun NavController.onNavigateToCreateProfile() =
     navigateToCreateProfile(navOptions { popUpTo(graph.id) { inclusive = true } })
 
-private fun NavController.onNavigateOnBoarding() = navigateToOnBoarding(singleTopNavOptions)
+private fun NavController.onNavigateOnBoarding() = navigateToOnBoarding {
+    launchSingleTop = true
+    popUpTo(HOME_ROUTE) { inclusive = true }
+}
 
-private fun NavController.onNavigateToMyProfile() = navigateToMyProfile(singleTopNavOptions)
+private fun NavController.onNavigateToMyProfile() = navigateToMyProfile(singleTopPopUpTo())
 
-private fun NavController.onNavigateToMatching(route: String) = navigateToMatching(route, singleTopNavOptions)
+private fun NavController.onNavigateToMatching(route: String) = navigateToMatching(route, singleTopPopUpTo())
 
 private fun NavController.onPopBackstackUpTo(route: String) = popBackStack(route = route, inclusive = false)
 
-private val singleTopNavOptions = navOptions {
+private fun singleTopPopUpTo(route: String = HOME_ROUTE) = navOptions {
     launchSingleTop = true
-    popUpTo(HOME_ROUTE)
+    popUpTo(route)
 }
 
 private fun determineStartDestination(hasProfile: Boolean): String {
