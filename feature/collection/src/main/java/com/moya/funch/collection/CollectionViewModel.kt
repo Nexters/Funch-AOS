@@ -27,16 +27,24 @@ internal class CollectionViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
+        loadUserProfile()
         loadMbtiCollection()
+    }
+
+    private fun loadUserProfile() {
+        viewModelScope.launch {
+            loadUserProfileUseCase().onSuccess { profile ->
+                _uiState.value = _uiState.value.copy(name = profile.name)
+            }.onFailure {
+                Timber.e(it.message)
+            }
+        }
     }
 
     private fun loadMbtiCollection() {
         viewModelScope.launch {
-            loadUserProfileUseCase().onSuccess {
-                _uiState.value = _uiState.value.copy(name = it.name)
-                loadMbtiCollectionUseCase().collect { mbtiCollection ->
-                    _uiState.value = _uiState.value.copy(mbtiCollection = mbtiCollection)
-                }
+            loadMbtiCollectionUseCase().onSuccess { mbtiCollection ->
+                _uiState.value = _uiState.value.copy(mbtiCollection = mbtiCollection)
             }.onFailure {
                 Timber.e(it.message)
             }

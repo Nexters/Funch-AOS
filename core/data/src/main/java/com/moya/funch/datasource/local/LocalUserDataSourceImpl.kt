@@ -1,12 +1,8 @@
 package com.moya.funch.datasource.local
 
 import com.moya.funch.datastore.UserDataStore
-import com.moya.funch.entity.Mbti
 import com.moya.funch.model.ProfileModel
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 
 class LocalUserDataSourceImpl @Inject constructor(
@@ -50,14 +46,5 @@ class LocalUserDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchUserMbtiCollection(): Flow<List<Mbti>> = flow {
-        emit(
-            value = userDataStore.mbtiCollection.map { mbti ->
-                Mbti.valueOf(mbti)
-            }
-        )
-    }.catch {
-        emit(emptyList())
-        Timber.e(it.message)
-    }
+    override suspend fun fetchUserMbtiCollection(): Result<Set<String>> = runCatching { userDataStore.mbtiCollection }
 }

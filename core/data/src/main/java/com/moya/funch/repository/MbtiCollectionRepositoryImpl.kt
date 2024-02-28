@@ -3,7 +3,6 @@ package com.moya.funch.repository
 import com.moya.funch.datasource.local.LocalUserDataSource
 import com.moya.funch.entity.Mbti
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
 
 class MbtiCollectionRepositoryImpl @Inject constructor(
     private val localUserDataSource: LocalUserDataSource
@@ -13,7 +12,9 @@ class MbtiCollectionRepositoryImpl @Inject constructor(
         return Result.success(Unit)
     }
 
-    override suspend fun loadMbtiCollection(): Flow<List<Mbti>> {
-        return localUserDataSource.fetchUserMbtiCollection()
+    override suspend fun loadMbtiCollection(): Result<List<Mbti>> {
+        return localUserDataSource.fetchUserMbtiCollection().mapCatching { mbtiList ->
+            mbtiList.map { mbti -> Mbti.valueOf(mbti) }
+        }
     }
 }
