@@ -76,7 +76,8 @@ private val brush = Brush.horizontalGradient(
 internal fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
     onNavigateToMyProfile: () -> Unit,
-    onNavigateToMatching: (String) -> Unit
+    onNavigateToMatching: (String) -> Unit,
+    onNavigateToCollection: () -> Unit
 ) {
     val homeModel by viewModel.homeModel.collectAsStateWithLifecycle()
     val matched by viewModel.matched.collectAsStateWithLifecycle(false)
@@ -104,8 +105,10 @@ internal fun HomeRoute(
     }
 
     if (matched) {
-        matchDone()
-        onNavigateToMatching(homeModel.matchingCode)
+        homeModel.matchingCode.also {
+            matchDone()
+            onNavigateToMatching(it)
+        }
     }
 
     HomeScreen(
@@ -113,9 +116,10 @@ internal fun HomeRoute(
         viewCount = homeModel.viewCount,
         job = homeModel.job,
         matchingCode = homeModel.matchingCode,
-        onMatchingCodeChange = viewModel::setMatchingCode,
+        onMatchingCodeChange = viewModel::updateMatchingCode,
         matchProfile = viewModel::matchProfile,
-        onNavigateToMyProfile = onNavigateToMyProfile
+        onNavigateToMyProfile = onNavigateToMyProfile,
+        onNavigateToCollection = onNavigateToCollection
     )
 }
 
@@ -127,7 +131,8 @@ internal fun HomeScreen(
     matchingCode: String,
     onMatchingCodeChange: (String) -> Unit,
     matchProfile: () -> Unit,
-    onNavigateToMyProfile: () -> Unit
+    onNavigateToMyProfile: () -> Unit,
+    onNavigateToCollection: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
     Column(
@@ -165,6 +170,9 @@ internal fun HomeScreen(
         }
         ProfileViewCounterCard(
             viewCount = viewCount
+        )
+        CollectionCard(
+            onNavigateToCollection = onNavigateToCollection
         )
     }
 }
@@ -349,6 +357,35 @@ private fun ProfileViewCounterCard(viewCount: Int) {
     }
 }
 
+@Composable
+private fun CollectionCard(modifier: Modifier = Modifier, onNavigateToCollection: () -> Unit) {
+    Column(
+        modifier = modifier
+            .background(
+                color = Gray800,
+                shape = FunchTheme.shapes.medium
+            )
+            .clip(FunchTheme.shapes.medium)
+            .clickableSingle(onClick = onNavigateToCollection)
+            .padding(
+                vertical = 11.5.dp,
+                horizontal = 24.dp
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(space = 8.dp)
+    ) {
+        Image(
+            painter = painterResource(id = FunchIconAsset.Etc.trophy_40),
+            contentDescription = ""
+        )
+        Text(
+            text = stringResource(id = R.string.collection_card_caption),
+            style = FunchTheme.typography.b,
+            color = Gray400
+        )
+    }
+}
+
 @Preview(
     "Home UI",
     showBackground = true,
@@ -373,7 +410,8 @@ private fun Preview1() {
                 matchingCode = text,
                 onMatchingCodeChange = { text = it },
                 matchProfile = {},
-                onNavigateToMyProfile = {}
+                onNavigateToMyProfile = {},
+                onNavigateToCollection = {}
             )
         }
     }

@@ -6,9 +6,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.moya.funch.collection.navigation.collectionScreen
+import com.moya.funch.collection.navigation.navigateToCollection
 import com.moya.funch.match.navigation.matchingScreen
 import com.moya.funch.match.navigation.navigateToMatching
 import com.moya.funch.onboarding.navigation.ON_BOARDING_ROUTE
+import com.moya.funch.onboarding.navigation.navigateToOnBoarding
 import com.moya.funch.onboarding.navigation.onBoardingScreen
 
 @Composable
@@ -20,15 +23,17 @@ fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = remembe
         with(navController) {
             profileGraph(
                 onNavigateToHome = ::onNavigateToHome,
-                onCloseMyProfile = ::onCloseMyProfile,
-                onNavigateCreateProfile = ::onNavigateToCreateProfile
+                onCloseMyProfile = { onPopBackstackUpTo(HOME_ROUTE) },
+                onNavigateOnBoarding = ::onNavigateOnBoarding
             )
             homeScreen(
                 onNavigateToMatching = ::onNavigateToMatching,
-                onNavigateToMyProfile = ::onNavigateToMyProfile
+                onNavigateToMyProfile = ::onNavigateToMyProfile,
+                onNavigateToCollection = ::navigateToCollection
             )
             matchingScreen(onClose = { popBackStack(HOME_ROUTE, false) })
             onBoardingScreen(onNavigateToCreateProfile = ::navigateToCreateProfile)
+            collectionScreen(onNavigateToHome = ::onNavigateToHome)
         }
     }
 }
@@ -36,13 +41,20 @@ fun FunchNavHost(hasProfile: Boolean, navController: NavHostController = remembe
 private fun NavController.onNavigateToCreateProfile() =
     navigateToCreateProfile(navOptions { popUpTo(graph.id) { inclusive = true } })
 
-private fun NavController.onNavigateToMyProfile() = navigateToMyProfile(singleTopNavOptions)
-
-private fun NavController.onNavigateToMatching(route: String) = navigateToMatching(route, singleTopNavOptions)
-
-private val singleTopNavOptions = navOptions {
+private fun NavController.onNavigateOnBoarding() = navigateToOnBoarding {
     launchSingleTop = true
-    popUpTo(HOME_ROUTE)
+    popUpTo(HOME_ROUTE) { inclusive = true }
+}
+
+private fun NavController.onNavigateToMyProfile() = navigateToMyProfile(singleTopPopUpTo())
+
+private fun NavController.onNavigateToMatching(route: String) = navigateToMatching(route, singleTopPopUpTo())
+
+private fun NavController.onPopBackstackUpTo(route: String) = popBackStack(route = route, inclusive = false)
+
+private fun singleTopPopUpTo(route: String = HOME_ROUTE) = navOptions {
+    launchSingleTop = true
+    popUpTo(route)
 }
 
 private fun determineStartDestination(hasProfile: Boolean): String {

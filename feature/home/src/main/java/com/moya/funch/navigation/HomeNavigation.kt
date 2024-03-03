@@ -11,11 +11,16 @@ fun NavController.onNavigateToHome() = navigate(HOME_ROUTE) {
     popUpTo(graph.id)
 }
 
-fun NavGraphBuilder.homeScreen(onNavigateToMyProfile: () -> Unit, onNavigateToMatching: (String) -> Unit) {
+fun NavGraphBuilder.homeScreen(
+    onNavigateToMyProfile: () -> Unit,
+    onNavigateToMatching: (String) -> Unit,
+    onNavigateToCollection: () -> Unit
+) {
     composable(route = HOME_ROUTE) {
         HomeRoute(
             onNavigateToMatching = onNavigateToMatching,
-            onNavigateToMyProfile = onNavigateToMyProfile
+            onNavigateToMyProfile = onNavigateToMyProfile,
+            onNavigateToCollection = onNavigateToCollection
         )
     }
 }

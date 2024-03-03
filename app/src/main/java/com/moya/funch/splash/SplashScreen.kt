@@ -2,7 +2,6 @@ package com.moya.funch.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,7 +18,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.moya.funch.R
 import com.moya.funch.theme.FunchTheme
@@ -42,26 +40,19 @@ fun LoadingScreen() {
     Surface(
         color = FunchTheme.colors.background
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            LottieAnimation(
-                composition = splashIcon,
-                iterations = LottieConstants.IterateForever
-            )
-            LottieAnimation(
-                composition = splashBackground,
-                iterations = LottieConstants.IterateForever
-            )
-        }
-
         Box(
             modifier = Modifier
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Image(painter = painterResource(id = R.drawable.ic_splash_logo), contentDescription = "Splash Logo")
+            LottieAnimation(
+                composition = splashBackground,
+                iterations = 1
+            )
+            LottieAnimation(
+                composition = splashIcon,
+                iterations = 1
+            )
         }
 
         Box(

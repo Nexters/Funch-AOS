@@ -50,7 +50,18 @@ internal class HomeViewModel @Inject constructor(
         initHome()
     }
 
-    fun setMatchingCode(code: String) {
+    fun fetchViewCount() {
+        viewModelScope.launch {
+            loadViewCountUseCase().onSuccess {
+                setViewCount(it)
+            }.onFailure {
+                Timber.e("fetchViewCount(): ${it.stackTraceToString()}")
+                setViewCount(0)
+            }
+        }
+    }
+
+    fun updateMatchingCode(code: String) {
         _homeModel.value = _homeModel.value.copy(
             matchingCode = code.uppercase()
         )
@@ -69,6 +80,7 @@ internal class HomeViewModel @Inject constructor(
 
     fun matchDone() {
         _matched.value = false
+        _homeModel.value = _homeModel.value.copy(matchingCode = MATCH_CODE_EMPTY)
     }
 
     private fun initHome() {
@@ -88,17 +100,6 @@ internal class HomeViewModel @Inject constructor(
         }
     }
 
-    fun fetchViewCount() {
-        viewModelScope.launch {
-            loadViewCountUseCase().onSuccess {
-                setViewCount(it)
-            }.onFailure {
-                Timber.e("fetchViewCount(): ${it.stackTraceToString()}")
-                setViewCount(0)
-            }
-        }
-    }
-
     private fun setMyCode(code: String) {
         _homeModel.value = _homeModel.value.copy(
             myCode = code.uppercase()
@@ -109,5 +110,9 @@ internal class HomeViewModel @Inject constructor(
         _homeModel.value = _homeModel.value.copy(
             viewCount = count
         )
+    }
+
+    companion object {
+        private const val MATCH_CODE_EMPTY = ""
     }
 }
