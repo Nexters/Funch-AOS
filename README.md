@@ -4,7 +4,7 @@
   </a>
 </p>
 
-### <p align="center">Funch - 친구와 함께하는 케미 측정기</p>
+### <p align="center"><a href="https://play.google.com/store/apps/details?id=com.moya.funch">Funch - 친구와 함께하는 케미 측정기</a></p>
 
 ## 앱 스크린샷
 <p align="center">
